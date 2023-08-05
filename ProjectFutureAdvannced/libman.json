@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "splidejs@4.1.4",
+      "destination": "wwwroot/splidejs/"
+    },
+    {
+      "library": "font-awesome@6.4.0",
+      "destination": "wwwroot/font-awesome/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery@3.7.0",
+      "destination": "wwwroot/Jquery/"
+    }
+  ]
+}

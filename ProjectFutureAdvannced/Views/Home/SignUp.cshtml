@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLoginSignUp.cshtml";
+}
+<div class="signup">
+    <div class="container">
+        <form class="containerS">
+            <div class="title fw-bold pb-4">Sign Up</div>
+            <div class="inputs d-flex justify-content-center align-items-center gap-4">
+                <div class="
+                 mb-1">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-1">
+                    <label class="form-label">User Name</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="inputs d-flex justify-content-center align-items-center gap-4">
+                <div class="mb-1">
+                    <label class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" placeholder="+962" length="10">
+                </div>
+                <div class="mb-1">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="inputs d-flex justify-content-center align-items-center gap-4">
+                <div class="mb-1">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-1">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control">
+                </div>
+            </div>
+            <div class="mb-1 d-flex justify-content-center align-items-center flex-column">
+                <button type="submit" class="Button btn-primary">Sign Up</button>
+                <a class="Button btnsForm btn-primary">Sign Up with Google</a>
+                <a asp-action="Login" asp-controller="home" class="Button btnsForm btn-primary">Login</a>
+                <a asp-action="index" asp-controller="home">back home</a>
+            </div>
+        </form>
+    </div>
+
+</div>
