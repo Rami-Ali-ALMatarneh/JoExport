@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ProjectFutureAdvannced.Data;
 using ProjectFutureAdvannced.Models.IRepository;
+using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.SqlRepository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMvc(options =>
 {
     options.EnableEndpointRouting = false;
+    var Policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    options.Filters.Add(new AuthorizeFilter(Policy));
 }
 ).AddXmlSerializerFormatters();
 /*******************ConnectionString*********************/
@@ -24,24 +29,42 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
 /********* Add Identity**********/
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 /*********Dependency Injection**********/
-builder.Services.AddScoped<ICategoryRepository, SqlCategoryRepository>();
+//builder.Services.AddScoped<ICategoryRepository, SqlCategoryRepository>();
+builder.Services.AddScoped<IAdminRepository, SqlAdminRepository>();
 builder.Services.AddScoped<IShopRepository, SqlShopRepository>();
+builder.Services.AddScoped<IUserRepository, SqlUserRepository>();
 
+builder.Services.AddScoped<IShopRepository, SqlShopRepository>();
 
 #endregion
 /***************************************/
 var app = builder.Build();
 /***************************************/
 
+
+//using var scope = app.Services.CreateScope();
+//var services = scope.ServiceProvider;
+
+//try
+//    {
+//    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+//    await SeedRolesAsync(roleManager);
+//    }
+//catch (Exception ex)
+//    {
+//    throw new Exception();
+//    }
+/***************************************/
+
+
 #region ConfigureService
-if(app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
     {
     app.UseDeveloperExceptionPage();
     }
 app.UseStaticFiles();
+app.UseAuthentication();    
 app.UseMvcWithDefaultRoute();
 #endregion
-
-
 
 app.Run();

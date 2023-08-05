@@ -47,7 +47,7 @@
             <h6 class="fw-bold headP">Categories</h6>
         </div>
         <div class="row flex-sm-row categorysDiv pb-3">
-            @{
+            @*@{
                 int count = 0;
                 foreach (var Category in Model.categories)
                     {
@@ -65,7 +65,7 @@
                     }
 
 
-            }
+            }*@
         </div>
         <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
             <a class="btn BtnCustom3 Btn">More Categories <i class="fa-solid fa-caret-right"></i></a>
@@ -80,7 +80,7 @@
             <h6 class="fw-bold headP">AGENTS</h6>
         </div>
         <div class="row">
-            @foreach (var shoper in Model.shops)
+            @*@foreach (var shoper in Model.shops)
                 {
                 var imgs = "/ShopImage/" + shoper.imgShop;
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-                }
+                }*@
 
         </div>
         <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">

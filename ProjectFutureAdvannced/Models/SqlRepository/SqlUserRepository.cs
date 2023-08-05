@@ -5,48 +5,48 @@ using ProjectFutureAdvannced.Models.Model;
 
 namespace ProjectFutureAdvannced.Models.SqlRepository
     {
-    public class SqlUserRepository : IUserRepository
+    public class SqlUserRepository:IUserRepository
         {
         private readonly AppDbContext appDbContext;
         public SqlUserRepository( AppDbContext appDbContext )
             {
             this.appDbContext = appDbContext;
             }
-        public User Add( User user )
+        public User Add( User User )
             {
-            appDbContext.user.Add(user);
+            appDbContext.User.Add(User);
             appDbContext.SaveChanges();
-            return user;
+            return User;
             }
 
         public User Delete( int id )
             {
-            var users = appDbContext.user.Find(id);
-            if (users != null)
+            var Users = appDbContext.User.Find(id);
+            if (Users != null)
                 {
-                appDbContext.user.Remove(users);
+                appDbContext.User.Remove(Users);
                 appDbContext.SaveChanges();
                 }
-            return users;
+            return Users;
             }
 
         public User Get( int id )
             {
-            var user = appDbContext.user.Find(id);
-            return user;
+            var User = appDbContext.User.Find(id);
+            return User;
             }
 
         public IEnumerable<User> GetAll()
             {
-            return appDbContext.user;
+            return appDbContext.User;
             }
 
-        public User Update( User user )
+        public User Update( User User )
             {
-            var users = appDbContext.user.Attach(user);
-            users.State = EntityState.Modified;
+            var Users = appDbContext.User.Attach(User);
+            Users.State = EntityState.Modified;
             appDbContext.SaveChanges();
-            return user;
+            return User;
             }
         }
     }

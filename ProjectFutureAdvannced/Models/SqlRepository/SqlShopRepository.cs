@@ -12,41 +12,41 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             {
             this.appDbContext = appDbContext;
             }
-        public Shop Add( Shop shop )
+        public Shop Add( Shop Shop )
             {
-            appDbContext.shop.Add(shop);
+            appDbContext.Shop.Add(Shop);
             appDbContext.SaveChanges();
-            return shop;
+            return Shop;
             }
 
-        public Shop Delete( int id )
+        public Shop Delete( string id )
             {
-            var shop = appDbContext.shop.Find(id);
-            if (shop != null)
+            var Shop = appDbContext.Shop.FirstOrDefault(e=>e.UserId==id);
+            if (Shop != null)
                 {
-                appDbContext.shop.Remove(shop);
+                appDbContext.Shop.Remove(Shop);
                 appDbContext.SaveChanges();
                 }
-            return shop;
+            return Shop;
             }
 
-        public Shop Get( int id )
+        public Shop Get( string id )
             {
-            var shop = appDbContext.shop.Find(id);
-            return shop;
+            var Shop = appDbContext.Shop.FirstOrDefault(e=>e.UserId==id);
+            return Shop;
             }
 
         public IEnumerable<Shop> GetAll()
             {
-            return appDbContext.shop;
+            return appDbContext.Shop;
             }
 
-        public Shop Update( Shop shop )
+        public Shop Update( Shop Shop )
             {
-            var Shops = appDbContext.shop.Attach(shop);
+            var Shops = appDbContext.Shop.Attach(Shop);
             Shops.State = EntityState.Modified;
             appDbContext.SaveChanges();
-            return shop;
+            return Shop;
             }
         }
     }

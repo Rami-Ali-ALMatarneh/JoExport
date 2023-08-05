@@ -18,8 +18,8 @@ namespace ProjectFutureAdvannced.Controllers
             {
             ListOfInfo listOfInfo = new ListOfInfo()
                 {
-                shops = shopRepository.GetAll(),
-                categories = categoryRepository.GetAll()
+                //shops = shopRepository.GetAll(),
+                //categories = categoryRepository.GetAll()
                 };
             return View( listOfInfo );
             }

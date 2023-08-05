@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using ProjectFutureAdvannced.Models.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectFutureAdvannced.Models.Model
     {
@@ -9,7 +9,9 @@ namespace ProjectFutureAdvannced.Models.Model
         public int Id { get; set; }
         [Required]
         [MaxLength(20)]
-        public string AdminName { get; set; }
+        public string Name { get; set; }
+        [Required]
+        public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -19,17 +21,9 @@ namespace ProjectFutureAdvannced.Models.Model
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
         [Required]
-        [EmailAddress]
-        public string EmailAddress { get; set; }
-        [Required]
-        public TypeOfUser TypeOfUser { get; set; }
-        [Required]
-        [StringLength(10)]
-        [RegularExpression(@"(77|79|78)\d{7}")]
-        public string phone { get; set; }
-        
-
-
-
+        public string TypeOfRoles { get; set; }
+        [ForeignKey("IdentityUser")]
+        public string UserId { get; set; }
+        public IdentityUser IdentityUser { get; set; }
         }
     }
