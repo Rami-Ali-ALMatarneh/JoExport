@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProjectFutureAdvannced.Models.Model
+namespace ProjectFutureAdvannced.Models.Model.AccountUser
+{
+    public class User
     {
-    public class Admin
-        {
         public int Id { get; set; }
         [Required]
         [MaxLength(20)]
@@ -25,5 +25,5 @@ namespace ProjectFutureAdvannced.Models.Model
         [ForeignKey("IdentityUser")]
         public string UserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
-        }
     }
+}

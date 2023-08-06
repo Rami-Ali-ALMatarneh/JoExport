@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectFutureAdvannced.Data;
 using ProjectFutureAdvannced.Models.IRepository;
-using ProjectFutureAdvannced.Models.Model;
+using ProjectFutureAdvannced.Models.Model.AccountUser;
 
 namespace ProjectFutureAdvannced.Models.SqlRepository
-    {
+{
     public class SqlAdminRepository : IAdminRepository
         {
         private readonly AppDbContext appDbContext;

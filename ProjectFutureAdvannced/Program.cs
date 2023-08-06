@@ -29,12 +29,10 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
 /********* Add Identity**********/
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 /*********Dependency Injection**********/
-//builder.Services.AddScoped<ICategoryRepository, SqlCategoryRepository>();
 builder.Services.AddScoped<IAdminRepository, SqlAdminRepository>();
 builder.Services.AddScoped<IShopRepository, SqlShopRepository>();
 builder.Services.AddScoped<IUserRepository, SqlUserRepository>();
-
-builder.Services.AddScoped<IShopRepository, SqlShopRepository>();
+builder.Services.AddScoped<ICategoryRepository, SqlCategoryRepository>();
 
 #endregion
 /***************************************/

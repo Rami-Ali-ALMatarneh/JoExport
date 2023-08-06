@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProjectFutureAdvannced.Models.Enums;
-using ProjectFutureAdvannced.Models.Model;
+using ProjectFutureAdvannced.Models.Model.AccountUser;
 using System.Net.Mail;
 using System.Numerics;
 
@@ -23,7 +23,6 @@ namespace ProjectFutureAdvannced.Extensions
                 "User",
                 "Shop"
                 };
-
             foreach (var roleName in roles)
                 {
                 modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole

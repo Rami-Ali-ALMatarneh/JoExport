@@ -11,10 +11,11 @@ namespace ProjectFutureAdvannced.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public AdminController( UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager )
+        public AdminController( UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> _roleManager )
             {
             _userManager = userManager;
             _signInManager = signInManager;
+            this._roleManager = _roleManager;
             }
 
         public IActionResult Index()
@@ -22,10 +23,6 @@ namespace ProjectFutureAdvannced.Controllers
             
             return View();
         }
-        [HttpGet]
-        public IActionResult Create() { 
-            return View();
-            }
         [HttpPost]
         public async Task<IActionResult> Create(RegisterViewModel registerViewModel)
             {
@@ -84,6 +81,7 @@ namespace ProjectFutureAdvannced.Controllers
                 }
             return View(model);
             }
+
         public IActionResult table()
         {
             return View();

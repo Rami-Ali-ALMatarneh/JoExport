@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectFutureAdvannced.Data;
 using ProjectFutureAdvannced.Models.IRepository;
-using ProjectFutureAdvannced.Models.Model;
+using ProjectFutureAdvannced.Models.Model.AccountUser;
 
 namespace ProjectFutureAdvannced.Models.SqlRepository
-    {
+{
     public class SqlUserRepository:IUserRepository
         {
         private readonly AppDbContext appDbContext;
@@ -19,9 +19,9 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             return User;
             }
 
-        public User Delete( int id )
+        public User Delete( string id )
             {
-            var Users = appDbContext.User.Find(id);
+            var Users = appDbContext.User.FirstOrDefault(e=>e.UserId==id);
             if (Users != null)
                 {
                 appDbContext.User.Remove(Users);
@@ -30,9 +30,9 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             return Users;
             }
 
-        public User Get( int id )
+        public User Get( string id )
             {
-            var User = appDbContext.User.Find(id);
+            var User = appDbContext.User.FirstOrDefault(e=>e.UserId==id);
             return User;
             }
 

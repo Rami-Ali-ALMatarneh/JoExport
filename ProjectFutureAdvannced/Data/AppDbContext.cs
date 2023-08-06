@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectFutureAdvannced.Extensions;
 using ProjectFutureAdvannced.Models.Model;
+using ProjectFutureAdvannced.Models.Model.AccountUser;
 
 namespace ProjectFutureAdvannced.Data
 {
@@ -11,6 +12,10 @@ namespace ProjectFutureAdvannced.Data
         public DbSet<Admin> Admin { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Shop> Shop { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> products  { get; set; }
+        public DbSet<ProductImg> productImgs { get; set; }
+
         public AppDbContext( DbContextOptions<AppDbContext> options ) : base(options)
             {
             }

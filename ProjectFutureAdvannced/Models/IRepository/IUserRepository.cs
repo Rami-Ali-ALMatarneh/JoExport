@@ -1,7 +1,7 @@
-﻿using ProjectFutureAdvannced.Models.Model;
+﻿using ProjectFutureAdvannced.Models.Model.AccountUser;
 
 namespace ProjectFutureAdvannced.Models.IRepository
-    {
+{
     public interface IUserRepository
         {
         public User Add( User user );
