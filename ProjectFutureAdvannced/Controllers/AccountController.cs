@@ -132,7 +132,7 @@ namespace ProjectFutureAdvannced.Controllers
         [AllowAnonymous]
 
         [HttpPost]
-        public async Task<IActionResult> Login( LoginUserViewModel model )
+        public async Task<IActionResult> Login( LoginViewModel model )
             {
             if (ModelState.IsValid)
                 {
