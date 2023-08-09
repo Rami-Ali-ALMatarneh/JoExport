@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.ViewModels;
 
 namespace ProjectFutureAdvannced.Controllers
     {
+    [AllowAnonymous]
+
     public class HomeController : Controller
         {
         private readonly IShopRepository shopRepository;
@@ -19,7 +22,7 @@ namespace ProjectFutureAdvannced.Controllers
             ListOfInfo listOfInfo = new ListOfInfo()
                 {
                 //shops = shopRepository.GetAll(),
-                //categories = categoryRepository.GetAll()
+                categories = categoryRepository.GetAll()
                 };
             return View( listOfInfo );
             }

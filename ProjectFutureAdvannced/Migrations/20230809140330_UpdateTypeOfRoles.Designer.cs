@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectFutureAdvannced.Data;
 
@@ -11,9 +12,11 @@ using ProjectFutureAdvannced.Data;
 namespace ProjectFutureAdvannced.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230809140330_UpdateTypeOfRoles")]
+    partial class UpdateTypeOfRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,19 +54,19 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3844b5cb-016a-4f16-bef3-b6d889c205cf",
+                            Id = "8d00fb69-e7a7-4ad1-84b5-d7a569a3ee26",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "231d5399-7e47-492b-832b-a6aa457d3f61",
+                            Id = "9f6984a8-ccb1-4fc2-b2c5-3df521d9093d",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "529ebbf2-b720-40a6-81c2-5a2c2be46504",
+                            Id = "9b7ac735-7894-452c-a742-10bffe1ea5b2",
                             Name = "Shop",
                             NormalizedName = "SHOP"
                         });
@@ -265,8 +268,8 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfRoles")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfRoles")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -307,8 +310,8 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfRoles")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfRoles")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -350,8 +353,8 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfRoles")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfRoles")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()

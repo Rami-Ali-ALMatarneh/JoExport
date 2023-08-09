@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProjectFutureAdvannced.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,7 +22,7 @@ namespace ProjectFutureAdvannced.Models.Model.AccountUser
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
         [Required]
-        public string TypeOfRoles { get; set; }
+        public TypeOfUser TypeOfRoles { get; set; }
         [ForeignKey("IdentityUser")]
         public string UserId { get; set; }
         public IdentityUser IdentityUser { get; set; }

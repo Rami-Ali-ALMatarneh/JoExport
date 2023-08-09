@@ -13,11 +13,11 @@ namespace ProjectFutureAdvannced.Models.Model
         public double Price { get; set; }
         //public List<ImgProduct> Imgs { get; set; }
 
-        //public int ShoperId { get; set; }
-        //public Shop shop { get; set; }
+        public int ShoperId { get; set; }
+        public Shop shop { get; set; }
         /////***********************************/
-        //public int CategoryId { get; set; }
-        //public Category category { get; set; }
+        public int CategoryId { get; set; }
+        public Category category { get; set; }
 
         }
-}
+    }

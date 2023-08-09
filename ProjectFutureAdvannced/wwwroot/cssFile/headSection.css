@@ -41,7 +41,7 @@ hr:not([size]) {
     transition: 0.5s;
     z-index: 1;
     background-color: transparent;
-    border: 2px solid var(--gray1);
+    border: 2px solid #e3e3e3;
 }
 
     .headP::before {

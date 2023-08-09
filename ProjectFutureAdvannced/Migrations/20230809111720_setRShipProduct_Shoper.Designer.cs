@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectFutureAdvannced.Data;
 
@@ -11,9 +12,11 @@ using ProjectFutureAdvannced.Data;
 namespace ProjectFutureAdvannced.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230809111720_setRShipProduct_Shoper")]
+    partial class setRShipProduct_Shoper
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,19 +54,19 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3844b5cb-016a-4f16-bef3-b6d889c205cf",
+                            Id = "98f8658d-6407-4d8b-bc6c-922df358b51d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "231d5399-7e47-492b-832b-a6aa457d3f61",
+                            Id = "045147a4-74f5-4795-b3df-131b9cffd45f",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "529ebbf2-b720-40a6-81c2-5a2c2be46504",
+                            Id = "e0456ac4-bc06-4b19-8cc5-ccb86ebe01b3",
                             Name = "Shop",
                             NormalizedName = "SHOP"
                         });
@@ -265,8 +268,9 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfRoles")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfRoles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -287,7 +291,7 @@ namespace ProjectFutureAdvannced.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CategoryName")
+                    b.Property<int>("CategoryName")
                         .HasColumnType("int");
 
                     b.Property<string>("ConfirmPassword")
@@ -307,8 +311,9 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfRoles")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfRoles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -317,8 +322,7 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryName")
-                        .IsUnique()
-                        .HasFilter("[CategoryName] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -350,8 +354,9 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfRoles")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfRoles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -385,80 +390,6 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsUnique();
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryImg = "cars.png",
-                            Name = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryImg = "Electronic.png",
-                            Name = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryImg = "home.png",
-                            Name = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryImg = "Baby.png",
-                            Name = 7
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CategoryImg = "Beauty.png",
-                            Name = 6
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CategoryImg = "Clothes.png",
-                            Name = 5
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CategoryImg = "Bags.png",
-                            Name = 11
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryImg = "Books.png",
-                            Name = 9
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryImg = "Health.png",
-                            Name = 3
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CategoryImg = "Jewelry.png",
-                            Name = 10
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CategoryImg = "pets.png",
-                            Name = 8
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CategoryImg = "Sport.png",
-                            Name = 4
-                        });
                 });
 
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Product", b =>
@@ -582,7 +513,9 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasOne("ProjectFutureAdvannced.Models.Model.Category", "Category")
                         .WithOne("shop")
                         .HasForeignKey("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", "CategoryName")
-                        .HasPrincipalKey("ProjectFutureAdvannced.Models.Model.Category", "Name");
+                        .HasPrincipalKey("ProjectFutureAdvannced.Models.Model.Category", "Name")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()

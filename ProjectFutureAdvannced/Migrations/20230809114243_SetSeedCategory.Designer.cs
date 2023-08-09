@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectFutureAdvannced.Data;
 
@@ -11,9 +12,11 @@ using ProjectFutureAdvannced.Data;
 namespace ProjectFutureAdvannced.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230809114243_SetSeedCategory")]
+    partial class SetSeedCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,19 +54,19 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3844b5cb-016a-4f16-bef3-b6d889c205cf",
+                            Id = "6d339b0b-4981-4658-ab96-49a948220612",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "231d5399-7e47-492b-832b-a6aa457d3f61",
+                            Id = "14ec786b-ba03-42e9-83ef-3d31704170c4",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "529ebbf2-b720-40a6-81c2-5a2c2be46504",
+                            Id = "feda708d-d335-48b7-95aa-4bc10990b2cb",
                             Name = "Shop",
                             NormalizedName = "SHOP"
                         });
@@ -265,8 +268,9 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfRoles")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfRoles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -287,7 +291,7 @@ namespace ProjectFutureAdvannced.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CategoryName")
+                    b.Property<int>("CategoryName")
                         .HasColumnType("int");
 
                     b.Property<string>("ConfirmPassword")
@@ -307,8 +311,9 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfRoles")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfRoles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -317,8 +322,7 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryName")
-                        .IsUnique()
-                        .HasFilter("[CategoryName] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -350,8 +354,9 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfRoles")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfRoles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -582,7 +587,9 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasOne("ProjectFutureAdvannced.Models.Model.Category", "Category")
                         .WithOne("shop")
                         .HasForeignKey("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", "CategoryName")
-                        .HasPrincipalKey("ProjectFutureAdvannced.Models.Model.Category", "Name");
+                        .HasPrincipalKey("ProjectFutureAdvannced.Models.Model.Category", "Name")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()

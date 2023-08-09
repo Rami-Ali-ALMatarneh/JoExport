@@ -61,7 +61,8 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
     }
 app.UseStaticFiles();
-app.UseAuthentication();    
+app.UseAuthentication();   
+app.UseAuthorization();
 app.UseMvcWithDefaultRoute();
 #endregion
 

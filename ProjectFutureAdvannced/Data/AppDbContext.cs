@@ -24,6 +24,10 @@ namespace ProjectFutureAdvannced.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.CreateTable();
             modelBuilder.SetSeedRoles();
+            modelBuilder.setUniqueName_Category();
+            modelBuilder.setRShipShop_Category();
+            modelBuilder.setRShipProduct_Shoper();
+            modelBuilder.SetSeedCategory();
             }
         }
     }
