@@ -2,7 +2,7 @@
 
 namespace ProjectFutureAdvannced.ViewModels
     {
-    public class LoginUserViewModel
+    public class LoginViewModel
         {
         [Required]
         [EmailAddress]

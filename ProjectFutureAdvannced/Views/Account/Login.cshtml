@@ -1,28 +1,36 @@
-﻿@{
+﻿@model LoginViewModel
+@{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutLoginSignUp.cshtml";
 }
-<section class="sectionAccount" style="background-color: #508bfc;">
-    <div class="container py-5 h-100">
-        <div class="row d-flex align-items-center rounded-5 justify-content-center h-100" style="background-color:white">
+<section class="sectionAccount ">
+    <div class="container h-100 d-flex justify-content-center align-items-center">
+        <div class="row d-flex align-items-center rounded-5 justify-content-center pt-3 pb-3" style="background-color:white">
             <div class="col-md-8 col-lg-7 col-xl-6">
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                      class="img-fluid" alt="Phone image">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                <form class="p-4">
+                <p class="text-center h1 fw-bold mx-1 mx-md-4 ">SIGN IN</p>
+                <form class="p-4" asp-action="Login" asp-controller="Account" enctype="multipart/form-data" method="post"> 
                     <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <input type="email" id="form1Example13" class="form-control form-control-lg" />
-                        <label class="form-label" for="form1Example13">Email address</label>
+                    <div class="d-flex flex-row align-items-start mb-4 flex-column">
+                        <div class="form-outline mb-4">
+                            <input type="email" id="form1Example13" asp-for="Email" class="form-control form-control-lg" />
+                            <label class="form-label" for="form1Example13" asp-for="Email">Email address</label>
+                        </div>
+                        <span class="text-danger ml" asp-validation-for="Email"></span>
                     </div>
 
                     <!-- Password input -->
-                    <div class="form-outline mb-4">
-                        <input type="password" id="form1Example23" class="form-control form-control-lg" />
-                        <label class="form-label" for="form1Example23">Password</label>
-                    </div>
+                    <div class="d-flex flex-row align-items-start mb-4 flex-column">
+                        <div class="form-outline mb-4">
+                            <input asp-for="Password" type="password" id="form1Example23" class="form-control form-control-lg" />
+                            <label class="form-label" for="form1Example23" asp-for="Password">Password</label>
+                        </div>
+                        <span class="text-danger ml" asp-validation-for="Password"></span>
 
+                    </div>
                     <div class="d-flex justify-content-around align-items-center mb-4">
                         <!-- Checkbox -->
                         <div class="form-check">
@@ -39,7 +47,6 @@
                     <div class="d-flex justify-content-center align-items-center my-1">
                         <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
                     </div>
-
                     <button class="btn  btn-block" style="background-color: #dd4b39; color:white"
                             type="submit">
                         <i class="fab fa-google me-2"></i> Sign in with google

@@ -4,9 +4,13 @@
     box-sizing: border-box;
     font-family: 'Poppins',sans-serif;
 }
-.ml{
-    margin-left:36px;
+body {
+    background: linear-gradient(135deg, #ffffff, #185fda);
 }
+.ml {
+    margin-left: 36px;
+}
+
 .divider:after,
 .divider:before {
     content: "";
@@ -14,11 +18,14 @@
     height: 1px;
     background: #eee;
 }
-.sectionAccount{
-    height:120vh;
+
+.sectionAccount {
+    margin: 50px auto;
+    height: 100vh;
 }
-@media(max-width:991px){
+
+@media(max-width:991px) {
     .sectionAccount {
-        height: 160vh;
+        height: 150vh;
     }
 }
