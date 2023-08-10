@@ -10,19 +10,21 @@ namespace ProjectFutureAdvannced.Controllers
     {
     public class AccountController : Controller
         {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<Account> _userManager;
+        private readonly SignInManager<Account> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IAdminRepository adminRepository;
         private readonly IShopRepository _shopRepository;
         private readonly IUserRepository userRepository;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public AccountController( IAdminRepository adminRepository, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> _roleManager )
+        public AccountController( IWebHostEnvironment webHostEnvironment, IAdminRepository adminRepository, UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole> _roleManager )
             {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
             this._roleManager = _roleManager;
             this.adminRepository = adminRepository;
+            this.webHostEnvironment = webHostEnvironment;
             }
 
         public IActionResult Index()
@@ -44,8 +46,9 @@ namespace ProjectFutureAdvannced.Controllers
             if (ModelState.IsValid)
                 {
                 int indexOfAt = model.Email.IndexOf("@");
-                IdentityUser user = new IdentityUser
+                Account user = new Account
                     {
+                    Name=model.Email,
                     Email = model.Email,
                     UserName = model.Email.Substring(0, indexOfAt - 1),
                     };
@@ -55,24 +58,25 @@ namespace ProjectFutureAdvannced.Controllers
                     // Add the roles you want to assign to the user
 
                     // Check if the role exists before adding
-                    if(model.TypeOfRoles==TypeOfUser.Admin)
+                    if (model.TypeOfRoles == TypeOfUser.Admin)
                         {
                         if (await _roleManager.RoleExistsAsync("Admin"))
-                        {
-                        await _userManager.AddToRoleAsync(user, "Admin");
-                        }
+                            {
+                            await _userManager.AddToRoleAsync(user, "Admin");
+                            }
+
                         Admin admin = new Admin()
                             {
                             Name = model.Name,
                             Email = model.Email,
                             Password = model.Password,
                             ConfirmPassword = model.ConfirmPassword,
-                            TypeOfRoles= model.TypeOfRoles,
+                            TypeOfRoles = model.TypeOfRoles,
                             UserId = user.Id,
                             };
                         adminRepository.Add(admin);
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToAction("Admin", "index");
+                        return RedirectToAction("Index", "Admin");
                         }
                     else
                     if (model.TypeOfRoles == TypeOfUser.Shop)
@@ -132,7 +136,7 @@ namespace ProjectFutureAdvannced.Controllers
         [AllowAnonymous]
 
         [HttpPost]
-        public async Task<IActionResult> Login( LoginViewModel model )
+        public async Task<IActionResult> Login( LoginViewModel model, string returnUrl = null )
             {
             if (ModelState.IsValid)
                 {
@@ -147,10 +151,15 @@ namespace ProjectFutureAdvannced.Controllers
                         {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         }
+                    if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl))
+                        {
+                        return LocalRedirect(returnUrl);
+                        }
                     return RedirectToAction("Index", "Home");
                     }
                 }
             return View(model);
             }
+
         }
     }

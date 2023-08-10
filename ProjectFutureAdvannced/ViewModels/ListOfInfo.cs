@@ -1,5 +1,6 @@
 ﻿using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
+using ProjectFutureAdvannced.ViewModels.AdminViewModel;
 
 namespace ProjectFutureAdvannced.ViewModels
 {

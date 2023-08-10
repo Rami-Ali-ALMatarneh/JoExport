@@ -7,7 +7,7 @@ using ProjectFutureAdvannced.Models.Model.AccountUser;
 
 namespace ProjectFutureAdvannced.Data
 {
-    public class AppDbContext:IdentityDbContext
+    public class AppDbContext:IdentityDbContext<Account>
         {
         public DbSet<Admin> Admin { get; set; }
         public DbSet<User> User { get; set; }

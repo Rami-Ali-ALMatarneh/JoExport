@@ -25,9 +25,11 @@ namespace ProjectFutureAdvannced.Models.Model.AccountUser
         public TypeOfUser TypeOfRoles { get; set; }
         [ForeignKey("IdentityUser")]
         public string UserId { get; set; }
-        public IdentityUser IdentityUser { get; set; }
+        public Account IdentityUser { get; set; }
         public Categorys ?CategoryName { get; set; }
         public Category Category { get; set; }
         public List<Product> Products { get; set; }
+        public string? ImgUrl { get; set; }
+
         }
-}
+    }

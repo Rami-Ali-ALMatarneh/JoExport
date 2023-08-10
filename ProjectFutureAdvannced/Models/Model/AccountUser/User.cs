@@ -29,6 +29,8 @@ namespace ProjectFutureAdvannced.Models.Model.AccountUser
 
         [ForeignKey("IdentityUser")]
         public string UserId { get; set; }
-        public IdentityUser IdentityUser { get; set; }
+        public Account IdentityUser { get; set; }
+        public string? ImgUrl { get; set; }
+
+        }
     }
-}

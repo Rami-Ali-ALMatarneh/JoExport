@@ -48,5 +48,9 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             appDbContext.SaveChanges();
             return Admin;
             }
+        public Admin GetByFK(string id )
+            {
+            return appDbContext.Admin.FirstOrDefault(e=>e.UserId==id);
+            }
     }
     }
