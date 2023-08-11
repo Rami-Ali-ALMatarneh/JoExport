@@ -102,6 +102,41 @@ namespace ProjectFutureAdvannced.Controllers
                 }
             return View();
             }
+        /***********************************/
+        [HttpGet]
+        public  IActionResult SecurityAdmin()
+            {
+            return View();
+            }
+        [HttpPost]
+        public async Task<IActionResult> SecurityAdmin(SecurityAdmin security)
+            {
+            if (ModelState.IsValid)
+                {
+                var user=await _userManager.GetUserAsync(User);
+                if (user != null)
+                    {
+                        if(await _userManager.CheckPasswordAsync(user, security.CurrentPassword))
+                        {
+                       var changePassword= await _userManager.ChangePasswordAsync(user,security.CurrentPassword, security.NewPassword);
+                        if (changePassword.Succeeded)
+                            {
+                            await _signInManager.RefreshSignInAsync(user);
+                            return RedirectToAction("SecurityAdmin", "Admin");
+                            }
+                        else
+                            {
+                            foreach (var error in changePassword.Errors)
+                                {
+                                ModelState.AddModelError("", error.Description);
+                                }
+                            return View(security);
+                            }
+                        }
+                    }
+                }
+            return View();
+            }
         }
     }
 
