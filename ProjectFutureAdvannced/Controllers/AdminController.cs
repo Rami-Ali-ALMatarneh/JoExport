@@ -116,7 +116,7 @@ namespace ProjectFutureAdvannced.Controllers
                 var user=await _userManager.GetUserAsync(User);
                 if (user != null)
                     {
-                        if(await _userManager.CheckPasswordAsync(user, security.CurrentPassword))
+                       if(await _userManager.CheckPasswordAsync(user, security.CurrentPassword))
                         {
                        var changePassword= await _userManager.ChangePasswordAsync(user,security.CurrentPassword, security.NewPassword);
                         if (changePassword.Succeeded)
