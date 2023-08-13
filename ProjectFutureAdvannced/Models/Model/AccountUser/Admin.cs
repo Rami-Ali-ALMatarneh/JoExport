@@ -26,6 +26,11 @@ namespace ProjectFutureAdvannced.Models.Model.AccountUser
         [ForeignKey("IdentityUser")]
         public string UserId { get; set; }
         public Account IdentityUser { get; set; }
-        public string ?ImgUrl { get; set; }
-    }
+        public string ImgUrl { get; set; } = string.Empty;
+        [RegularExpression(@"(77|79|78)\d{7}")]
+        public string PhoneNumber { get; set; } = string.Empty;
+        public DateTime Birthday { get; set; } = DateTime.Now;
+        [RegularExpression(@"^(?i)(male|female)$")]
+        public string Gender { get; set; } = string.Empty;
+        }
 }

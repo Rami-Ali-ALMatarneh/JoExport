@@ -26,7 +26,6 @@ namespace ProjectFutureAdvannced.Controllers
             this.adminRepository = adminRepository;
             this.webHostEnvironment = webHostEnvironment;
             }
-        [AllowAnonymous]
         public IActionResult Index()
             {
 
@@ -52,6 +51,9 @@ namespace ProjectFutureAdvannced.Controllers
                         Email = admin.Email,
                         TypeOfRoles = admin.TypeOfRoles,
                         UrlImgString = admin.ImgUrl,
+                        PhoneNumber=admin.PhoneNumber,
+                        Gender=admin.Gender,
+                        Birthday= (DateTime)admin.Birthday,
                         }
                     };
                 return View(model);
@@ -85,6 +87,9 @@ namespace ProjectFutureAdvannced.Controllers
                     Email = admin.Email,
                     TypeOfRoles = admin.TypeOfRoles,
                     ImgUrl = admin.UrlImgString,
+                    PhoneNumber = admin.PhoneNumber,
+                    Gender = admin.Gender,
+                    Birthday = (DateTime)admin.Birthday,
                     };
                 adminRepository.Update(admin1);
                 await _userManager.UpdateAsync(user);
@@ -93,9 +98,12 @@ namespace ProjectFutureAdvannced.Controllers
                     GeneralInfoAdmin=new GeneralInfoAdmin()
                         {
                         Name = admin.Name,
-                        Email=admin.Email,
+                        Email = admin.Email,
                         TypeOfRoles = admin.TypeOfRoles,
-                        UrlImgString= admin.UrlImgString,
+                        UrlImgString = admin.UrlImgString,
+                        PhoneNumber = admin.PhoneNumber,
+                        Gender = admin.Gender,
+                        Birthday = admin.Birthday,
                         }
                     };
                 return View(listOfInfoAdmin);
@@ -137,6 +145,9 @@ namespace ProjectFutureAdvannced.Controllers
                 }
             return View();
             }
+
+        /***********************************/
+
         }
     }
 

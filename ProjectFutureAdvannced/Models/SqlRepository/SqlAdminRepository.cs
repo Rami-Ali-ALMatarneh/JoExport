@@ -50,7 +50,8 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             }
         public Admin GetByFK(string id )
             {
-            return appDbContext.Admin.FirstOrDefault(e=>e.UserId==id);
+            var admin = appDbContext.Admin.FirstOrDefault(e => e.UserId == id);
+            return admin;
             }
     }
     }

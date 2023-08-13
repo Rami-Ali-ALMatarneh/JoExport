@@ -6,13 +6,16 @@
 
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="~/cssFile/admintableIndex.css" rel="stylesheet" />
-
     <meta name="viewport" content="width=device-width" />
+    <link href="~/cssFile/ProfileCss.css" rel="stylesheet" />
+    <link href="~/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
     <title>@ViewBag.Title</title>
 </head>
 <body id="page-top">
@@ -101,7 +104,8 @@
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                <button class="rounded-circle border-0" id="sidebarToggle">
+                </button>
             </div>
         </ul>
         <!-- End of Sidebar -->
@@ -227,7 +231,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                                <img src="~/AccountImg/img_avatar.png" class="img-profile rounded-circle"/>
+                                <img src="~/AccountImg/img_avatar.png" class="img-profile rounded-circle" />
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -257,7 +261,9 @@
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                @RenderBody()
+                <div>
+                    @RenderBody()
+                </div>
                 <!-- Footer -->
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
@@ -286,5 +292,7 @@
 
             <!-- Page level custom scripts -->
             <script src="~/js/demo/datatables-demo.js"></script>
+            <script src="~/font-awesome/js/all.min.js"></script>
+
 </body>
 </html>
