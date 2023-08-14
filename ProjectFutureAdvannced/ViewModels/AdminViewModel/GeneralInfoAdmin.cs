@@ -10,14 +10,14 @@ namespace ProjectFutureAdvannced.ViewModels.AdminViewModel
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required]
-        public TypeOfUser TypeOfRoles { get; set; }
-        public IFormFile ImgUser { get; set; } 
-        public string UrlImgString { get; set; } = string.Empty;
+        //[Required]
+        //public TypeOfUser TypeOfRoles { get; set; }
+        public IFormFile ?ImgUser { get; set; } 
+        public string ?UrlImgString { get; set; }
         [RegularExpression(@"(77|79|78)\d{7}")] 
-        public string PhoneNumber { get; set; } = string.Empty;
-        public DateTime? Birthday { get; set; } = DateTime.Now;
+        public string ?PhoneNumber { get; set; }
+        public DateTime ?Birthday { get; set; }
         [RegularExpression(@"^(?i)(male|female)$")] 
-        public string Gender { get; set; } = string.Empty;
+        public string ?Gender { get; set; }
         }
 }

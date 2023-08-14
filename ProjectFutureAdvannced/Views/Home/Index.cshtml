@@ -71,46 +71,6 @@
     </div>
 </div>
 <!--end Category-->
-<!-- LIST OF SHOPER-->
-<section style="background-color: #eee;">
-    <div class="text-center container py-5">
-        <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
-            <h6 class="fw-bold headP">AGENTS</h6>
-        </div>
-        <div class="row">
-            @*@foreach (var shoper in Model.shops)
-                {
-                var imgs = "/ShopImage/" + shoper.imgShop;
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
-                            <img src="@imgs" style=" height: 250px;"
-                                 class="w-100" />
-                            <a href="#!">
-                                <div class="hover-overlay">
-                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card-body shopBady">
-                            <div class="d-flex justify-content-center align-items-start flex-column">
-                                <h5 class="card-title fw-bold m-0 mb-1">@shoper.ShopName.ToUpper()</h5>
-                                <p class="CategorysType  m-0 text-white">@shoper.CategorysType.ToString().Replace("_", " ")</p>
-                            </div>
-                            <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <a class="btn btn-sm btnshoper fw-bold">View Galary <i class="fa-solid fa-caret-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                }*@
-
-        </div>
-        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
-            <a class="btn BtnCustom3 Btn">More Shoper <i class="fa-solid fa-caret-right"></i></a>
-        </div>
-    </div>
-</section>
 @* Start Products *@
 <div class="container-xxl py-5">
     <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
@@ -188,6 +148,48 @@
     </div>
 </div>
 @* end Products *@
+
+<!-- LIST OF SHOPER-->
+<section style="background-color: #eee;">
+    <div class="text-center container py-5">
+        <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+            <h6 class="fw-bold headP">AGENTS</h6>
+        </div>
+        <div class="row">
+            @*@foreach (var shoper in Model.shops)
+                {
+                var imgs = "/ShopImage/" + shoper.imgShop;
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
+                            <img src="@imgs" style=" height: 250px;"
+                                 class="w-100" />
+                            <a href="#!">
+                                <div class="hover-overlay">
+                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body shopBady">
+                            <div class="d-flex justify-content-center align-items-start flex-column">
+                                <h5 class="card-title fw-bold m-0 mb-1">@shoper.ShopName.ToUpper()</h5>
+                                <p class="CategorysType  m-0 text-white">@shoper.CategorysType.ToString().Replace("_", " ")</p>
+                            </div>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <a class="btn btn-sm btnshoper fw-bold">View Galary <i class="fa-solid fa-caret-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }*@
+
+        </div>
+        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+            <a class="btn BtnCustom3 Btn">More Shoper <i class="fa-solid fa-caret-right"></i></a>
+        </div>
+    </div>
+</section>
+
 
 
 <!-- end Category-->

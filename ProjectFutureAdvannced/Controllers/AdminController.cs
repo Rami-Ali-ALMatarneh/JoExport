@@ -38,23 +38,19 @@ namespace ProjectFutureAdvannced.Controllers
         [HttpGet]
         public async Task<IActionResult> GeneralProfile()
             {
-            ListOfInfoAdmin model;
+            GeneralInfoAdmin model;
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
                 {
                 var admin = adminRepository.GetByFK(user.Id);
-                model = new ListOfInfoAdmin()
+                model = new GeneralInfoAdmin()
                     {
-                    GeneralInfoAdmin = new GeneralInfoAdmin()
-                        {
-                        Name = admin.Name,
-                        Email = admin.Email,
-                        TypeOfRoles = admin.TypeOfRoles,
-                        UrlImgString = admin.ImgUrl,
-                        PhoneNumber=admin.PhoneNumber,
-                        Gender=admin.Gender,
-                        Birthday= (DateTime)admin.Birthday,
-                        }
+                    Name = admin.Name,
+                    Email = admin.Email,
+                    UrlImgString = admin.ImgUrl,
+                    PhoneNumber = admin.PhoneNumber,
+                    Gender = admin.Gender,
+                    Birthday = (DateTime)admin.Birthday,
                     };
                 return View(model);
                 }
@@ -81,32 +77,24 @@ namespace ProjectFutureAdvannced.Controllers
                 user.UserName = admin.Email.Substring(0, indexOfAt - 1);
                 user.Email = admin.Email;
                 /*************************/
-                Admin admin1 = new Admin()
-                    {
-                    Name = admin.Name,
-                    Email = admin.Email,
-                    TypeOfRoles = admin.TypeOfRoles,
-                    ImgUrl = admin.UrlImgString,
-                    PhoneNumber = admin.PhoneNumber,
-                    Gender = admin.Gender,
-                    Birthday = (DateTime)admin.Birthday,
-                    };
+                var admin1= adminRepository.GetByFK(user.Id);   
+                admin1.Name= admin.Name;
+                admin1.Email= admin.Email;
+                admin1.Gender=admin.Gender;
+                admin1.PhoneNumber=admin.PhoneNumber;
+                admin1.Birthday=admin.Birthday;
                 adminRepository.Update(admin1);
                 await _userManager.UpdateAsync(user);
-                ListOfInfoAdmin listOfInfoAdmin = new ListOfInfoAdmin()
+                GeneralInfoAdmin model = new GeneralInfoAdmin()
                     {
-                    GeneralInfoAdmin=new GeneralInfoAdmin()
-                        {
                         Name = admin.Name,
                         Email = admin.Email,
-                        TypeOfRoles = admin.TypeOfRoles,
                         UrlImgString = admin.UrlImgString,
                         PhoneNumber = admin.PhoneNumber,
                         Gender = admin.Gender,
                         Birthday = admin.Birthday,
-                        }
                     };
-                return View(listOfInfoAdmin);
+                return View(model);
                 }
             return View();
             }
