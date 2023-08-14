@@ -32,5 +32,6 @@ namespace ProjectFutureAdvannced.Models.Model.AccountUser
         public DateTime ?Birthday { get; set; }
         [RegularExpression(@"^(?i)(male|female)$")]
         public string? Gender { get; set; }
+
         }
 }

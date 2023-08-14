@@ -12,11 +12,11 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             {
             this.appDbContext = appDbContext;
             }
-        public User Add( User User )
+        public User Add( User user )
             {
-            appDbContext.User.Add(User);
+            appDbContext.User.Add(user);
             appDbContext.SaveChanges();
-            return User;
+            return user;
             }
 
         public User Delete( string id )

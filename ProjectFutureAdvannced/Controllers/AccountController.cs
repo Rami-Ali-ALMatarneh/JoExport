@@ -18,13 +18,15 @@ namespace ProjectFutureAdvannced.Controllers
         private readonly IUserRepository userRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public AccountController( IWebHostEnvironment webHostEnvironment, IAdminRepository adminRepository, UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole> _roleManager )
+        public AccountController( IShopRepository _shopRepository, IUserRepository userRepository,IWebHostEnvironment webHostEnvironment, IAdminRepository adminRepository, UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole> _roleManager )
             {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = _roleManager;
             this.adminRepository = adminRepository;
             this.webHostEnvironment = webHostEnvironment;
+            this._shopRepository = _shopRepository;
+            this.userRepository = userRepository;
             }
 
         public IActionResult Index()
@@ -48,7 +50,7 @@ namespace ProjectFutureAdvannced.Controllers
                 int indexOfAt = model.Email.IndexOf("@");
                 Account user = new Account
                     {
-                    Name=model.Email,
+                    Name=model.Name,
                     Email = model.Email,
                     UserName = model.Email.Substring(0, indexOfAt - 1),
                     };
