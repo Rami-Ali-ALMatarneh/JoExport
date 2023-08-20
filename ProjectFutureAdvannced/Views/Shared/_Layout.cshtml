@@ -14,53 +14,99 @@
     <link href="~/cssFile/imgAnimation.css" rel="stylesheet" />
     <link href="~/cssFile/shopCss.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
+    <link href="~/CssProfile/StyleSheet.css" rel="stylesheet" />
+    <link href="~/cssFile/vipShop.css" rel="stylesheet" />
+
     <title>@ViewBag.Title</title>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3" id="navbarId">
-        <div class="container">
-            <a class="navbar-brand fs-3 fw-bold" asp-action="index" asp-controller="home">
-                <div>Ashturi</div>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse fs-5" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Store</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Categories
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">All</a></li>
-                            <li><hr class="dropdown-divider" style="height:1px"></li>
-                            @foreach (var product in Enum.GetValues(typeof(ProjectFutureAdvannced.Models.Enums.Categorys)))
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3" id="navbarId">
+            <div class="container">
+                <a class="navbar-brand fs-3 fw-bold" asp-action="index" asp-controller="home">
+                    <div>JoExport</div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse fs-5" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Store</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">All</a></li>
+                                <li><hr class="dropdown-divider" style="height:1px"></li>
+                                @foreach (var product in Enum.GetValues(typeof(ProjectFutureAdvannced.Models.Enums.Categorys)))
+                                    {
+                                    <li><a class="dropdown-item" href="#">@product</a></li>
+
+                                    }
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Vip Shop</a>
+                        </li>
+
+                    </ul>
+                    <div class="d-flex gap-3 fs-5">
+                        @{
+                            if (signInManager.IsSignedIn(User))
                                 {
-                                <li><a class="dropdown-item" href="#">@product</a></li>
+                                var user = await userManager.GetUserAsync(User);
 
-                                }
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Vip Shop</a>
-                    </li>
-
-                </ul>
-                <div class="d-flex gap-3 fs-5">
-                    <a asp-action="Login" asp-controller="Account" class="btn btn-outline-light">Login</a>
-                    <a asp-action="Create" asp-controller="Account" class="btn btn-outline-light">Sign Up</a>
-                    <a asp-action="Index" asp-controller="Admin" class="btn btn-outline-light">DashBorasd</a>
-
+                                                <div class="dropdown">
+                                                                            <button class="btn dropdown-toggle fw-bold" type="button" style="color:white" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                @{
+                                                                                    if (user.ImgUrl == null)
+                                                                                        {
+                                                                                        if (user.Gender == null)
+                                                                                            {
+                                                                                            <img src="~/AccountImg/img_avatar.png" style="width:40px" class="img-profile rounded-circle" />
+                                                                                            }
+                                                                                        else
+                                                                                            if (user.Gender == "Male")
+                                                                                            {
+                                                                                            <img src="~/AccountImg/img_avatar.png" style="width:40px" class="img-profile rounded-circle" />
+                                                                                            }
+                                                                                        else
+                                                                                        if (user.Gender == "Female")
+                                                                                            {
+                                                                                            <img src="~/AccountImg/img_avatar2.png" style="width:40px" class="img-profile rounded-circle" />
+                                                                                            }
+                                                                                        }
+                                                                                    else
+                                                                                        {
+                                                                                        <img src="@user.ImgUrl" style="width:35px"  class="img-profile rounded-circle" />
+                                                                                        }
+                                                                                }
+                                                                                 @user.UserName
+                                                                            </button>
+                                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                                <li><a class="dropdown-item">Profile</a></li>
+                                                                                <li><a class="dropdown-item" href="#">Massages</a></li>
+                                                                                <li><a class="dropdown-item" href="#">Alerts</a></li>
+                                                                                <li><hr class="dropdown-divider " style="height:1px"></li>
+                                                                                <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a></li>
+                                                                            </ul>
+                                                </div>
+                                    }
+                                    else
+                                    {
+                                    <a asp-action="Login" asp-controller="Account" class="btn btn-outline-light">Login</a>
+                                    <a asp-action="Create" asp-controller="Account" class="btn btn-outline-light">Sign Up</a>
+                                    }
+                                    }
+                            </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
     <div>
         @RenderBody()
@@ -70,8 +116,8 @@
             <footer class="pt-5">
                 <div class="row">
                     <div class="foot col-4">
-                        <a class="headFooter navbar-brand fw-bold d-flex align-items-center justify-content-start link-dark text-decoration-none gap-1" asp-action="index" asp-controller="home">Ashturi</a>
-                        <p class="fsFooter text-muted">Welcome to Ashturi, the leading agency across the board! Discover a wide range of quality products that are sure to meet your needs and exceed your expectations. With a wide range of makes and models, we offer a variety of products to suit every lifestyle and budget.</p>
+                        <a class="headFooter navbar-brand fw-bold d-flex align-items-center justify-content-start link-dark text-decoration-none gap-1" asp-action="index" asp-controller="home">JoExport</a>
+                        <p class="fsFooter text-muted">Welcome to JoExport, the leading agency across the board! Discover a wide range of quality products that are sure to meet your needs and exceed your expectations. With a wide range of makes and models, we offer a variety of products to suit every lifestyle and budget.</p>
 
                     </div>
                     <div class="foot foots col-2">

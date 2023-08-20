@@ -41,27 +41,27 @@ namespace ProjectFutureAdvannced.Controllers
             return View();
             }
         [AllowAnonymous]
-
+        [HttpGet]
+        public async Task<IActionResult> CreateAdmin()
+            {
+            return View();
+            }
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create( RegisterViewModel model )
+        public async Task<IActionResult> CreateAdmin( RegisterAdminViewModel model )
             {
             if (ModelState.IsValid)
                 {
                 int indexOfAt = model.Email.IndexOf("@");
                 Account user = new Account
                     {
-                    Name=model.Name,
+                    Name = model.Name,
                     Email = model.Email,
-                    UserName = model.Email.Substring(0, indexOfAt - 1),
+                    UserName = model.Email.Substring(0, indexOfAt),
                     };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                     {
-                    // Add the roles you want to assign to the user
-
-                    // Check if the role exists before adding
-                    if (model.TypeOfRoles == TypeOfUser.Admin)
-                        {
                         if (await _roleManager.RoleExistsAsync("Admin"))
                             {
                             await _userManager.AddToRoleAsync(user, "Admin");
@@ -73,14 +73,32 @@ namespace ProjectFutureAdvannced.Controllers
                             Email = model.Email,
                             Password = model.Password,
                             ConfirmPassword = model.ConfirmPassword,
-                            TypeOfRoles = model.TypeOfRoles,
                             UserId = user.Id,
                             };
                         adminRepository.Add(admin);
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToAction("Index", "Admin");
                         }
-                    else
+                    }
+            return View();
+            }
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Create( RegisterViewModel model )
+            {
+            if (ModelState.IsValid)
+                {
+                int indexOfAt = model.Email.IndexOf("@");
+                Account user = new Account
+                    {
+                    Name=model.Name,
+                    Email = model.Email,
+                    UserName = model.Email.Substring(0, indexOfAt ),
+                    };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                    {
+                    // Add the roles you want to assign to the user
                     if (model.TypeOfRoles == TypeOfUser.Shop)
                         {
                         if (await _roleManager.RoleExistsAsync("Shop"))
@@ -161,6 +179,12 @@ namespace ProjectFutureAdvannced.Controllers
                     }
                 }
             return View(model);
+            }
+        [Authorize]
+        public async Task<IActionResult> Logout()
+            {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
             }
 
         }

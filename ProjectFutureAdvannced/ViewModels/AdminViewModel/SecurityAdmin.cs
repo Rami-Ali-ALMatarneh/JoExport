@@ -6,7 +6,6 @@ namespace ProjectFutureAdvannced.ViewModels.AdminViewModel
         {
         [Required]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Password is not Match!")]
         public string CurrentPassword { get; set; }
         [Required]
         [DataType(DataType.Password)]

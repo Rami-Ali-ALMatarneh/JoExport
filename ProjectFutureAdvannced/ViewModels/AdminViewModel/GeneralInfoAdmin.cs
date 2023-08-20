@@ -19,5 +19,6 @@ namespace ProjectFutureAdvannced.ViewModels.AdminViewModel
         public DateTime ?Birthday { get; set; }
         [RegularExpression(@"^(?i)(male|female)$")] 
         public string ?Gender { get; set; }
-        }
+        public string ? Major { get; set; }
+    }
 }

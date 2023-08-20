@@ -3,7 +3,6 @@
     public enum TypeOfUser
         {
         User,
-        Admin,
         Shop
         }
     }

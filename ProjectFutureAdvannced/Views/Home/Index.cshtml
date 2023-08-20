@@ -12,23 +12,23 @@
                     <li class="splide__slide d-flex justify-content-center align-items-center">
                         <div class="row slideLanding">
                             <div class=" slideInfo col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center flex-column pb-4 ">
-                                <h1 class="fw-bold headLanding">WELCOME TO ASHTURI</h1>
-                                <p class="fsFooter"> Welcome to Ashturi, the leading agency across the board! Discover a wide range of quality products that are sure to meet your needs and exceed your expectations. With a wide range of makes and models, we offer a variety of products to suit every lifestyle and budget. </p>
+                                <h1 class="fw-bold headLanding">Welcome To JoExport</h1>
+                                <p class="fsFooter"> Welcome to JoExport, the leading agency across the board! Discover a wide range of quality products that are sure to meet your needs and exceed your expectations. With a wide range of makes and models, we offer a variety of products to suit every lifestyle and budget. </p>
                                 <a class="btn BtnCustom1 Btn">Shop Now</a>
                             </div>
                             <div class="imgAnimation slideImg col-lg-6 col-md-12 col-sm-12">
-                                <img src="~/ImagePage/ASHTURI.jpg" />
+                                <img src="~/ImagePage/J.png" />
                             </div>
                         </div>
                     </li>
                     <li class="splide__slide d-flex justify-content-center align-items-center">
                         <div class="row slideLanding">
                             <div class="slideInfo col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center flex-column pb-4">
-                                <h1 class="fw-bold headLanding">CATEGORY OF ASHTURI</h1>
+                                <h1 class="fw-bold headLanding">Category OF JoExport</h1>
                                 <p class="txtLanding"> Our team of knowledgeable and friendly professionals is dedicated to providing you with a smooth and enjoyable buying experience for our products. Browse our site and enjoy the perfect experience. </p>                                <a class="btn BtnCustom1 Btn">View Products</a>
                             </div>
                             <div class="imgAnimation slideImg col-lg-6 col-md-12 col-sm-12">
-                                <img src="~/ImagePage/ASHTURI.jpg" />
+                                <img src="~/ImagePage/J.png" />
                             </div>
                         </div>
                     </li>
@@ -39,38 +39,6 @@
 </div>
 @* end landing  *@
 
-
-<!-- Start Category-->
-<div class="categorys">
-    <div class="container">
-        <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
-            <h6 class="fw-bold headP">Categories</h6>
-        </div>
-        <div class="row flex-sm-row categorysDiv pb-3">
-            @{
-                int count = 0;
-                foreach (var Category in Model.categories)
-                    {
-                    if (count < 12)
-                        {
-                        var img = "/CategoryImage/" + Category.CategoryImg;
-                        <a asp-action="Store" asp-controller="Home" asp-route-id="@Category.Name" class="categoryInfo col-lg-2 col-md-3 col-sm-4 col-sm-6 d-flex justify-content-center align-items-center flex-column mb-5">
-                            <div class="CategoryImage">
-                                <img src="@img" asp-append-version="true" alt="Alternate Text" style="width:70px;height:60px" />
-                            </div>
-                            <h6 class="CategoryName text-muted pt-2">@Category.Name.ToString().Replace("_", " ")</h6>
-                        </a>
-                        count++;
-                        }
-                    }
-            }
-        </div>
-        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
-            <a class="btn BtnCustom3 Btn">More Categories <i class="fa-solid fa-caret-right"></i></a>
-        </div>
-    </div>
-</div>
-<!--end Category-->
 @* Start Products *@
 <div class="container-xxl py-5">
     <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
@@ -149,6 +117,37 @@
 </div>
 @* end Products *@
 
+<!-- Start Category-->
+<div class="categorys">
+    <div class="container">
+        <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+            <h6 class="fw-bold headP">Categories</h6>
+        </div>
+        <div class="row flex-sm-row categorysDiv pb-3">
+            @{
+                int count = 0;
+                foreach (var Category in Model.categories)
+                {
+                    if (count < 12)
+                    {
+                        var img = "/CategoryImage/" + Category.CategoryImg;
+                        <a asp-action="Store" asp-controller="Home" asp-route-id="@Category.Name" class="categoryInfo col-lg-2 col-md-3 col-sm-4 col-sm-6 d-flex justify-content-center align-items-center flex-column mb-5">
+                            <div class="CategoryImage">
+                                <img src="@img" asp-append-version="true" alt="Alternate Text" style="width:70px;height:60px" />
+                            </div>
+                            <h6 class="CategoryName text-muted pt-2">@Category.Name.ToString().Replace("_", " ")</h6>
+                        </a>
+                        count++;
+                    }
+                }
+            }
+        </div>
+        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+            <a class="btn BtnCustom3 Btn" asp-action="Category" asp-controller="Home">More Categories <i class="fa-solid fa-caret-right"></i></a>
+        </div>
+    </div>
+</div>
+<!--end Category-->
 <!-- LIST OF SHOPER-->
 <section style="background-color: #eee;">
     <div class="text-center container py-5">
@@ -189,37 +188,71 @@
         </div>
     </div>
 </section>
-
-
-
 <!-- end Category-->
-<!-- start Services-->
-<div class="Service1 pt-5 pb-5">
-    <div class="container">
-        <div class="Service11 row">
-            <div class="ServiceInfo col-lg-4 col-md-4 col-sm-12">
-                <h1 class="fw-bold">Sell Vehicles</h1>
-                <p>Cash-in an instant offer from a local dealer, or create a free listing to sell it yourself on Ashtari.com. It’s never been easier to sell your car, your way.</p>
-                <a class="btn  BtnCustom2 Btn">Read More <i class="fa-solid fa-caret-right"></i></a>
+
+
+<!--VIP Shop-->
+<div class="vipshop mb-5">
+    <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+        <h6 class="fw-bold headP">VIP SHOP</h6>
+    </div>
+    <div class="wrap mb-5">
+        <div class="box">
+            <div class="box-top">
+                <img class="box-image" src="~/ImageVipShop/photo-1622219809260-ce065fc5277f.jpg" />
+                <div class="title-flex">
+                    <h3 class="box-title">Kelsie</h3>
+                    <p class="user-follow-info text-muted">33 Products</p>
+                </div>
+                <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+            </div>         
+            <div class="d-flex flex-column gap-2">
+                <a href="#" class="button">View Galary</a>
+                <a href="#" class="button">Follow </a>
             </div>
-            <div class="imgAnimation imgService col-lg-8 col-md-8 col-sm-12">
-                <img src="~/ImagePage/VehicleBuy.png" />
+        </div>
+        <div class="box">
+            <div class="box-top">
+                <img class="box-image" src="~/ImageVipShop/photo-1488161628813-04466f872be2.jpg" />
+                <div class="title-flex">
+                    <h3 class="box-title">Mark Carusso</h3>
+                    <p class="user-follow-info text-muted">33 Products</p>
+                </div>
+                <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+            </div>
+            <div class="d-flex flex-column gap-2">
+                <a href="#" class="button">View Galary</a>
+                <a href="#" class="button">Follow </a>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-top">
+                <img class="box-image" src="~/ImageVipShop/photo-1456885284447-7dd4bb8720bf.jpg" />
+                <div class="title-flex">
+                    <h3 class="box-title">Taylor Green</h3>
+                    <p class="user-follow-info text-muted">26 Products</p>
+                </div>
+                <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+            </div>
+            <div class="d-flex flex-column gap-2">
+                <a href="#" class="button">View Galary</a>
+                <a href="#" class="button">Follow </a>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-top">
+                <img class="box-image" src="~/ImageVipShop/photo-1489980557514-251d61e3eeb6.jpg" />
+                <div class="title-flex">
+                    <h3 class="box-title">Isaiah Jian</h3>
+                    <p class="user-follow-info text-muted">12 Products</p>
+                </div>
+                <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+            </div>
+            <div class="d-flex flex-column gap-2">
+                <a href="#" class="button">View Galary</a>
+                <a href="#" class="button">Follow</a>
             </div>
         </div>
     </div>
 </div>
-<div class="Service2 pt-5 pb-5">
-    <div class="container">
-        <div class="Service11 row">
-            <div class="imgAnimation imgService col-lg-8 col-md-8 col-sm-12">
-                <img src="~/ImagePage/642592df0bb1a756556043_prev_ui.png" />
-            </div>
-            <div class="ServiceInfo col-lg-4 col-md-4 col-sm-12">
-                <h1 class="fw-bold">Buying Vehicles</h1>
-                <p>Cash-in an instant offer from a local dealer, or create a free listing to sell it yourself on Ashtari.com. It’s never been easier to sell your car, your way.</p>
-                <a class="btn BtnCustom1 Btn">Read More <i class="fa-solid fa-caret-right"></i></a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end Services-->
+

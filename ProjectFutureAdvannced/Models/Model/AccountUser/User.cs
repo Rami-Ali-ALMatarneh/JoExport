@@ -30,11 +30,9 @@ namespace ProjectFutureAdvannced.Models.Model.AccountUser
         [ForeignKey("IdentityUser")]
         public string UserId { get; set; }
         public Account IdentityUser { get; set; }
-        public string? ImgUrl { get; set; }
         [RegularExpression(@"(77|79|78)\d{7}")]
         public string? PhoneNumber { get; set; }
         public DateTime? Birthday { get; set; }
-        [RegularExpression(@"^(?i)(male|female)$")]
-        public string? Gender { get; set; }
+
         }
     }
