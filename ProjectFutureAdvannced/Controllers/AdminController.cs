@@ -54,7 +54,6 @@ namespace ProjectFutureAdvannced.Controllers
                     Birthday =admin.Birthday,
                     Major=user.Major,
                     };
-
                 return View(model);
                 }
             return RedirectToAction("Index", "Home");

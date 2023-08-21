@@ -9,16 +9,12 @@
   <ItemGroup>
     <Compile Remove="Models\Model\Validation\**" />
     <Compile Remove="Views\Shop\**" />
-    <Compile Remove="Views\User\**" />
     <Content Remove="Models\Model\Validation\**" />
     <Content Remove="Views\Shop\**" />
-    <Content Remove="Views\User\**" />
     <EmbeddedResource Remove="Models\Model\Validation\**" />
     <EmbeddedResource Remove="Views\Shop\**" />
-    <EmbeddedResource Remove="Views\User\**" />
     <None Remove="Models\Model\Validation\**" />
     <None Remove="Views\Shop\**" />
-    <None Remove="Views\User\**" />
   </ItemGroup>
 
   <ItemGroup>
