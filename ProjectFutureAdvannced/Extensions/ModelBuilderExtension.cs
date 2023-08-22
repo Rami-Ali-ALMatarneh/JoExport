@@ -16,7 +16,7 @@ namespace ProjectFutureAdvannced.Extensions
             modelBuilder.Entity<Shop>(entity => { entity.ToTable("Shop"); });
             modelBuilder.Entity<User>(entity => { entity.ToTable("User"); });
             }
-        public static void SetSeedRoles( this ModelBuilder modelBuilder )
+        public static void SetSeedRoles( this ModelBuilder modelBuilder ) 
             {
             var roles = new List<string>
                 {
