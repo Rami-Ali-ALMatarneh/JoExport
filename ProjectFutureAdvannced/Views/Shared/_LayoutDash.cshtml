@@ -230,28 +230,8 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                                 @{
                                     var user = await userManager.GetUserAsync(User);
-
-                                    if (user.ImgUrl == null)
-                                        {
-                                        if (user.Gender == null)
-                                            {
-                                            <img src="~/AccountImg/img_avatar.png" class="img-profile rounded-circle" />
-                                            }
-                                        else
-                                            if (user.Gender == "Male")
-                                            {
-                                            <img src="~/AccountImg/img_avatar.png" class="img-profile rounded-circle"/>
-                                            }
-                                        else
-                                        if (user.Gender == "Female")
-                                            {
-                                            <img src="~/AccountImg/img_avatar2.png" class="img-profile rounded-circle"/>
-                                            }
-                                        }
-                                    else
-                                        {
-                                        <img src="@user.ImgUrl" class="img-profile rounded-circle"/>
-                                        }
+                                    var img = "/AccountImg/" + user.ImgUrl;
+                                        <img src="@img" class="img-profile rounded-circle" />
                                 }
 
                             </a>

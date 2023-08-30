@@ -1,9 +1,9 @@
-﻿let navbar = document.getElementById("navbarId");
+﻿let navbar1 = document.getElementById("navbarId");
 window.onscroll = function () {
     if (window.scrollY > 76) {
-        navbar.classList.add("navbarBg");
+        navbar1.classList.add("navbarBg");
     }
     else {
-        navbar.classList.remove("navbarBg");
+        navbar1.classList.remove("navbarBg");
     }
 }

@@ -9,27 +9,11 @@
                 <div class="account mb-4 p-4 d-flex justify-content-center align-items-center flex-column">
                     <div class="imgaccount">
                         @{
-                            if (Model.UrlImgString == null)
-                                {
-                                if (Model.Gender == null)
-                                    {
-                                    <img src="~/AccountImg/img_avatar.png" />
-                                    }
-                                else
-                                    if (Model.Gender == "Male")
-                                    {
-                                    <img src="~/AccountImg/img_avatar.png" />
-                                    }
-                                else
-                                if(Model.Gender == "Female")
-                                    {
-                                    <img src="~/AccountImg/img_avatar2.png" />
-                                    }
-                                }
-                            else
-                                {
-                                <img src="@Model.UrlImgString" />
-                                }
+
+                            var user = await userManager.GetUserAsync(User);
+                            var img = "/AccountImg/" + user.ImgUrl;
+                                < img src="@img" /> 
+                                
                         }
                     </div>
                     <div class="infoAccount text-center">
@@ -88,11 +72,7 @@
                         </div>
                         <span class="text-danger" asp-validation-for="ImgUser"></span>
                     </div>
-                    <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
-                        <label class="form-label" asp-for="Birthday">Birthday</label>
-                        <input type="text" placeholder="DD/ MM/ YY" class="form-control" asp-for="Birthday">
-                        <span class="text-danger" asp-validation-for="Birthday"></span>
-                    </div>
+
                     <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
                         <label class="form-label" asp-for="Major">Major</label>
                         <input type="text" class="form-control" asp-for="Major">

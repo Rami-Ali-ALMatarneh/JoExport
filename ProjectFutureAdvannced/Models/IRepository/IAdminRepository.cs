@@ -8,7 +8,7 @@ namespace ProjectFutureAdvannced.Models.IRepository
         public Admin Add(Admin admin);
         public Admin Update(Admin admin);
         public Admin Delete(string Id);
-        public Admin Get(string Id);
-        public Admin GetByFK(string Fk);
+        public Admin Get( int Id );
+        public Admin GetByFk(string Fk);    
         }
     }

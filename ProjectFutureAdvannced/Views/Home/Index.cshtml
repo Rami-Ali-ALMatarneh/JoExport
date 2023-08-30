@@ -13,7 +13,7 @@
                         <div class="row slideLanding">
                             <div class=" slideInfo col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center flex-column pb-4 ">
                                 <h1 class="fw-bold headLanding">Welcome To JoExport</h1>
-                                <p class="fsFooter"> Welcome to JoExport, the leading agency across the board! Discover a wide range of quality products that are sure to meet your needs and exceed your expectations. With a wide range of makes and models, we offer a variety of products to suit every lifestyle and budget. </p>
+                                <p class="txtLanding"> Welcome to JoExport, the leading agency across the board! Discover a wide range of quality products that are sure to meet your needs and exceed your expectations. With a wide range of makes and models, we offer a variety of products to suit every lifestyle and budget. </p>
                                 <a class="btn BtnCustom1 Btn">Shop Now</a>
                             </div>
                             <div class="imgAnimation slideImg col-lg-6 col-md-12 col-sm-12">
@@ -127,9 +127,9 @@
             @{
                 int count = 0;
                 foreach (var Category in Model.categories)
-                {
-                    if (count < 12)
                     {
+                    if (count < 12)
+                        {
                         var img = "/CategoryImage/" + Category.CategoryImg;
                         <a asp-action="Store" asp-controller="Home" asp-route-id="@Category.Name" class="categoryInfo col-lg-2 col-md-3 col-sm-4 col-sm-6 d-flex justify-content-center align-items-center flex-column mb-5">
                             <div class="CategoryImage">
@@ -138,8 +138,8 @@
                             <h6 class="CategoryName text-muted pt-2">@Category.Name.ToString().Replace("_", " ")</h6>
                         </a>
                         count++;
+                        }
                     }
-                }
             }
         </div>
         <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
@@ -155,32 +155,37 @@
             <h6 class="fw-bold headP">AGENTS</h6>
         </div>
         <div class="row">
-            @*@foreach (var shoper in Model.shops)
+            @*foreach (var shoper in Model.shops)
                 {
-                var imgs = "/ShopImage/" + shoper.imgShop;
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
-                            <img src="@imgs" style=" height: 250px;"
-                                 class="w-100" />
-                            <a href="#!">
-                                <div class="hover-overlay">
-                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card-body shopBady">
-                            <div class="d-flex justify-content-center align-items-start flex-column">
-                                <h5 class="card-title fw-bold m-0 mb-1">@shoper.ShopName.ToUpper()</h5>
-                                <p class="CategorysType  m-0 text-white">@shoper.CategorysType.ToString().Replace("_", " ")</p>
+                var imgs = "/ShopImage/" + shoper.imgShop;*@
+            @{
+                for (int i = 0; i < 6; i++)
+                    {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
+                                <img src="~/ShopImage/IKEA.jpg" style=" height: 250px;" class="w-100" />
+                                @*<img src="@imgs" style=" height: 250px;" class="w-100" />*@
+                                <a href="#!">
+                                    <div class="hover-overlay">
+                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <a class="btn btn-sm btnshoper fw-bold">View Galary <i class="fa-solid fa-caret-right"></i></a>
+                            <div class="card-body shopBady">
+                                <div class="d-flex justify-content-center align-items-start flex-column">
+                                    <h5 class="card-title fw-bold m-0 mb-1">Name</h5>
+                                    <p class="CategorysType  m-0 text-white">CategorysType</p>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                    <a class="btn btn-sm btnshoper fw-bold">View Galary <i class="fa-solid fa-caret-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                }*@
+                    }
+            }
+            @*}*@
 
         </div>
         <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
@@ -189,8 +194,6 @@
     </div>
 </section>
 <!-- end Category-->
-
-
 <!--VIP Shop-->
 <div class="vipshop mb-5">
     <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
@@ -205,7 +208,7 @@
                     <p class="user-follow-info text-muted">33 Products</p>
                 </div>
                 <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
-            </div>         
+            </div>
             <div class="d-flex flex-column gap-2">
                 <a href="#" class="button">View Galary</a>
                 <a href="#" class="button">Follow </a>
@@ -255,4 +258,16 @@
         </div>
     </div>
 </div>
+<script src="~/splidejs/js/splide.min.js"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        new Splide('#landingsplide', {
+            type: 'loop',
+            rewind: true,
+            autoplay: true,
+            interval: 5000,
+            speed: '2000',
 
+        }).mount();
+    });
+</script>

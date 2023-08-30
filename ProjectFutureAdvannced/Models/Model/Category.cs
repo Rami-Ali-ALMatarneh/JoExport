@@ -15,7 +15,7 @@ namespace ProjectFutureAdvannced.Models.Model
         [Required]
         [RegularExpression(@"\b\w+\.(jpg|JPG|PNG|png)\b", ErrorMessage = "This Image not supported")]
         public string CategoryImg { get; set; }
-       public Shop shop { get; set; }
-        public List<Product> Products { get; set; }
+       //public Shop shop { get; set; }
+       //public List<Product> Products { get; set; }
         }
     }

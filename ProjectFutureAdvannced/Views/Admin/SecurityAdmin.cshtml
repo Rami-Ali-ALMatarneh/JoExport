@@ -10,28 +10,8 @@
                     <div class="imgaccount">
                         @{
                             var user = await userManager.GetUserAsync(User);
-
-                            if (user.ImgUrl == null)
-                                {
-                                if (user.Gender == null)
-                                    {
-                                    <img src="~/AccountImg/img_avatar.png" />
-                                    }
-                                else
-                                    if (user.Gender == "Male")
-                                    {
-                                    <img src="~/AccountImg/img_avatar.png" />
-                                    }
-                                else
-                                if (user.Gender == "Female")
-                                    {
-                                    <img src="~/AccountImg/img_avatar2.png" />
-                                    }
-                                }
-                            else
-                                {
-                                <img src="@user.ImgUrl" />
-                                }
+                            var img = "/AccountImg/" + user.ImgUrl;
+                                < img src="@img" />
                         }
                     </div>
                     <div class="infoAccount text-center">

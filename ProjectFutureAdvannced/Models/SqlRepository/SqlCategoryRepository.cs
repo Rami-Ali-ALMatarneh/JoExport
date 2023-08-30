@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProjectFutureAdvannced.Data;
+using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
 
@@ -40,6 +41,15 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
         public IEnumerable<Category> GetAll()
             {
             return appDbContext.Categories;
+            }
+
+        public Category GetByCategoryName( int category )
+            {
+            throw new NotImplementedException();
+            }
+        public Category GetByCategoryName( Categorys categorys )
+            {
+            return appDbContext.Categories.FirstOrDefault(e => e.Name == categorys);
             }
 
         public Category Update( Category category )

@@ -28,13 +28,14 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnectionStrings"));
 });
 /********* Add Identity**********/
-builder.Services.AddIdentity<Account,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 /*********Dependency Injection**********/
 builder.Services.AddScoped<IAdminRepository, SqlAdminRepository>();
 builder.Services.AddScoped<IShopRepository, SqlShopRepository>();
 builder.Services.AddScoped<IUserRepository, SqlUserRepository>();
 builder.Services.AddScoped<ICategoryRepository, SqlCategoryRepository>();
-
+builder.Services.AddScoped<ICardRepository, SqlCardRepository>();
+builder.Services.AddScoped<IProductRepository, SqlProductRepository>();
 #endregion
 /***************************************/
 var app = builder.Build();

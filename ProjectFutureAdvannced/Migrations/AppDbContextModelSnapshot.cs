@@ -51,19 +51,19 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0e6d823e-16ba-4793-80a2-8e8fd1260686",
+                            Id = "69ef6751-bf9b-473b-ad84-7185844d401d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d4b536c3-1588-4dbc-824d-83cc88ad6364",
+                            Id = "fc1728d4-634d-4782-bae7-74cd65bc318a",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "2484df27-283a-4e38-8a7b-bb15dcc56a9d",
+                            Id = "6beb218c-9623-4f3c-b98d-ac6b47960b8d",
                             Name = "Shop",
                             NormalizedName = "SHOP"
                         });
@@ -175,7 +175,57 @@ namespace ProjectFutureAdvannced.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Account", b =>
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Major")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Admin", (string)null);
+                });
+
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -194,16 +244,14 @@ namespace ProjectFutureAdvannced.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -245,7 +293,7 @@ namespace ProjectFutureAdvannced.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Admin", b =>
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -253,47 +301,29 @@ namespace ProjectFutureAdvannced.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Birthday")
+                    b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ConfirmPassword")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImgUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TypeOfRoles")
+                    b.Property<int>("ShopId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ShopId");
 
-                    b.ToTable("Admin", (string)null);
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", b =>
@@ -304,12 +334,6 @@ namespace ProjectFutureAdvannced.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Birthday")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CategoryName")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConfirmPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -321,8 +345,9 @@ namespace ProjectFutureAdvannced.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImgUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Major")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -343,11 +368,11 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("CategoryName")
-                        .IsUnique()
-                        .HasFilter("[CategoryName] IS NOT NULL");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -362,9 +387,6 @@ namespace ProjectFutureAdvannced.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Birthday")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ConfirmPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -376,8 +398,9 @@ namespace ProjectFutureAdvannced.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImgUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Major")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -398,11 +421,30 @@ namespace ProjectFutureAdvannced.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Card", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Card");
                 });
 
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Category", b =>
@@ -502,6 +544,37 @@ namespace ProjectFutureAdvannced.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Gallery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("ShopId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("Gallery");
+                });
+
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -510,13 +583,14 @@ namespace ProjectFutureAdvannced.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CategoryName")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -527,33 +601,14 @@ namespace ProjectFutureAdvannced.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ShoperId")
+                    b.Property<int>("ShopId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ShoperId");
+                    b.HasIndex("ShopId");
 
                     b.ToTable("products");
-                });
-
-            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.ProductImg", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImgPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("productImgs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -567,7 +622,7 @@ namespace ProjectFutureAdvannced.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Account", null)
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -576,7 +631,7 @@ namespace ProjectFutureAdvannced.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Account", null)
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -591,7 +646,7 @@ namespace ProjectFutureAdvannced.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Account", null)
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -600,7 +655,7 @@ namespace ProjectFutureAdvannced.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Account", null)
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -609,7 +664,7 @@ namespace ProjectFutureAdvannced.Migrations
 
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Admin", b =>
                 {
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Account", "IdentityUser")
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.AppUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -618,27 +673,31 @@ namespace ProjectFutureAdvannced.Migrations
                     b.Navigation("IdentityUser");
                 });
 
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Post", b =>
+                {
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", "shop")
+                        .WithMany("posts")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("shop");
+                });
+
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", b =>
                 {
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.Category", "Category")
-                        .WithOne("shop")
-                        .HasForeignKey("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", "CategoryName")
-                        .HasPrincipalKey("ProjectFutureAdvannced.Models.Model.Category", "Name");
-
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Account", "IdentityUser")
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.AppUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("IdentityUser");
                 });
 
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.User", b =>
                 {
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Account", "IdentityUser")
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.AppUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -647,21 +706,43 @@ namespace ProjectFutureAdvannced.Migrations
                     b.Navigation("IdentityUser");
                 });
 
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Card", b =>
+                {
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.Product", "Product")
+                        .WithMany("cards")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.User", "User")
+                        .WithMany("cards")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Gallery", b =>
+                {
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", "shop")
+                        .WithMany("galleries")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("shop");
+                });
+
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Product", b =>
                 {
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.Category", "category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", "shop")
                         .WithMany("Products")
-                        .HasForeignKey("ShoperId")
+                        .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("category");
 
                     b.Navigation("shop");
                 });
@@ -669,14 +750,20 @@ namespace ProjectFutureAdvannced.Migrations
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", b =>
                 {
                     b.Navigation("Products");
+
+                    b.Navigation("galleries");
+
+                    b.Navigation("posts");
                 });
 
-            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Category", b =>
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.User", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("cards");
+                });
 
-                    b.Navigation("shop")
-                        .IsRequired();
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Product", b =>
+                {
+                    b.Navigation("cards");
                 });
 #pragma warning restore 612, 618
         }

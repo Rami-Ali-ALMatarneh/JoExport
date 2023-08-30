@@ -1,23 +1,39 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
+using System.Collections;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectFutureAdvannced.Models.Model
 {
     public class Product
     {
+        [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Categorys CategoryName { get; set; }
-        public double Price { get; set; }
-        //public List<ImgProduct> Imgs { get; set; }
+        [Required]
 
-        public int ShoperId { get; set; }
-        public Shop shop { get; set; }
+        public string Name { get; set; }
+        [Required]
+
+        public string Description { get; set; }
+        [Required]
+
+        public double Price { get; set; }
+        [Required]
+
+        public string Image { get; set; }
         /////***********************************/
-        public int CategoryId { get; set; }
-        public Category category { get; set; }
+        [Required]
+
+        public Categorys CategoryName { get; set; }
+        [Required]
+
+        public int ShopId { get; set; }
+        public Shop shop { get; set; }
+        public ICollection<User> users { get; set; }
+        public List<Card> cards { get; set; }
 
         }
+
     }

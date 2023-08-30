@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.ViewModels;
+using ProjectFutureAdvannced.ViewModels.ProductViewModel;
 
 namespace ProjectFutureAdvannced.Controllers
     {
@@ -10,12 +13,14 @@ namespace ProjectFutureAdvannced.Controllers
     public class HomeController : Controller
         {
         private readonly IShopRepository shopRepository;
+        private readonly IProductRepository productRepository;
 
         private readonly ICategoryRepository categoryRepository;
-        public HomeController( ICategoryRepository categoryRepository, IShopRepository shopRepository )
+        public HomeController( IProductRepository productRepository, ICategoryRepository categoryRepository, IShopRepository shopRepository )
         {
             this.categoryRepository = categoryRepository;
             this.shopRepository = shopRepository;
+            this.productRepository = productRepository;
         }
         public IActionResult Index()
             {
@@ -40,5 +45,24 @@ namespace ProjectFutureAdvannced.Controllers
         {
             return View();
         }
-    }
+        [AllowAnonymous]
+        public IActionResult Store()
+            {
+            var product = productRepository.GetAll();
+            return View(product);
+            }
+        public IActionResult Details( int id )
+            {
+            var Product = productRepository.GetById(id);
+            ProductViewModel productViewModel = new ProductViewModel()
+                {
+                Name = Product.Name,
+                Description = Product.Description,
+                CategoryName = Product.CategoryName,
+                Price = Product.Price,
+                Image = Product.Image,
+                };
+            return View( productViewModel );
+            }
+        }
     }

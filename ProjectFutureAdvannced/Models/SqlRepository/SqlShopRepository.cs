@@ -21,7 +21,7 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
 
         public Shop Delete( string id )
             {
-            var Shop = appDbContext.Shop.FirstOrDefault(e=>e.UserId==id);
+            var Shop = appDbContext.Shop.FirstOrDefault(e => e.UserId == id);
             if (Shop != null)
                 {
                 appDbContext.Shop.Remove(Shop);
@@ -30,15 +30,19 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             return Shop;
             }
 
-        public Shop Get( string id )
+        public Shop Get( int id )
             {
-            var Shop = appDbContext.Shop.FirstOrDefault(e=>e.UserId==id);
-            return Shop;
+            return appDbContext.Shop.Find(id);
             }
 
         public IEnumerable<Shop> GetAll()
             {
             return appDbContext.Shop;
+            }
+
+        public Shop GetByFk( string Fk )
+            {
+            return appDbContext.Shop.FirstOrDefault(e => e.UserId == Fk);
             }
 
         public Shop Update( Shop Shop )

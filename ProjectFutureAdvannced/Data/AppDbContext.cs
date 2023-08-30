@@ -7,14 +7,14 @@ using ProjectFutureAdvannced.Models.Model.AccountUser;
 
 namespace ProjectFutureAdvannced.Data
 {
-    public class AppDbContext:IdentityDbContext<Account>
+    public class AppDbContext:IdentityDbContext<AppUser>
         {
         public DbSet<Admin> Admin { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Shop> Shop { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> products  { get; set; }
-        public DbSet<ProductImg> productImgs { get; set; }
+        public DbSet<Card> Card { get; set; }
 
         public AppDbContext( DbContextOptions<AppDbContext> options ) : base(options)
             {
@@ -24,10 +24,13 @@ namespace ProjectFutureAdvannced.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.CreateTable();
             modelBuilder.SetSeedRoles();
-            modelBuilder.setUniqueName_Category();
-            modelBuilder.setRShipShop_Category();
-            modelBuilder.setRShipProduct_Shoper();
             modelBuilder.SetSeedCategory();
+            modelBuilder.setUniqueNameCategory();
+            modelBuilder.setRelationShipProductShop();
+            modelBuilder.CreateCardTable();
+            //modelBuilder.setRShipShop_Category();
+            //modelBuilder.setRShipProduct_Shoper();
+            // modelBuilder.relationShipProductUser();
             }
         }
     }

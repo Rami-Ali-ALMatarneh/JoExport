@@ -10,15 +10,15 @@ namespace ProjectFutureAdvannced.Controllers
     {
     public class AccountController : Controller
         {
-        private readonly UserManager<Account> _userManager;
-        private readonly SignInManager<Account> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IAdminRepository adminRepository;
         private readonly IShopRepository _shopRepository;
         private readonly IUserRepository userRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public AccountController( IShopRepository _shopRepository, IUserRepository userRepository,IWebHostEnvironment webHostEnvironment, IAdminRepository adminRepository, UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole> _roleManager )
+        public AccountController( IShopRepository _shopRepository, IUserRepository userRepository,IWebHostEnvironment webHostEnvironment, IAdminRepository adminRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
             {
             this._userManager = userManager;
             this._signInManager = signInManager;
@@ -53,30 +53,29 @@ namespace ProjectFutureAdvannced.Controllers
             if (ModelState.IsValid)
                 {
                 int indexOfAt = model.Email.IndexOf("@");
-                Account user = new Account
+                AppUser userr = new AppUser()
                     {
-                    Name = model.Name,
                     Email = model.Email,
                     UserName = model.Email.Substring(0, indexOfAt),
+                    ImgUrl = "img_avatar.png",
                     };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(userr, model.Password);
                 if (result.Succeeded)
                     {
-                        if (await _roleManager.RoleExistsAsync("Admin"))
-                            {
-                            await _userManager.AddToRoleAsync(user, "Admin");
-                            }
-
-                        Admin admin = new Admin()
-                            {
-                            Name = model.Name,
-                            Email = model.Email,
-                            Password = model.Password,
-                            ConfirmPassword = model.ConfirmPassword,
-                            UserId = user.Id,
-                            };
-                        adminRepository.Add(admin);
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                    /**************************/
+                            await _userManager.AddToRoleAsync(userr, "Admin");
+                    Admin Admin = new Admin
+                        {
+                        Name = model.Name,
+                        Email = model.Email,
+                        UserName = model.Email.Substring(0, indexOfAt),
+                        Password = model.Password,
+                        ConfirmPassword = model.ConfirmPassword,
+                        UserId = userr.Id,
+                                };
+                             /**************************/
+                            adminRepository.Add(Admin);
+                        await _signInManager.SignInAsync(userr, isPersistent: false);
                         return RedirectToAction("Index", "Admin");
                         }
                     }
@@ -89,60 +88,58 @@ namespace ProjectFutureAdvannced.Controllers
             if (ModelState.IsValid)
                 {
                 int indexOfAt = model.Email.IndexOf("@");
-                Account user = new Account
+                AppUser userr = new AppUser()
                     {
-                    Name=model.Name,
                     Email = model.Email,
-                    UserName = model.Email.Substring(0, indexOfAt ),
+                    UserName = model.Email.Substring(0, indexOfAt),
+                    ImgUrl = "img_avatar.png",
                     };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(userr, model.Password);
                 if (result.Succeeded)
                     {
-                    // Add the roles you want to assign to the user
                     if (model.TypeOfRoles == TypeOfUser.Shop)
                         {
-                        if (await _roleManager.RoleExistsAsync("Shop"))
+                        if (await _roleManager.RoleExistsAsync(TypeOfUser.Shop.ToString()))
                             {
-                            await _userManager.AddToRoleAsync(user, "Shop");
+                            /**************************/
+                            await _userManager.AddToRoleAsync(userr, "Shop");
+                            Shop shop = new Shop
+                                {
+                                Name = model.Name,
+                                Email = model.Email,
+                                UserName = model.Email.Substring(0, indexOfAt),
+                                Password=model.Password,
+                                ConfirmPassword = model.ConfirmPassword,
+                                UserId = userr.Id,
+
+                                };
+                            _shopRepository.Add(shop);
+                            /**************************/
                             }
-                        Shop shop = new Shop()
-                            {
-                            Name = model.Name,
-                            Email = model.Email,
-                            Password = model.Password,
-                            ConfirmPassword = model.ConfirmPassword,
-                            TypeOfRoles = model.TypeOfRoles,
-                            UserId = user.Id,
-                            };
-                        _shopRepository.Add(shop);
                         }
                     else
                     if (model.TypeOfRoles == TypeOfUser.User)
                         {
                         if (await _roleManager.RoleExistsAsync("User"))
                             {
-                            await _userManager.AddToRoleAsync(user, "User");
+                            /******************************/
+                            await _userManager.AddToRoleAsync(userr, "User");
+                            User user = new User
+                                {
+                                Name = model.Name,
+                                Email = model.Email,
+                                UserName = model.Email.Substring(0, indexOfAt),
+                                Password = model.Password,
+                                ConfirmPassword = model.ConfirmPassword,
+                                UserId = userr.Id,
+
+                                };
+                            userRepository.Add(user);
+                            /*******************************/
                             }
-                        User users = new User()
-                            {
-                            Name = model.Name,
-                            Email = model.Email,
-                            Password = model.Password,
-                            ConfirmPassword = model.ConfirmPassword,
-                            TypeOfRoles = model.TypeOfRoles,
-                            UserId = user.Id,
-                            };
-                        userRepository.Add(users);
                         }
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                    }
-                else
-                    {
-                    foreach (var error in result.Errors)
-                        {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                        }
+                    await _signInManager.SignInAsync(userr,isPersistent:false);
+                    return RedirectToAction("Index","Home");
                     }
                 }
             return View();
@@ -171,9 +168,16 @@ namespace ProjectFutureAdvannced.Controllers
                         {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         }
-                    if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl))
+                        if (await _userManager.IsInRoleAsync(user, "Admin"))
                         {
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction("Index", "Admin");
+                        }
+                        else
+                        {
+                        if (Url.IsLocalUrl(returnUrl) && !String.IsNullOrEmpty(returnUrl))
+                            {
+                            return LocalRedirect(returnUrl);
+                            }
                         }
                     return RedirectToAction("Index", "Home");
                     }
@@ -186,8 +190,47 @@ namespace ProjectFutureAdvannced.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
             }
-        [HttpGet]
-        public IActionResult Profile()
+        [Authorize]
+        public async Task<IActionResult> Remove()
+            {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+                {
+                if (await _roleManager.RoleExistsAsync("Admin"))
+                    {
+
+                    adminRepository.Delete(user.Id);
+                    }
+                else
+              if (await _roleManager.RoleExistsAsync("Shop"))
+                    {
+                    _shopRepository.Delete(user.Id);
+                    }
+                else
+              if (await _roleManager.RoleExistsAsync("User"))
+                    {
+                    userRepository.Delete(user.Id);
+                    }
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                    {
+                    // Account deleted successfully
+                    return RedirectToAction("Index", "Home");
+                    }
+                else
+                    {
+                    // Handle errors if account deletion fails
+                    foreach (var error in result.Errors)
+                        {
+                        ModelState.AddModelError("", error.Description);
+                        }
+                    }
+                }
+            return View();
+            }
+        [Authorize]
+        public IActionResult UserProfile()
             {
             return View();
             }

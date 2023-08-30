@@ -16,7 +16,6 @@ namespace ProjectFutureAdvannced.ViewModels.AdminViewModel
         public string ?UrlImgString { get; set; }
         [RegularExpression(@"(77|79|78)\d{7}")] 
         public string ?PhoneNumber { get; set; }
-        public DateTime ?Birthday { get; set; }
         [RegularExpression(@"^(?i)(male|female)$")] 
         public string ?Gender { get; set; }
         public string ? Major { get; set; }

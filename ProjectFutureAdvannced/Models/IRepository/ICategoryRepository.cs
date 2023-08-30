@@ -1,4 +1,5 @@
-﻿using ProjectFutureAdvannced.Models.Model;
+﻿using ProjectFutureAdvannced.Models.Enums;
+using ProjectFutureAdvannced.Models.Model;
 
 namespace ProjectFutureAdvannced.Models.IRepository
 {
@@ -7,7 +8,8 @@ namespace ProjectFutureAdvannced.Models.IRepository
         public Category Add(Category category);
         public Category Delete( int id);
         public Category Get(int id);
+        public Category GetByCategoryName( Categorys category );
         public IEnumerable<Category> GetAll();
         public Category Update(Category category);
-        }
+       }
     }

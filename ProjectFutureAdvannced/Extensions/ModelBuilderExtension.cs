@@ -8,7 +8,7 @@ using System.Numerics;
 
 namespace ProjectFutureAdvannced.Extensions
 {
-    public static class ModelBuilderExtension
+    public static class ModelBuilderExtension 
         {
         public static void CreateTable( this ModelBuilder modelBuilder )
             {
@@ -16,6 +16,43 @@ namespace ProjectFutureAdvannced.Extensions
             modelBuilder.Entity<Shop>(entity => { entity.ToTable("Shop"); });
             modelBuilder.Entity<User>(entity => { entity.ToTable("User"); });
             }
+        public static void CreateCardTable( this ModelBuilder modelBuilder )
+            {
+            modelBuilder.Entity<User>()
+            .HasMany(e => e.Products)
+            .WithMany(e => e.users)
+            .UsingEntity<Card>(
+                j => j
+                .HasOne(e => e.Product)
+                .WithMany(e => e.cards)
+                .HasForeignKey(e => e.ProductId)
+                .OnDelete(DeleteBehavior.Restrict),
+                /*******************************/
+                j => j
+                .HasOne(e => e.User)
+                .WithMany(e => e.cards)
+                .HasForeignKey(e => e.UserId) 
+                .OnDelete(DeleteBehavior.Restrict),
+                j =>
+                {
+                    j.HasKey(e => new { e.UserId, e.ProductId });
+                }
+                );
+            }
+        public static void RelationShipGalleryShop( this ModelBuilder modelBuilder )
+            {
+            modelBuilder.Entity<Shop>()
+                .HasMany(e => e.galleries)
+                .WithOne(e => e.shop)
+                .HasForeignKey(e => e.ShopId);
+            }
+        //public static void relationShipProductUser( this ModelBuilder modelBuilder )
+        //    {
+        //    modelBuilder.Entity<User>()
+        //        .HasMany(e => e.Products)
+        //        .WithOne(e => e.Buyer)
+        //        .OnDelete(DeleteBehavior.Restrict);
+        //    }
         public static void SetSeedRoles( this ModelBuilder modelBuilder ) 
             {
             var roles = new List<string>
@@ -34,38 +71,38 @@ namespace ProjectFutureAdvannced.Extensions
                     });
                 }
             }
-        public static void setUniqueName_Category( this ModelBuilder modelBuilder )
+        public static void setUniqueNameCategory( this ModelBuilder modelBuilder )
             {
             modelBuilder.Entity<Category>()
                    .HasIndex(e => e.Name)
                    .IsUnique();
             }
-        public static void setRShipShop_Category( this ModelBuilder modelBuilder )
+        public static void setRelationShipProductShop( this ModelBuilder modelBuilder )
             {
+
             modelBuilder.Entity<Shop>()
-           .HasOne(shop => shop.Category)
-           .WithOne(category => category.shop)
-           .HasForeignKey<Shop>(shop => shop.CategoryName)
-           .HasPrincipalKey<Category>(category => category.Name);
+                .HasMany(e => e.Products)
+                .WithOne(e => e.shop)
+                .HasPrincipalKey(e=>e.Id)
+                .HasForeignKey(E => E.ShopId);
             }
-        public static void setRShipProduct_Category( this ModelBuilder modelBuilder )
-            {
+        //public static void setRShipShop_Category( this ModelBuilder modelBuilder )
+        //    {
+        //    modelBuilder.Entity<Shop>()
+        //   .HasOne(shop => shop.Category)
+        //   .WithOne(category => category.shop)
+        //   .HasForeignKey<Shop>(shop => shop.CategoryName)
+        //   .HasPrincipalKey<Category>(category => category.Name);
+        //    }
+        //public static void setRShipProduct_Shoper( this ModelBuilder modelBuilder )
+        //    {
 
-            modelBuilder.Entity<Product>()
-                    .HasOne(e => e.category)
-                    .WithMany(e => e.Products)
-                    .HasPrincipalKey(e => e.Id)
-                    .HasForeignKey(e => e.CategoryId);
-            }
-        public static void setRShipProduct_Shoper( this ModelBuilder modelBuilder )
-            {
-
-            modelBuilder.Entity<Product>()
-                    .HasOne(e => e.shop)
-                    .WithMany(e => e.Products)
-                    .HasPrincipalKey(e => e.Id)
-                    .HasForeignKey(e => e.ShoperId);
-            }
+        //    modelBuilder.Entity<Product>()
+        //            .HasOne(e => e.shop)
+        //            .WithMany(e => e.Products)
+        //            .HasPrincipalKey(e => e.Id)
+        //            .HasForeignKey(e => e.ShoperId);
+        //    }
         public static void SetSeedCategory( this ModelBuilder modelBuilder )
             {
             modelBuilder.Entity<Category>().HasData(new Category

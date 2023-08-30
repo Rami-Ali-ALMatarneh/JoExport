@@ -30,9 +30,9 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             return Admin;
             }
 
-        public Admin Get( string id )
+        public Admin Get( int id )
             {
-            var Admin = appDbContext.Admin.FirstOrDefault(e=>e.UserId==id);
+            var Admin = appDbContext.Admin.Find(id);
             return Admin;
             }
 
@@ -41,17 +41,17 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             return appDbContext.Admin;
             }
 
+        public Admin GetByFk( string Fk )
+            {
+            return appDbContext.Admin.FirstOrDefault(e => e.UserId == Fk);
+            }
+
         public Admin Update( Admin Admin )
             {
             var Admins = appDbContext.Admin.Attach(Admin);
             Admins.State = EntityState.Modified;
             appDbContext.SaveChanges();
             return Admin;
-            }
-        public Admin GetByFK(string id )
-            {
-            var admin = appDbContext.Admin.FirstOrDefault(e => e.UserId == id);
-            return admin;
             }
     }
     }

@@ -76,7 +76,7 @@ a{
     justify-content:end;
 }
 @media (max-width:991px) {
-    .CategoriesBtn {
-        justify-content: center;
-    }
+   /* .CategoriesBtn {
+        justify-content: flex-end;
+    }*/
 }

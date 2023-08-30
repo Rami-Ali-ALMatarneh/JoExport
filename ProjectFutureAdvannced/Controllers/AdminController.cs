@@ -12,13 +12,12 @@ namespace ProjectFutureAdvannced.Controllers
     {
     public class AdminController : Controller
         {
-        private readonly UserManager<Account> _userManager;
-        private readonly SignInManager<Account> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IAdminRepository adminRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
-
-        public AdminController( IWebHostEnvironment webHostEnvironment, IAdminRepository adminRepository, UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole> _roleManager )
+        public AdminController( IWebHostEnvironment webHostEnvironment, IAdminRepository adminRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
             {
             this._userManager = userManager;
             this._signInManager = signInManager;
@@ -42,7 +41,7 @@ namespace ProjectFutureAdvannced.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
                 {
-                var admin = adminRepository.GetByFK(user.Id);
+                var admin = adminRepository.GetByFk(user.Id);
                 
                 model = new GeneralInfoAdmin()
                     {
@@ -50,56 +49,73 @@ namespace ProjectFutureAdvannced.Controllers
                     Email = admin.Email,
                     UrlImgString = user.ImgUrl,
                     PhoneNumber = admin.PhoneNumber,
-                    Gender = user.Gender,
-                    Birthday =admin.Birthday,
-                    Major=user.Major,
+                    Gender = admin.Gender,
+                    Major=admin.Major,
                     };
                 return View(model);
                 }
-            return RedirectToAction("Index", "Home");
+            return View();
             }
         /*************************************/
         [HttpPost]
-        public async Task<IActionResult> GeneralProfile( GeneralInfoAdmin admin )
+        public async Task<IActionResult> GeneralProfile( GeneralInfoAdmin model )
             {
             if (ModelState.IsValid)
                 {
+                string uniqueFileName = null;
                 var user = await _userManager.GetUserAsync(User);
-                if (admin.ImgUser != null)
+                var admin = adminRepository.GetByFk(user.Id);
+                if (model.ImgUser != null)
                     {
-                    var folder = "/AccountImg/";
-                    folder += admin.ImgUser.FileName + "_" + Guid.NewGuid().ToString();
-                    admin.UrlImgString = folder;
-                    string ServerFolder = Path.Combine(webHostEnvironment.WebRootPath, folder);
-                    await admin.ImgUser.CopyToAsync(new FileStream(ServerFolder, FileMode.Create));
+                    string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "AccountImg");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImgUser.FileName;
+                    string filePath = Path.Combine(uniqueUpload, uniqueFileName);
+                    await model.ImgUser.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                    model.UrlImgString = uniqueFileName;
                     }
-                /*********************/
-                int indexOfAt = admin.Email.IndexOf("@");
-                user.Name = admin.Name;
-                user.ImgUrl = admin.UrlImgString;
-                user.UserName = admin.Email.Substring(0, indexOfAt);
-                user.Email = admin.Email;
-                /*************************/
-                var admin1= adminRepository.GetByFK(user.Id);   
-                admin1.Name= admin.Name;
-                admin1.Email= admin.Email;
-                user.Gender=admin.Gender;
-                admin1.PhoneNumber=admin.PhoneNumber;
-                admin1.Birthday=admin.Birthday;
-                user.Major = admin.Major;
-                adminRepository.Update(admin1);
-                await _userManager.UpdateAsync(user);
-                GeneralInfoAdmin model = new GeneralInfoAdmin()
+                else
                     {
-                        Name = admin.Name,
-                        Email = admin.Email,
-                        UrlImgString = admin.UrlImgString,
-                        PhoneNumber = admin.PhoneNumber,
-                        Gender = admin.Gender,
-                        Birthday = admin.Birthday,
-                        Major=admin.Major,
-                    };
-                return View(model);
+                    if ((user.ImgUrl != null && admin.Gender != null) || (user.ImgUrl == null && admin.Gender != null))
+                        {
+                        if (model.Gender == "Male")
+                            {
+                            uniqueFileName = "img_avatar.png";
+                            }
+                        else
+                          if (model.Gender == "Female")
+                            {
+                            uniqueFileName = "img_avatar2.png";
+                            }
+                        else
+                            {
+                            uniqueFileName = user.ImgUrl;
+                            }
+                        }
+                    else
+                    if ((user.ImgUrl != null && admin.Gender == null))
+                        {
+                        uniqueFileName = user.ImgUrl;
+                        }
+                    model.UrlImgString = uniqueFileName;
+                    }
+
+                /*********************/
+                int indexOfAt = model.Email.IndexOf("@");
+                admin.Name = model.Name;
+                user.ImgUrl = model.UrlImgString;
+                admin.UserName = model.Email.Substring(0, indexOfAt);
+                admin.Email = model.Email;
+                /*************************/
+                admin.Name= model.Name;
+                admin.Email= model.Email;
+                admin.Gender=model.Gender;
+                admin.PhoneNumber=model.PhoneNumber;
+                admin.Major = model.Major;
+                adminRepository.Update(admin);
+                await _userManager.SetEmailAsync(user, user.Email);
+                await _userManager.SetUserNameAsync(user, model.Email.Substring(0, indexOfAt));
+                await _userManager.UpdateAsync(user);
+                return RedirectToAction("GeneralProfile", "User");
                 }
             return View();
             }
@@ -108,7 +124,7 @@ namespace ProjectFutureAdvannced.Controllers
         public async Task<IActionResult> SecurityAdmin()
             {
             var user=await _userManager.GetUserAsync(User);
-            var admin = adminRepository.GetByFK(user.Id);
+            var admin = adminRepository.GetByFk(user.Id);
             SecurityAdmin security = new SecurityAdmin();
             return View(security);
             }
@@ -117,33 +133,42 @@ namespace ProjectFutureAdvannced.Controllers
             {
             if (ModelState.IsValid)
                 {
-                var user=await _userManager.GetUserAsync(User);
+                var user = await _userManager.GetUserAsync(User);
+
                 if (user != null)
                     {
-                       if(await _userManager.CheckPasswordAsync(user, security.CurrentPassword))
+                    var isCurrentPasswordValid = await _userManager.CheckPasswordAsync(user, security.CurrentPassword);
+
+                    if (isCurrentPasswordValid)
                         {
-                       var changePassword= await _userManager.ChangePasswordAsync(user,security.CurrentPassword, security.NewPassword);
-                        if (changePassword.Succeeded)
+                        if (security.NewPassword == security.ConfirmNewPassword)
                             {
-                            Admin admin = new Admin();
-                            admin.Password = security.NewPassword;
-                            admin.ConfirmPassword = security.ConfirmNewPassword;
-                            adminRepository.Update(admin);
-                            await _signInManager.RefreshSignInAsync(user);
-                            return RedirectToAction("SecurityAdmin", "Admin");
-                            }
-                        else
-                            {
-                            foreach (var error in changePassword.Errors)
+                            var changePasswordResult = await _userManager.ChangePasswordAsync(user, security.CurrentPassword, security.NewPassword);
+
+                            if (changePasswordResult.Succeeded)
                                 {
-                                ModelState.AddModelError("", error.Description);
+                                await _signInManager.RefreshSignInAsync(user);
+                                return RedirectToAction("SecurityAdmin", "Admin");
                                 }
-                            return View(security);
+                            else
+                                {
+                                foreach (var error in changePasswordResult.Errors)
+                                    {
+                                    ModelState.AddModelError("", error.Description);
+                                    }
+                                return View(security);
+                                }
                             }
+                        }
+                    else
+                        {
+                        ModelState.AddModelError("", "Current password is incorrect.");
                         }
                     }
                 }
+
             return View();
+
             }
 
         /***********************************/

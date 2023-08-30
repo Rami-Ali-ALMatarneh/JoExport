@@ -21,7 +21,7 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
 
         public User Delete( string id )
             {
-            var Users = appDbContext.User.FirstOrDefault(e=>e.UserId==id);
+            var Users = appDbContext.User.FirstOrDefault(e => e.UserId == id);
             if (Users != null)
                 {
                 appDbContext.User.Remove(Users);
@@ -29,16 +29,21 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
                 }
             return Users;
             }
-
-        public User Get( string id )
+        public User Get( int id )
             {
-            var User = appDbContext.User.FirstOrDefault(e=>e.UserId==id);
-            return User;
+            return appDbContext.User.Find(id);
             }
+
+
 
         public IEnumerable<User> GetAll()
             {
             return appDbContext.User;
+            }
+
+        public User GetByFk( string Fk )
+            {
+            return appDbContext.User.FirstOrDefault(e => e.UserId == Fk);
             }
 
         public User Update( User User )
