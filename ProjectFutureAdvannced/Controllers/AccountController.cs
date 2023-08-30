@@ -10,6 +10,7 @@ namespace ProjectFutureAdvannced.Controllers
     {
     public class AccountController : Controller
         {
+
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
