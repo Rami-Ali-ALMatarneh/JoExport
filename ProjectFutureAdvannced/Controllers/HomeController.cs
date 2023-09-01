@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.IRepository;
+using ProjectFutureAdvannced.Models.Model.AccountUser;
 using ProjectFutureAdvannced.ViewModels;
 using ProjectFutureAdvannced.ViewModels.ProductViewModel;
 
@@ -51,9 +52,10 @@ namespace ProjectFutureAdvannced.Controllers
             var product = productRepository.GetAll();
             return View(product);
             }
-        public IActionResult Details( int id )
+        public async Task<IActionResult> Details( int id )
             {
             var Product = productRepository.GetById(id);
+            var Shop = shopRepository.Get(Product.ShopId);
             ProductViewModel productViewModel = new ProductViewModel()
                 {
                 Name = Product.Name,
@@ -61,8 +63,11 @@ namespace ProjectFutureAdvannced.Controllers
                 CategoryName = Product.CategoryName,
                 Price = Product.Price,
                 Image = Product.Image,
+                UserId=Shop.UserId,
+                Id= id,
                 };
             return View( productViewModel );
             }
+
         }
     }

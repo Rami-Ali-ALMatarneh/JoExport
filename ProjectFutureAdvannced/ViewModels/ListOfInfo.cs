@@ -15,5 +15,7 @@ namespace ProjectFutureAdvannced.ViewModels
         public Account carrentUser { get; set; }
         public GeneralInfoUser generalInfoUser { get; set; }
         public Categorys categorys { get; set; }
+        public AppUser AppUser { get; set; }
+
         }
     }

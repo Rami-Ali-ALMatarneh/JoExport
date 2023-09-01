@@ -7,7 +7,7 @@
 namespace ProjectFutureAdvannced.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateCardTable : Migration
+    public partial class UpdateCard : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,29 +19,21 @@ namespace ProjectFutureAdvannced.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "3c00b655-70d5-42a3-ae18-8433fec4f6f4");
+                keyValue: "1e09ebad-06a6-43b3-9b70-62fab5544fa9");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "5e3a570b-e7d5-41e5-a0c7-b2cc1e9ae623");
+                keyValue: "59155fdf-5402-49de-8a3c-62afb7360b17");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "d1e7f607-c08b-4612-b9b7-657ddb717032");
+                keyValue: "5f0b7ef5-c9bb-4116-80d5-4af56911f77f");
 
             migrationBuilder.DropColumn(
                 name: "Id",
                 table: "Card");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "UserId",
-                table: "Card",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_Card",
@@ -53,9 +45,9 @@ namespace ProjectFutureAdvannced.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "69ef6751-bf9b-473b-ad84-7185844d401d", null, "Admin", "ADMIN" },
-                    { "6beb218c-9623-4f3c-b98d-ac6b47960b8d", null, "Shop", "SHOP" },
-                    { "fc1728d4-634d-4782-bae7-74cd65bc318a", null, "User", "USER" }
+                    { "2bbaf133-ce2c-4b82-9faf-1bc8acce470c", null, "User", "USER" },
+                    { "2e03212c-05d4-45c9-aa42-563d7a337a4e", null, "Admin", "ADMIN" },
+                    { "6817b84a-c9b0-44e6-9d25-4736c6673565", null, "Shop", "SHOP" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -102,25 +94,17 @@ namespace ProjectFutureAdvannced.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "69ef6751-bf9b-473b-ad84-7185844d401d");
+                keyValue: "2bbaf133-ce2c-4b82-9faf-1bc8acce470c");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "6beb218c-9623-4f3c-b98d-ac6b47960b8d");
+                keyValue: "2e03212c-05d4-45c9-aa42-563d7a337a4e");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "fc1728d4-634d-4782-bae7-74cd65bc318a");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "UserId",
-                table: "Card",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int");
+                keyValue: "6817b84a-c9b0-44e6-9d25-4736c6673565");
 
             migrationBuilder.AddColumn<int>(
                 name: "Id",
@@ -140,9 +124,9 @@ namespace ProjectFutureAdvannced.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3c00b655-70d5-42a3-ae18-8433fec4f6f4", null, "User", "USER" },
-                    { "5e3a570b-e7d5-41e5-a0c7-b2cc1e9ae623", null, "Admin", "ADMIN" },
-                    { "d1e7f607-c08b-4612-b9b7-657ddb717032", null, "Shop", "SHOP" }
+                    { "1e09ebad-06a6-43b3-9b70-62fab5544fa9", null, "Admin", "ADMIN" },
+                    { "59155fdf-5402-49de-8a3c-62afb7360b17", null, "User", "USER" },
+                    { "5f0b7ef5-c9bb-4116-80d5-4af56911f77f", null, "Shop", "SHOP" }
                 });
         }
     }

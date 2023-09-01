@@ -51,19 +51,19 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "69ef6751-bf9b-473b-ad84-7185844d401d",
+                            Id = "2e03212c-05d4-45c9-aa42-563d7a337a4e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "fc1728d4-634d-4782-bae7-74cd65bc318a",
+                            Id = "2bbaf133-ce2c-4b82-9faf-1bc8acce470c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "6beb218c-9623-4f3c-b98d-ac6b47960b8d",
+                            Id = "6817b84a-c9b0-44e6-9d25-4736c6673565",
                             Name = "Shop",
                             NormalizedName = "SHOP"
                         });
@@ -291,39 +291,6 @@ namespace ProjectFutureAdvannced.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Post", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ShopId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShopId");
-
-                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", b =>
@@ -575,6 +542,39 @@ namespace ProjectFutureAdvannced.Migrations
                     b.ToTable("Gallery");
                 });
 
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ShopId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("Post");
+                });
+
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -673,17 +673,6 @@ namespace ProjectFutureAdvannced.Migrations
                     b.Navigation("IdentityUser");
                 });
 
-            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Post", b =>
-                {
-                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", "shop")
-                        .WithMany("posts")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("shop");
-                });
-
             modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", b =>
                 {
                     b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.AppUser", "IdentityUser")
@@ -729,6 +718,17 @@ namespace ProjectFutureAdvannced.Migrations
                 {
                     b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", "shop")
                         .WithMany("galleries")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("shop");
+                });
+
+            modelBuilder.Entity("ProjectFutureAdvannced.Models.Model.Post", b =>
+                {
+                    b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.Shop", "shop")
+                        .WithMany("posts")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -34,8 +34,10 @@ builder.Services.AddScoped<IAdminRepository, SqlAdminRepository>();
 builder.Services.AddScoped<IShopRepository, SqlShopRepository>();
 builder.Services.AddScoped<IUserRepository, SqlUserRepository>();
 builder.Services.AddScoped<ICategoryRepository, SqlCategoryRepository>();
-builder.Services.AddScoped<ICardRepository, SqlCardRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IProductRepository, SqlProductRepository>();
+//builder.Services.AddScoped< IWishlistRRepository, WishlistRepository>();
+
 #endregion
 /***************************************/
 var app = builder.Build();

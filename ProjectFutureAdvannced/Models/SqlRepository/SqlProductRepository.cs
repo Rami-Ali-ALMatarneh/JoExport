@@ -1,6 +1,8 @@
-﻿using ProjectFutureAdvannced.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectFutureAdvannced.Data;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
+using ProjectFutureAdvannced.Models.Model.AccountUser;
 using System.Linq.Expressions;
 
 namespace ProjectFutureAdvannced.Models.SqlRepository
@@ -46,11 +48,12 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             return appDbContext.products.Find(id);
             }
 
-        public Product Update( Product product )
+        public Product Update( Product productt )
             {
-              appDbContext.products.Update(product);
+            var product = appDbContext.products.Attach(productt);
+            product.State = EntityState.Modified;
             appDbContext.SaveChanges();
-            return product;
+            return productt;
             }
         }
     }

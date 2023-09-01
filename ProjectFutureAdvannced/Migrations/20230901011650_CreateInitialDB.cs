@@ -32,6 +32,7 @@ namespace ProjectFutureAdvannced.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -58,8 +59,8 @@ namespace ProjectFutureAdvannced.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,11 +113,10 @@ namespace ProjectFutureAdvannced.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Major = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -226,11 +226,10 @@ namespace ProjectFutureAdvannced.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Major = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -255,11 +254,10 @@ namespace ProjectFutureAdvannced.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Major = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -268,6 +266,51 @@ namespace ProjectFutureAdvannced.Migrations
                         name: "FK_User_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Gallery",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShopId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Gallery", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Gallery_Shop_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shop",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Post",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShopId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Post", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Post_Shop_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shop",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -301,9 +344,9 @@ namespace ProjectFutureAdvannced.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2b08df92-008c-48e0-8787-b63c64a1250c", null, "User", "USER" },
-                    { "3801d060-7b1e-42ef-a94b-7762ae4cdcd0", null, "Admin", "ADMIN" },
-                    { "dc558cba-2c96-4e20-a290-183eba97ebcb", null, "Shop", "SHOP" }
+                    { "1e09ebad-06a6-43b3-9b70-62fab5544fa9", null, "Admin", "ADMIN" },
+                    { "59155fdf-5402-49de-8a3c-62afb7360b17", null, "User", "USER" },
+                    { "5f0b7ef5-c9bb-4116-80d5-4af56911f77f", null, "Shop", "SHOP" }
                 });
 
             migrationBuilder.InsertData(
@@ -376,6 +419,16 @@ namespace ProjectFutureAdvannced.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Gallery_ShopId",
+                table: "Gallery",
+                column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Post_ShopId",
+                table: "Post",
+                column: "ShopId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_products_ShopId",
                 table: "products",
                 column: "ShopId");
@@ -417,6 +470,12 @@ namespace ProjectFutureAdvannced.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Gallery");
+
+            migrationBuilder.DropTable(
+                name: "Post");
 
             migrationBuilder.DropTable(
                 name: "products");

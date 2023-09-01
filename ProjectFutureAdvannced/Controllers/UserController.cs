@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
+using ProjectFutureAdvannced.Models.SqlRepository;
 using ProjectFutureAdvannced.ViewModels;
 using ProjectFutureAdvannced.ViewModels.AdminViewModel;
 using ProjectFutureAdvannced.ViewModels.UserViewModel;
@@ -18,11 +19,14 @@ namespace ProjectFutureAdvannced.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserRepository userRepository;
-        private readonly ICardRepository cardRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IProductRepository productRepository;
+        private readonly IShopRepository shopRepository;
+        private readonly ICartRepository cartRepository;
+        //private readonly IWishlistRRepository _wishlistRRepository;
 
-        public UserController( IProductRepository productRepository, ICardRepository cardRepository, IWebHostEnvironment webHostEnvironment, IUserRepository userRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
+
+        public UserController(/* IWishlistRRepository _wishlistRRepository, */ICartRepository cartRepository, IShopRepository shopRepository, IProductRepository productRepository, IWebHostEnvironment webHostEnvironment, IUserRepository userRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
             {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -30,6 +34,8 @@ namespace ProjectFutureAdvannced.Controllers
             this.userRepository = userRepository;
             this.webHostEnvironment = webHostEnvironment;
             this.productRepository = productRepository;
+            this.cartRepository= cartRepository;
+            //this._wishlistRRepository = _wishlistRRepository;
             }
         [HttpGet]
         public async Task<IActionResult> GeneralUserProfile()
@@ -173,25 +179,63 @@ namespace ProjectFutureAdvannced.Controllers
                 return View();
             return View(listOfInfoUser);
             }
-        public async Task<IActionResult> Card(int id,int productId)
+        public async Task<IActionResult> Card( int id, int productId )
             {
-            var user=await _userManager.GetUserAsync(User);
-            var cartt = cardRepository.GetCard(id);
-            if (cartt == null)
-                {
-                //Card card = new Card()
-                //    {
-                //    UserId = user.Id,
-                //    ProductId=productId,
-                //    };
-                //cardRepository.Add(card);
-                }
+            var user = await _userManager.GetUserAsync(User);
+            //var cartt = cardRepository.GetCard(id);
+            //if (cartt == null)
+            //    {
+            //    //Card card = new Card()
+            //    //    {
+            //    //    UserId = user.Id,
+            //    //    ProductId=productId,
+            //    //    };
+            //    //cardRepository.Add(card);
+            //    }
             return RedirectToAction("Index", "Home");
             }
-        public IActionResult MyProduct()
+        //public async Task<IActionResult> MyWishlist(int id )
+        //    {
+        //    var userIdentity=await _userManager.GetUserAsync(User);
+        //    var user = userRepository.GetByFk(userIdentity.Id);
+        //    var Products = _wishlistRRepository.ProductInWishList(user.Id);
+        //    return View(Products);
+        //    }
+        public async Task<IActionResult> AddCart( int id )
             {
-            var products = productRepository.GetAll();
-            return View(products);
+            var product = productRepository.GetById(id);
+
+            if (product == null)
+                {
+                // Handle case when the product doesn't exist
+                return NotFound();
+                }
+
+            var userIdentity = await _userManager.GetUserAsync(User);
+
+            if (userIdentity == null)
+                {
+                // Handle case when the user is not authenticated
+                return Unauthorized();
+                }
+
+            var user = userRepository.GetByFk(userIdentity.Id);
+
+            if (user == null)
+                {
+                // Handle case when the user doesn't exist
+                return NotFound();
+                }
+
+            Card card = new Card
+                {
+                ProductId = id,
+                UserId = user.Id,
+                };
+
+            cartRepository.Add(card);
+            return RedirectToAction("Store", "Home");
             }
+
         }
     }

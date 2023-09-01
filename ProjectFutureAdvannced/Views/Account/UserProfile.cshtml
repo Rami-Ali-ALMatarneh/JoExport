@@ -1,6 +1,8 @@
-﻿@{
+﻿@model ListOfInfo
+@{
     ViewBag.Title = "User Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = await userManager.GetUserAsync(User);
 }
 <link rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
@@ -16,15 +18,15 @@
                     <div class="account mb-4 p-4 d-flex justify-content-center align-items-center flex-column">
                         <div class="imgaccount">
                             @{
-                                var user = await userManager.GetUserAsync(User);
-                                var shop = ShopRepo.GetByFk(user.Id);
-                                var img = "/AccountImg/" + user.ImgUrl;
+                                //var user = await userManager.GetUserAsync(User);
+                                var shop = ShopRepo.GetByFk(Model.AppUser.Id);
+                                var img = "/AccountImg/" + Model.AppUser.ImgUrl;
                                 <img src="@img" />
                             }
                         </div>
                         <div class="infoAccount text-center">
-                            <h3>@shop.Name</h3>
-                            <p>@shop.Major</p>
+                            <h3>@Model.AppUser.UserName</h3>
+                            @*<p>@shop.Major</p>*@
                         </div>
                         <div class="btn-group mt-3 mb-3">
                             <a href="#" class="btn btn-outline-primary">Chat</a>

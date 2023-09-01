@@ -231,9 +231,14 @@ namespace ProjectFutureAdvannced.Controllers
             return View();
             }
         [Authorize]
-        public IActionResult UserProfile()
+        public async Task<IActionResult> UserProfile(string UserName )
             {
-            return View();
+            var user = await _userManager.FindByNameAsync(UserName);
+            ListOfInfo listOfInfo = new ListOfInfo()
+                {
+                AppUser = user,
+                };
+            return View(listOfInfo);
             }
         }
     }

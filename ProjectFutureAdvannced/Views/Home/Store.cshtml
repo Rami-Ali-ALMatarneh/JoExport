@@ -69,11 +69,16 @@
                                     <h6 class="mb-3 text-muted">@product.CategoryName</h6>
                                 </div>
                                 <p class="fw-bold btn-sm btn-primary m-0" style="width:fit-content">$@product.Price</p>
+
                                 <p style="font-size:12px" class="text-start">@product.Description</p>
                             </div>
-                            <div class="d-flex gap-3 storeBtn">
-                                <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class="small btn btn-outline-secondary">Learn More</a>
-                                <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class="small btn btn-primary ">Buy Now</a>
+                            
+                            <div class="d-flex flex-column gap-3 storeBtn">
+                                <a asp-controller="User" asp-action="AddCart" asp-route-id="@product.Id" class="small btn btn-outline-primary">Add To Wishlist</a>
+                                <div class="d-flex  gap-3">
+                                    <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class="small btn btn-outline-secondary">Learn More</a>
+                                    <a asp-controller="User" asp-action="AddCart" asp-route-id="@product.Id" class="small btn btn-primary ">Buy Now</a>
+                                </div>
 
                             </div>
                         </div>

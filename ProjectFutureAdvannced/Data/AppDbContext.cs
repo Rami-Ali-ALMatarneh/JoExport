@@ -15,6 +15,7 @@ namespace ProjectFutureAdvannced.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> products  { get; set; }
         public DbSet<Card> Card { get; set; }
+        //public DbSet<Wishlist> Wishlists { get; set; }
 
         public AppDbContext( DbContextOptions<AppDbContext> options ) : base(options)
             {
@@ -28,6 +29,7 @@ namespace ProjectFutureAdvannced.Data
             modelBuilder.setUniqueNameCategory();
             modelBuilder.setRelationShipProductShop();
             modelBuilder.CreateCardTable();
+            //modelBuilder.CreateWishListTable();
             //modelBuilder.setRShipShop_Category();
             //modelBuilder.setRShipProduct_Shoper();
             // modelBuilder.relationShipProductUser();

@@ -33,6 +33,7 @@ namespace ProjectFutureAdvannced.Models.Model
         public Shop shop { get; set; }
         public ICollection<User> users { get; set; }
         public List<Card> cards { get; set; }
+        //public List<Wishlist> Wishlists { get; set; }
 
         }
 

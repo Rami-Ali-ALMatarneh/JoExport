@@ -16,6 +16,6 @@ namespace ProjectFutureAdvannced.Models.Model.AccountUser
         public AppUser IdentityUser { get; set; }
         public ICollection<Product> Products { get; set; }
         public List<Card> cards { get; set; }
-
+        //public List<Wishlist> Wishlists { get; set; }
         }
     }

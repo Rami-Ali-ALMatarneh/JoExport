@@ -6,6 +6,7 @@ using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
+using ProjectFutureAdvannced.Models.SqlRepository;
 using ProjectFutureAdvannced.ViewModels;
 using ProjectFutureAdvannced.ViewModels.AdminViewModel;
 using ProjectFutureAdvannced.ViewModels.ProductViewModel;
@@ -20,18 +21,18 @@ namespace ProjectFutureAdvannced.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IShopRepository _shopRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly ICardRepository cardRepository;
+        private readonly ICartRepository cartRepository;
         private readonly ICategoryRepository categoryRepository;
         private readonly IProductRepository productRepository;
 
-        public ShopController( IProductRepository productRepository, ICategoryRepository categoryRepository, ICardRepository cardRepository,IWebHostEnvironment webHostEnvironment, IShopRepository _shopRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
+        public ShopController( IProductRepository productRepository, ICategoryRepository categoryRepository, ICartRepository cartRepository,IWebHostEnvironment webHostEnvironment, IShopRepository _shopRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
             {
             _userManager = userManager;
             _signInManager = signInManager;
             this._roleManager = _roleManager;
             this._shopRepository=_shopRepository;
             this.webHostEnvironment=webHostEnvironment;
-            this.cardRepository=cardRepository;
+            this.cartRepository =cartRepository;
             this.categoryRepository = categoryRepository;
             this.productRepository = productRepository;            
             }
