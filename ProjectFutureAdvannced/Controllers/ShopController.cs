@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
@@ -10,10 +11,11 @@ using ProjectFutureAdvannced.Models.SqlRepository;
 using ProjectFutureAdvannced.ViewModels;
 using ProjectFutureAdvannced.ViewModels.AdminViewModel;
 using ProjectFutureAdvannced.ViewModels.ProductViewModel;
+using ProjectFutureAdvannced.ViewModels.ShopViewModel;
 using ProjectFutureAdvannced.ViewModels.UserViewModel;
 
 namespace ProjectFutureAdvannced.Controllers
-{
+    {
     public class ShopController : Controller
         {
         private readonly UserManager<AppUser> _userManager;
@@ -24,17 +26,22 @@ namespace ProjectFutureAdvannced.Controllers
         private readonly ICartRepository cartRepository;
         private readonly ICategoryRepository categoryRepository;
         private readonly IProductRepository productRepository;
+        private readonly IPostRepository postRepository;
+        private readonly IGalleryRepository galleryRepository;
 
-        public ShopController( IProductRepository productRepository, ICategoryRepository categoryRepository, ICartRepository cartRepository,IWebHostEnvironment webHostEnvironment, IShopRepository _shopRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
+
+        public ShopController( IGalleryRepository galleryRepository, IPostRepository postRepository, IProductRepository productRepository, ICategoryRepository categoryRepository, ICartRepository cartRepository, IWebHostEnvironment webHostEnvironment, IShopRepository _shopRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
             {
             _userManager = userManager;
             _signInManager = signInManager;
             this._roleManager = _roleManager;
-            this._shopRepository=_shopRepository;
-            this.webHostEnvironment=webHostEnvironment;
-            this.cartRepository =cartRepository;
+            this._shopRepository = _shopRepository;
+            this.webHostEnvironment = webHostEnvironment;
+            this.cartRepository = cartRepository;
             this.categoryRepository = categoryRepository;
-            this.productRepository = productRepository;            
+            this.productRepository = productRepository;
+            this.postRepository = postRepository;
+            this.galleryRepository= galleryRepository;
             }
         public IActionResult Index()
             {
@@ -174,21 +181,21 @@ namespace ProjectFutureAdvannced.Controllers
 
             }
         [HttpGet]
-        public IActionResult AddProduct( )
+        public IActionResult AddProduct()
             {
             return View();
             }
-       
-        public IActionResult DeleteProduct(int id)
+
+        public IActionResult DeleteProduct( int id )
             {
             cartRepository.DeleteAllCardByProductId(id);
             productRepository.Delete(id);
             return View();
             }
         [HttpPost]
-        public async Task<IActionResult> AddProduct( CreateProduct model)
+        public async Task<IActionResult> AddProduct( CreateProduct model )
             {
-         if(ModelState.IsValid)
+            if (ModelState.IsValid)
                 {
 
                 string uniqueFileName = null;
@@ -210,7 +217,7 @@ namespace ProjectFutureAdvannced.Controllers
                 var shop = _shopRepository.GetByFk(user.Id);
                 product.ShopId = shop.Id;
                 productRepository.Add(product);
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
                 }
             return View();
             }
@@ -218,7 +225,7 @@ namespace ProjectFutureAdvannced.Controllers
             {
             var user = await _userManager.GetUserAsync(User);
             var shop = _shopRepository.GetByFk(user.Id);
-            var product = productRepository.Find(x=>x.ShopId==shop.Id);
+            var product = productRepository.Find(x => x.ShopId == shop.Id);
             return View(product);
             }
         [HttpGet]
@@ -243,7 +250,7 @@ namespace ProjectFutureAdvannced.Controllers
             return View(editProduct);
             }
         [HttpPost]
-        public async Task<IActionResult> EditProduct(int id,EditProductViewModel model)
+        public async Task<IActionResult> EditProduct( int id, EditProductViewModel model )
             {
             if (ModelState.IsValid)
                 {
@@ -276,6 +283,58 @@ namespace ProjectFutureAdvannced.Controllers
                 productToUpdate.Price = Convert.ToDouble(model.Price);
                 productRepository.Update(productToUpdate);
                 return RedirectToAction("MyProduct", "Shop");
+                }
+            return View();
+            }
+        [HttpPost]
+        public async Task<IActionResult> AddPost( PostViewModel model )
+            {
+            if (ModelState.IsValid)
+                {
+                string uniqueFileName = null;
+                string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "PostImage");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
+                string filePath = Path.Combine(uniqueUpload, uniqueFileName);
+                await model.ImageFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+
+                //var user = await _userManager.GetUserAsync(User);
+                //  var category = categoryRepository.GetByCategoryName(model.CategoryName);
+                // var shop = _shopRepository.Get(user.Id);
+                Post post = new Post();
+                post.Name = model.Name;
+                post.Description = model.Description;
+                post.ImageUrl = uniqueFileName;
+                var user = await _userManager.GetUserAsync(User);
+                var shop = _shopRepository.GetByFk(user.Id);
+                post.ShopId = shop.Id;
+                postRepository.Add(post);
+                return RedirectToAction("UserProfile", "Shop", new { Id = user.Id });
+                }
+            return View();
+            }
+        [HttpPost]
+        public async Task<IActionResult> AddPhoto( GalleryViewModel model )
+            {
+            if (ModelState.IsValid)
+                {
+                string uniqueFileName = null;
+                string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "imgGallery");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
+                string filePath = Path.Combine(uniqueUpload, uniqueFileName);
+                await model.ImageFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+
+                //var user = await _userManager.GetUserAsync(User);
+                //  var category = categoryRepository.GetByCategoryName(model.CategoryName);
+                // var shop = _shopRepository.Get(user.Id);
+                Gallery gallery = new Gallery();
+                gallery.Name = model.Name;
+                gallery.Description = model.Description;
+                gallery.ImageUrl = uniqueFileName;
+                var user = await _userManager.GetUserAsync(User);
+                var shop = _shopRepository.GetByFk(user.Id);
+                gallery.ShopId = shop.Id;
+                galleryRepository.Add(gallery);
+                return RedirectToAction("UserProfile", "Shop", new { Id = user.Id });
                 }
             return View();
             }

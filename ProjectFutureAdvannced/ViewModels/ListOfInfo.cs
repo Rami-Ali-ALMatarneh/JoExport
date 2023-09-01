@@ -2,6 +2,7 @@
 using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
 using ProjectFutureAdvannced.ViewModels.AdminViewModel;
+using ProjectFutureAdvannced.ViewModels.ShopViewModel;
 using ProjectFutureAdvannced.ViewModels.UserViewModel;
 
 namespace ProjectFutureAdvannced.ViewModels
@@ -16,6 +17,8 @@ namespace ProjectFutureAdvannced.ViewModels
         public GeneralInfoUser generalInfoUser { get; set; }
         public Categorys categorys { get; set; }
         public AppUser AppUser { get; set; }
+        public PostViewModel PostViewModel { get; set; }
+        public GalleryViewModel GalleryViewModel { get; set; }
 
         }
     }

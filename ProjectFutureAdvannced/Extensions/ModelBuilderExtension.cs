@@ -26,13 +26,13 @@ namespace ProjectFutureAdvannced.Extensions
                 .HasOne(e => e.Product)
                 .WithMany(e => e.cards)
                 .HasForeignKey(e => e.ProductId)
-                .OnDelete(DeleteBehavior.Cascade),
+                .OnDelete(DeleteBehavior.Restrict),
                 /*******************************/
                 j => j
                 .HasOne(e => e.User)
                 .WithMany(e => e.cards)
                 .HasForeignKey(e => e.UserId) 
-                .OnDelete(DeleteBehavior.Cascade),
+                .OnDelete(DeleteBehavior.Restrict),
                 j =>
                 {
                     j.HasKey(e => new { e.UserId, e.ProductId });
@@ -99,6 +99,12 @@ namespace ProjectFutureAdvannced.Extensions
             modelBuilder.Entity<Category>()
                    .HasIndex(e => e.Name)
                    .IsUnique();
+            }
+        public static void EditPost( this ModelBuilder modelBuilder )
+            {
+            modelBuilder.Entity<Post>()
+                .Property(e => e.DateTime)
+                .HasDefaultValueSql("GETDATE()");
             }
         public static void setRelationShipProductShop( this ModelBuilder modelBuilder )
             {

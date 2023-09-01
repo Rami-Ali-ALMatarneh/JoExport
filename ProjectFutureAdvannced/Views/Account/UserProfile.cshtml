@@ -89,25 +89,25 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" asp-action="AddPhoto" asp-controller="Shop" enctype="multipart/form-data">
+                                                    <form method="post" asp-action="AddPost" asp-controller="Shop" enctype="multipart/form-data">
                                                         <div class="mb-3">
-                                                            <label class="col-form-label">Post Title</label>
-                                                            <input type="text" class="form-control">
-                                                            <span class="text-danger"></span>
+                                                            <label class="col-form-label" asp-for="@Model.PostViewModel.Name">Post Title</label>
+                                                            <input type="text" asp-for="@Model.PostViewModel.Name" class="form-control">
+                                                            <span class="text-danger" asp-validation-for="@Model.PostViewModel.Name"></span>
 
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="formFile" class="form-label">Post Image</label>
-                                                            <input class="form-control" type="file" id="formFile">
-                                                            <span class="text-danger"></span>
+                                                            <label for="formFile" class="form-label" asp-for="@Model.PostViewModel.ImageFile">Post Image</label>
+                                                            <input class="form-control" asp-for="@Model.PostViewModel.ImageFile" type="file" id="formFile">
+                                                            <span class="text-danger" asp-validation-for="@Model.PostViewModel.ImageFile"></span>
 
                                                         </div>
                                                         <div class="mb-3">
                                                             <div class="form-floating">
-                                                                <textarea class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
-                                                                <label for="floatingTextarea2">Descrption</label>
+                                                                <textarea class="form-control" asp-for="@Model.PostViewModel.Description" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                                                                <label for="floatingTextarea2" asp-for="@Model.PostViewModel.Description">Descrption</label>
                                                             </div>
-                                                            <span class="text-danger"></span>
+                                                            <span class="text-danger" asp-validation-for="@Model.PostViewModel.Description"></span>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -358,29 +358,32 @@
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                                         <form method="post" asp-action="AddPhoto" asp-controller="Shop" enctype="multipart/form-data">
+
+
                                                                                                             <div class="mb-3">
-                                                                                                                <label class="col-form-label">Image Title</label>
-                                                                                                                <input type="text" class="form-control">
-                                                                                                                <span class="text-danger"></span>
+                                                                                                                                        <label class="col-form-label" asp-for="@Model.GalleryViewModel.Name">Image Title</label>
+                                                                                                                <input type="text" asp-for="@Model.GalleryViewModel.Name" class="form-control">
+                                                                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.Name"></span>
 
                                                                                                             </div>
                                                                                                             <div class="mb-3">
-                                                                                                                <label for="formFile" class="form-label">Image</label>
-                                                                                                                <input class="form-control" type="file" id="formFile">
-                                                                                                                <span class="text-danger"></span>
+                                                                                                                <label for="formFile" class="form-label" asp-for="@Model.GalleryViewModel.ImageFile">Image</label>
+                                                                                                                <input class="form-control" asp-for="@Model.GalleryViewModel.ImageFile" type="file" id="formFile">
+                                                                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.ImageFile"></span>
 
                                                                                                             </div>
                                                                                                             <div class="mb-3">
                                                                                                                 <div class="form-floating">
-                                                                                                                    <textarea class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
-                                                                                                                    <label for="floatingTextarea2">Descrption</label>
+                                                                                                                    <textarea class="form-control" asp-for="@Model.GalleryViewModel.Description" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                                                                                                                    <label for="floatingTextarea2" asp-for="@Model.GalleryViewModel.Description">Descrption</label>
                                                                                                                 </div>
-                                                                                                                <span class="text-danger"></span>
+                                                                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.Description"></span>
                                                                                                             </div>
                                                                                                             <div class="modal-footer">
                                                                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                                                <input type="submit" class="btn btn-primary" value="Add To Gallery">
+                                                                                                                <input type="submit" class="btn btn-primary" value="Create">
                                                                                                             </div>
+                                                                                           
                                                                                                         </form>
                                                                             </div>
                                                                         </div>

@@ -1980,7 +1980,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\ShopViewModel\" />
+    <Folder Include="wwwroot\GalleryImage\" />
+    <Folder Include="wwwroot\PostImage\" />
     <Folder Include="wwwroot\ProductImg\" />
     <Folder Include="wwwroot\StoreFile\" />
   </ItemGroup>

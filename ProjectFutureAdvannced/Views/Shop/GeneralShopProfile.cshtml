@@ -27,7 +27,7 @@
                     <a asp-controller="Shop" asp-action="SecurityUser" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> Security Information</a>
                     <a asp-controller="Shop" asp-action="MyProduct" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> My Product</a>
                    
-                    <a asp-action="UserProfile" asp-controller="Account" class="list-group-item list-group-item-action">
+                    <a asp-controller="Account" asp-action="UserProfile" asp-route-UserName="@user.UserName" class="list-group-item list-group-item-action">
                         <i class="fa-solid fa-id-card"></i> View Posts & Gallery
                     </a>  
                     <a asp-action="VipShop" asp-controller="Shop" class="list-group-item list-group-item-action">

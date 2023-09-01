@@ -36,6 +36,8 @@ builder.Services.AddScoped<IUserRepository, SqlUserRepository>();
 builder.Services.AddScoped<ICategoryRepository, SqlCategoryRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IProductRepository, SqlProductRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
 //builder.Services.AddScoped< IWishlistRRepository, WishlistRepository>();
 
 #endregion
