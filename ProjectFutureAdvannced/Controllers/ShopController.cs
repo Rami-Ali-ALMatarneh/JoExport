@@ -181,6 +181,7 @@ namespace ProjectFutureAdvannced.Controllers
        
         public IActionResult DeleteProduct(int id)
             {
+            cartRepository.DeleteAllCardByProductId(id);
             productRepository.Delete(id);
             return View();
             }
@@ -219,6 +220,64 @@ namespace ProjectFutureAdvannced.Controllers
             var shop = _shopRepository.GetByFk(user.Id);
             var product = productRepository.Find(x=>x.ShopId==shop.Id);
             return View(product);
+            }
+        [HttpGet]
+        public IActionResult EditProduct( int id )
+            {
+
+            var product = productRepository.GetById(id);
+            if (product == null)
+                {
+                return NotFound();
+                }
+
+            EditProductViewModel editProduct = new EditProductViewModel
+                {
+                Name = product.Name,
+                Description = product.Description,
+                CategoryName = product.CategoryName,
+                Price = product.Price.ToString(),
+                Image = product.Image,
+                };
+
+            return View(editProduct);
+            }
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(int id,EditProductViewModel model)
+            {
+            if (ModelState.IsValid)
+                {
+                var productToUpdate = productRepository.GetById(id);
+
+                if (productToUpdate == null)
+                    {
+                    return NotFound();
+                    }
+
+                if (model.formFile != null)
+                    {
+                    if (!string.IsNullOrEmpty(productToUpdate.Image))
+                        {
+                        var oldImagePath = Path.Combine(webHostEnvironment.WebRootPath, "ProductImg", productToUpdate.Image);
+                        if (System.IO.File.Exists(oldImagePath))
+                            {
+                            System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.formFile.FileName;
+                    string filePath = Path.Combine(webHostEnvironment.WebRootPath, "ProductImg", uniqueFileName);
+                    await model.formFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                    productToUpdate.Image = uniqueFileName;
+                    }
+                productToUpdate.Name = model.Name;
+                productToUpdate.Description = model.Description;
+                productToUpdate.CategoryName = model.CategoryName;
+                productToUpdate.Price = Convert.ToDouble(model.Price);
+                productRepository.Update(productToUpdate);
+                return RedirectToAction("MyProduct", "Shop");
+                }
+            return View();
             }
         }
     }

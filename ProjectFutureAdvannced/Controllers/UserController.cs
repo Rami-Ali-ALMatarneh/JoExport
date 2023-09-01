@@ -172,11 +172,11 @@ namespace ProjectFutureAdvannced.Controllers
         public async Task<IActionResult> listCart()
             {
             var user = await _userManager.GetUserAsync(User);
+            var UserAccount = userRepository.GetByFk(user.Id);
             ListOfInfoUser listOfInfoUser = new ListOfInfoUser
                 {
+                Products = cartRepository.GetAllProductByUserId(UserAccount.Id),
                 };
-            if (listOfInfoUser.cards == null)
-                return View();
             return View(listOfInfoUser);
             }
         public async Task<IActionResult> Card( int id, int productId )

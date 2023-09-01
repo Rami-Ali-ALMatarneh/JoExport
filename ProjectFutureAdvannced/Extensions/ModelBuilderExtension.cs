@@ -26,13 +26,13 @@ namespace ProjectFutureAdvannced.Extensions
                 .HasOne(e => e.Product)
                 .WithMany(e => e.cards)
                 .HasForeignKey(e => e.ProductId)
-                .OnDelete(DeleteBehavior.Restrict),
+                .OnDelete(DeleteBehavior.Cascade),
                 /*******************************/
                 j => j
                 .HasOne(e => e.User)
                 .WithMany(e => e.cards)
                 .HasForeignKey(e => e.UserId) 
-                .OnDelete(DeleteBehavior.Restrict),
+                .OnDelete(DeleteBehavior.Cascade),
                 j =>
                 {
                     j.HasKey(e => new { e.UserId, e.ProductId });
