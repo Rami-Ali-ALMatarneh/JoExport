@@ -1,4 +1,5 @@
-﻿using ProjectFutureAdvannced.Models.Model;
+﻿using ProjectFutureAdvannced.Models.Enums;
+using ProjectFutureAdvannced.Models.Model;
 using System.Linq.Expressions;
 
 namespace ProjectFutureAdvannced.Models.IRepository
@@ -10,6 +11,9 @@ namespace ProjectFutureAdvannced.Models.IRepository
         public Product Delete(int id) ;
         public Product GetById( int id );
         public IEnumerable<Product> Find( Expression<Func<Product, bool>> predicate ) ;
+        public IEnumerable<Product> GetAllByCategory( Categorys categorys );
+        public IEnumerable<Product> StoreBySearch( char FirstLatter );
+
 
         public IEnumerable<Product> GetAll() ;
        // public IEnumerable<Product> GetAllByFK(int id) ;

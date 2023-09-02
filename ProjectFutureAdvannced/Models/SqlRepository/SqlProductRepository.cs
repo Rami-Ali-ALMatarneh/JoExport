@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectFutureAdvannced.Data;
+using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
@@ -54,6 +55,18 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             product.State = EntityState.Modified;
             appDbContext.SaveChanges();
             return productt;
+            }
+        public IEnumerable<Product> GetAllByCategory(Categorys categorys )
+            {
+            return appDbContext.products.Where(e => e.CategoryName == categorys);
+            }
+
+        public IEnumerable<Product> StoreBySearch( char FirstLatter )
+            {
+            var productsStartingWithLetter = appDbContext.products
+      .Where(p => EF.Functions.Like(p.Name, FirstLatter + "%"))
+      .ToList();
+            return productsStartingWithLetter;
             }
         }
     }

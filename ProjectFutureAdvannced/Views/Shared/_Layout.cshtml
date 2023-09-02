@@ -64,7 +64,7 @@
                             <li><hr class="dropdown-divider" style="height:1px"></li>
                             @foreach (var product in Enum.GetValues(typeof(ProjectFutureAdvannced.Models.Enums.Categorys)))
                                 {
-                                <li><a asp-action="Store" asp-controller="Home" asp-route-id="@product" class="dropdown-item">@product</a></li>
+                                <li><a asp-action="StoreByCategory" asp-controller="Home" asp-route-id="@product" class="dropdown-item">@product</a></li>
                                 }
                         </ul>
                     </li>

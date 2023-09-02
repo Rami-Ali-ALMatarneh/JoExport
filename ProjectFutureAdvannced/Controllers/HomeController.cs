@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.IRepository;
+using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
 using ProjectFutureAdvannced.ViewModels;
 using ProjectFutureAdvannced.ViewModels.ProductViewModel;
@@ -50,8 +51,35 @@ namespace ProjectFutureAdvannced.Controllers
         public IActionResult Store()
             {
             var product = productRepository.GetAll();
+            ListOfInfo listOfInfo = new ListOfInfo();
+            listOfInfo.products = product;
+            return View(listOfInfo);
+            }
+        [AllowAnonymous]
+
+        public IActionResult StoreByCategory(Categorys id)
+            {
+            var product = productRepository.GetAllByCategory(id);
             return View(product);
             }
+        [AllowAnonymous]
+        public IActionResult StoreBySearch( ListOfInfo model )
+            {
+            if (string.IsNullOrEmpty(model.SearchProduct.product) || model.SearchProduct.product.Length != 1)
+                { 
+                // Handle invalid input, e.g., return an empty list or an error message
+                return View(productRepository.GetAll());
+                }
+            model.SearchProduct.product = model.SearchProduct.product.ToUpper(); // Convert to uppercase to ensure case-insensitive search
+            var product = productRepository.StoreBySearch(model.SearchProduct.product[0]);
+            return View(product);
+            }
+        //[AllowAnonymous]
+        //[HttpGet]
+        //public IActionResult StoreBySearch( List<Product> products)
+        //    {
+        //    return View(products);
+        //    }
         public async Task<IActionResult> Details( int id )
             {
             var Product = productRepository.GetById(id);
