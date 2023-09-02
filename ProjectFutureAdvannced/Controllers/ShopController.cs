@@ -286,10 +286,15 @@ namespace ProjectFutureAdvannced.Controllers
                 }
             return View();
             }
-        [HttpPost]
-        public async Task<IActionResult> AddPost( PostViewModel model )
+        public IActionResult Create()
             {
-            if (ModelState.IsValid)
+            PostViewModel model = new PostViewModel();
+            return PartialView("_PostPartialView", model);
+            }
+        [HttpPost]
+        public async Task<IActionResult> Create( PostViewModel model )
+            {
+          if (ModelState.IsValid)
                 {
                 string uniqueFileName = null;
                 string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "PostImage");
@@ -310,7 +315,7 @@ namespace ProjectFutureAdvannced.Controllers
                 postRepository.Add(post);
                 return RedirectToAction("UserProfile", "Shop", new { Id = user.Id });
                 }
-            return View();
+            return PartialView("_PostPartialView", model));
             }
         [HttpPost]
         public async Task<IActionResult> AddPhoto( GalleryViewModel model )
@@ -337,6 +342,16 @@ namespace ProjectFutureAdvannced.Controllers
                 return RedirectToAction("UserProfile", "Shop", new { Id = user.Id });
                 }
             return View();
+            }
+        [Authorize]
+        public async Task<IActionResult> UserProfile( string UserName )
+            {
+            var user = await _userManager.FindByNameAsync(UserName);
+            ListOfInfo listOfInfo = new ListOfInfo()
+                {
+                AppUser = user,
+                };
+            return View(listOfInfo);
             }
         }
     }

@@ -77,47 +77,8 @@
                             <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
                                 <div class="d-flex justify-content-center align-items-center">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalIn">
-                                       Add Post <i class="fa-solid fa-image"></i>
+                                        Add Post <i class="fa-solid fa-image"></i>
                                     </button>
-                                    <div class="modal fade" id="exampleModalIn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel2">Create Post</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" asp-action="AddPost" asp-controller="Shop" enctype="multipart/form-data">
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label" asp-for="@Model.PostViewModel.Name">Post Title</label>
-                                                            <input type="text" asp-for="@Model.PostViewModel.Name" class="form-control">
-                                                            <span class="text-danger" asp-validation-for="@Model.PostViewModel.Name"></span>
-
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="formFile" class="form-label" asp-for="@Model.PostViewModel.ImageFile">Post Image</label>
-                                                            <input class="form-control" asp-for="@Model.PostViewModel.ImageFile" type="file" id="formFile">
-                                                            <span class="text-danger" asp-validation-for="@Model.PostViewModel.ImageFile"></span>
-
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <div class="form-floating">
-                                                                <textarea class="form-control" asp-for="@Model.PostViewModel.Description" placeholder="Leave a comment here" style="height: 100px"></textarea>
-                                                                <label for="floatingTextarea2" asp-for="@Model.PostViewModel.Description">Descrption</label>
-                                                            </div>
-                                                            <span class="text-danger" asp-validation-for="@Model.PostViewModel.Description"></span>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <input type="submit" class="btn btn-primary" value="Create">
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             }
@@ -338,7 +299,7 @@
                             <h6 class="fw-bold headP">Gallery</h6>
                         </div>
 
-                        @{
+                        @*@{
                             if (await userManager.IsInRoleAsync(user, "Shop"))
                                 {
                                 <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
@@ -346,54 +307,54 @@
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalOut">
                                             Add Photo <i class="fa-solid fa-image"></i>
                                         </button>
-                                        <div class="modal fade" id="exampleModalOut" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="exampleModalOut" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
+                                                <div class="modal-content">
 
-                                                                            <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalLabel2">Add Photo To Gallery</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                                        <form method="post" asp-action="AddPhoto" asp-controller="Shop" enctype="multipart/form-data">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel2">Add Photo To Gallery</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" asp-action="AddPhoto" asp-controller="Shop" asp- enctype="multipart/form-data">
 
 
-                                                                                                            <div class="mb-3">
-                                                                                                                                        <label class="col-form-label" asp-for="@Model.GalleryViewModel.Name">Image Title</label>
-                                                                                                                <input type="text" asp-for="@Model.GalleryViewModel.Name" class="form-control">
-                                                                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.Name"></span>
+                                                            <div class="mb-3">
+                                                                <label class="col-form-label" asp-for="@Model.GalleryViewModel.Name">Image Title</label>
+                                                                <input type="text" asp-for="@Model.GalleryViewModel.Name" class="form-control">
+                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.Name"></span>
 
-                                                                                                            </div>
-                                                                                                            <div class="mb-3">
-                                                                                                                <label for="formFile" class="form-label" asp-for="@Model.GalleryViewModel.ImageFile">Image</label>
-                                                                                                                <input class="form-control" asp-for="@Model.GalleryViewModel.ImageFile" type="file" id="formFile">
-                                                                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.ImageFile"></span>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label" asp-for="@Model.GalleryViewModel.ImageFile">Image</label>
+                                                                <input class="form-control" asp-for="@Model.GalleryViewModel.ImageFile" type="file" id="formFile">
+                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.ImageFile"></span>
 
-                                                                                                            </div>
-                                                                                                            <div class="mb-3">
-                                                                                                                <div class="form-floating">
-                                                                                                                    <textarea class="form-control" asp-for="@Model.GalleryViewModel.Description" placeholder="Leave a comment here" style="height: 100px"></textarea>
-                                                                                                                    <label for="floatingTextarea2" asp-for="@Model.GalleryViewModel.Description">Descrption</label>
-                                                                                                                </div>
-                                                                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.Description"></span>
-                                                                                                            </div>
-                                                                                                            <div class="modal-footer">
-                                                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                                                <input type="submit" class="btn btn-primary" value="Create">
-                                                                                                            </div>
-                                                                                           
-                                                                                                        </form>
-                                                                            </div>
-                                                                        </div>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <div class="form-floating">
+                                                                    <textarea class="form-control" asp-for="@Model.GalleryViewModel.Description" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                                                                    <label for="floatingTextarea2" asp-for="@Model.GalleryViewModel.Description">Descrption</label>
+                                                                </div>
+                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.Description"></span>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <input type="submit" class="btn btn-primary" value="Create">
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 }
-                        }
+                        }*@
 
                         <div class="row no-gutters">
                             <div class="col-md-6 col-lg-4 item zoom-on-hover">
@@ -493,3 +454,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+@await Html.PartialAsync("_PostPartialView",Model.PostViewModel);

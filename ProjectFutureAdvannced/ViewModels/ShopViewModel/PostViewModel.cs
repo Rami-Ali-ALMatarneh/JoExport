@@ -9,6 +9,6 @@ namespace ProjectFutureAdvannced.ViewModels.ShopViewModel
         [Required]
         public string Description { get; set; }
         public string? ImageUrl { get; set; }
-        public FormFile? ImageFile { get; set; } 
+        public FormFile ImageFile { get; set; } 
         }
     }

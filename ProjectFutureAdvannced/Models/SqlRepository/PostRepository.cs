@@ -29,7 +29,7 @@ public class PostRepository : IPostRepository
         return Posts;
         }
 
-    public IEnumerable<Post> GetAll( int id )
+    public IEnumerable<Post> GetAll(  )
         {
         return appDbContext.posts;
         }
@@ -53,6 +53,6 @@ public interface IPostRepository
     public Post Update( Post card );
     public Post Delete( int id );
     public IEnumerable<Post> GetPostByShopId( int id );
-    public IEnumerable<Post> GetAll( int id );
+    public IEnumerable<Post> GetAll( );
     }
 

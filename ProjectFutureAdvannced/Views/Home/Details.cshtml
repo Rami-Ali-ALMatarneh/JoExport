@@ -18,7 +18,7 @@
                         <p>Author</p>
                         @{
                             var user = await userManager.FindByIdAsync(Model.UserId);
-                            <a asp-controller="Account" asp-action="UserProfile" asp-route-UserName="@user.UserName">
+                            <a asp-controller="Shop" asp-action="UserProfile" asp-route-UserName="@user.UserName">
                                 <h5>@user.UserName</h5>
                             </a>
                         }

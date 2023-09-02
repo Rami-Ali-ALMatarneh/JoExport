@@ -230,15 +230,15 @@ namespace ProjectFutureAdvannced.Controllers
                 }
             return View();
             }
-        [Authorize]
-        public async Task<IActionResult> UserProfile(string UserName )
-            {
-            var user = await _userManager.FindByNameAsync(UserName);
-            ListOfInfo listOfInfo = new ListOfInfo()
-                {
-                AppUser = user,
-                };
-            return View(listOfInfo);
-            }
+        //[Authorize]
+        //public async Task<IActionResult> UserProfile(string UserName )
+        //    {
+        //    var user = await _userManager.FindByNameAsync(UserName);
+        //    ListOfInfo listOfInfo = new ListOfInfo()
+        //        {
+        //        AppUser = user,
+        //        };
+        //    return View(listOfInfo);
+        //    }
         }
     }
