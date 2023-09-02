@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Build.Framework;
 
 namespace ProjectFutureAdvannced.ViewModels.ShopViewModel
     {
@@ -9,6 +9,7 @@ namespace ProjectFutureAdvannced.ViewModels.ShopViewModel
         [Required]
         public string Description { get; set; }
         public string? ImageUrl { get; set; }
-        public FormFile ImageFile { get; set; } 
+        public DateTime? DateTime { get; set; }
+        public IFormFile? ImageFile { get; set; }
         }
     }

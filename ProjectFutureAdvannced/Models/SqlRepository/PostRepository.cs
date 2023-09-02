@@ -46,13 +46,18 @@ public class PostRepository : IPostRepository
         appDbContext.SaveChanges();
         return card;
         }
+    public Post Get( int id )
+        {
+        return appDbContext.posts.Find(id);
+        }
     }
 public interface IPostRepository
     {
     public Post Add( Post card );
     public Post Update( Post card );
+    public Post Get(int id );
     public Post Delete( int id );
-    public IEnumerable<Post> GetPostByShopId( int id );
+    public  IEnumerable<Post> GetPostByShopId( int id );
     public IEnumerable<Post> GetAll( );
     }
 

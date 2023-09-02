@@ -28,7 +28,7 @@ public class GalleryRepository : IGalleryRepository
         return Posts;
         }
 
-    public IEnumerable<Gallery> GetAll( int id )
+    public IEnumerable<Gallery> GetAll()
         {
         return appDbContext.galleries;
         }
@@ -52,7 +52,7 @@ public interface IGalleryRepository
     public Gallery Update( Gallery card );
     public Gallery Delete( int id );
     public IEnumerable<Gallery> GetPostByShopId( int id );
-    public IEnumerable<Gallery> GetAll( int id );
+    public IEnumerable<Gallery> GetAll();
 
     }
 

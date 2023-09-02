@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
@@ -17,23 +19,38 @@ namespace ProjectFutureAdvannced.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IAdminRepository adminRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public AdminController( IWebHostEnvironment webHostEnvironment, IAdminRepository adminRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
+        private readonly ICategoryRepository categoryRepository;
+        private readonly IProductRepository productRepository;
+        public AdminController(IProductRepository productRepository, IWebHostEnvironment webHostEnvironment, IAdminRepository adminRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager,ICategoryRepository categoryRepository )
             {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = _roleManager;
             this.adminRepository = adminRepository;
             this.webHostEnvironment = webHostEnvironment;
-            }
-        public IActionResult Index()
-            {
+            this.categoryRepository = categoryRepository;
+            this.productRepository = productRepository;
+        }
+        public async Task<IActionResult> IndexAsync()
+        {
+            var users = await _userManager.Users.ToListAsync();
 
-            return View();
-            }
-        public IActionResult table()
-            {
-            return View();
-            }
+
+            return View(users);
+        }
+        public async Task<IActionResult> tableAsync()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            ListOfInfoAdmin listOfInfoAdmin = new ListOfInfoAdmin();
+            listOfInfoAdmin.appUsers = users;
+            return View(users);
+        }
+        public IActionResult category()
+        {
+            var categories = categoryRepository.GetAll();
+            return View(categories);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GeneralProfile()
             {

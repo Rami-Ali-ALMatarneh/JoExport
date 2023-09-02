@@ -286,6 +286,84 @@ namespace ProjectFutureAdvannced.Controllers
                 }
             return View();
             }
+
+
+        [Authorize]
+        public async Task<IActionResult> UserProfile( string UserName )
+            {
+            var user = await _userManager.FindByNameAsync(UserName);
+            var shop = _shopRepository.GetByFk(user.Id);
+            var posts =  postRepository.GetPostByShopId(shop.Id);
+            var gallery = galleryRepository.GetPostByShopId(shop.Id);
+
+            ListOfInfo listOfInfo = new ListOfInfo()
+                {
+                AppUser = user,
+                Posts = posts,
+                galleries = gallery,
+                };
+            return View(listOfInfo);
+            }
+        [HttpGet]
+        public IActionResult EditPost( int id )
+            {
+
+            var post = postRepository.Get(id);
+            if (post == null)
+                {
+                return NotFound();
+                }
+
+            PostViewModel editProduct = new PostViewModel
+                {
+                Name = post.Name,
+                Description = post.Description,
+                ImageUrl= post.ImageUrl,
+                };
+
+            return View(editProduct);
+            }
+        [HttpPost]
+        public async Task<IActionResult> EditPost( int id, PostViewModel model )
+            {
+            if (ModelState.IsValid)
+                {
+                var PostToUpdate = postRepository.Get(id);
+
+                if (PostToUpdate == null)
+                    {
+                    return NotFound();
+                    }
+
+                if (model.ImageFile != null)
+                    {
+                    if (!string.IsNullOrEmpty(PostToUpdate.ImageUrl))
+                        {
+                        var oldImagePath = Path.Combine(webHostEnvironment.WebRootPath, "ProductImg", PostToUpdate.ImageUrl);
+                        if (System.IO.File.Exists(oldImagePath))
+                            {
+                            System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
+                    string filePath = Path.Combine(webHostEnvironment.WebRootPath, "ProductImg", uniqueFileName);
+                    await model.ImageFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                    PostToUpdate.ImageUrl = uniqueFileName;
+                    }
+                PostToUpdate.Name = model.Name;
+                PostToUpdate.Description = model.Description;
+                var user = await _userManager.GetUserAsync(User);
+                return RedirectToAction("UserProfile", "Shop", new {UserName=user.UserName});
+                }
+            return View();
+            }
+        public async Task<IActionResult> DeletePost( int id )
+            {
+            postRepository.Delete(id);
+            var user = await _userManager.GetUserAsync(User);
+            return RedirectToAction("UserProfile", "Shop", new {UserName= user.UserName});
+            }
         public IActionResult Create()
             {
             PostViewModel model = new PostViewModel();
@@ -297,10 +375,14 @@ namespace ProjectFutureAdvannced.Controllers
           if (ModelState.IsValid)
                 {
                 string uniqueFileName = null;
-                string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "PostImage");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
-                string filePath = Path.Combine(uniqueUpload, uniqueFileName);
-                await model.ImageFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                if (model.ImageFile != null)
+                    {
+                    string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "PostImage");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
+                    string filePath = Path.Combine(uniqueUpload, uniqueFileName);
+                    await model.ImageFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                    model.ImageUrl = uniqueFileName;
+                    }
 
                 //var user = await _userManager.GetUserAsync(User);
                 //  var category = categoryRepository.GetByCategoryName(model.CategoryName);
@@ -308,14 +390,14 @@ namespace ProjectFutureAdvannced.Controllers
                 Post post = new Post();
                 post.Name = model.Name;
                 post.Description = model.Description;
-                post.ImageUrl = uniqueFileName;
+                post.ImageUrl = model.ImageUrl;
                 var user = await _userManager.GetUserAsync(User);
                 var shop = _shopRepository.GetByFk(user.Id);
                 post.ShopId = shop.Id;
                 postRepository.Add(post);
-                return RedirectToAction("UserProfile", "Shop", new { Id = user.Id });
+                return RedirectToAction("UserProfile", "Shop", new { UserName = user. UserName});
                 }
-            return PartialView("_PostPartialView", model));
+            return PartialView("_PostPartialView", model);
             }
         [HttpPost]
         public async Task<IActionResult> AddPhoto( GalleryViewModel model )
@@ -342,16 +424,6 @@ namespace ProjectFutureAdvannced.Controllers
                 return RedirectToAction("UserProfile", "Shop", new { Id = user.Id });
                 }
             return View();
-            }
-        [Authorize]
-        public async Task<IActionResult> UserProfile( string UserName )
-            {
-            var user = await _userManager.FindByNameAsync(UserName);
-            ListOfInfo listOfInfo = new ListOfInfo()
-                {
-                AppUser = user,
-                };
-            return View(listOfInfo);
             }
         }
     }

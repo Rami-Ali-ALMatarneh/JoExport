@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProjectFutureAdvannced.Models.Enums;
 
 namespace ProjectFutureAdvannced.Models.Model.AccountUser
     {

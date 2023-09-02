@@ -17,7 +17,7 @@ namespace ProjectFutureAdvannced.Data
         public DbSet<Card> Card { get; set; }
         public DbSet<Post> posts { get; set; }  
         public DbSet<Gallery> galleries { get; set; }
-        //public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
 
         public AppDbContext( DbContextOptions<AppDbContext> options ) : base(options)
             {

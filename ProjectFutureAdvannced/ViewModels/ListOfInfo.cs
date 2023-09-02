@@ -11,6 +11,8 @@ namespace ProjectFutureAdvannced.ViewModels
         {
         public IEnumerable<Category> categories { get; set; }
         public IEnumerable<Product> products { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
+
         public IEnumerable<Card> cards { get; set; }
         public IEnumerable<Shop> shops { get; set; }
         public Account carrentUser { get; set; }
@@ -19,6 +21,7 @@ namespace ProjectFutureAdvannced.ViewModels
         public AppUser AppUser { get; set; }
         public PostViewModel PostViewModel { get; set; }
         public GalleryViewModel GalleryViewModel { get; set; }
+
 
         }
     }

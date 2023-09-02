@@ -71,225 +71,91 @@
                     <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
                         <h6 class="fw-bold headP">Posts</h6>
                     </div>
-                    @{
-                        if (await userManager.IsInRoleAsync(user, "Shop"))
-                            {
-                            <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalIn">
-                                        Add Post <i class="fa-solid fa-image"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            }
-                    }
-                    <div class="row">
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
+
+                    @if (await userManager.IsInRoleAsync(user, "Shop"))
+                        {
+                        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalIn">
+                                    Add Post <i class="fa-solid fa-image"></i>
+                                </button>
                             </div>
                         </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Blorange</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
+                        <div class="row">
+                            <!-- Gallery item -->
+                            @foreach (var post in Model.Posts)
+                                {
+                                var imgs = "/PostImage/" + post.ImageUrl;
+
+
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                                    <div class="bg-white rounded shadow-sm">
+                                        @if (post.ImageUrl != null)
+                                            {
+                                            <img src="@imgs" alt="" class="img-fluid card-img-top">
+                                            }
+                                        else
+                                            {
+                                            <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
+                                            }
+                                        <div class="p-4">
+                                            <h5> @post.Name</h5>
+                                            <p class="small text-muted mb-0">@post.Description</p>
+                                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                                <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
+                                                    <span class="small text">@post.DateTime</span>
+                                                    <span><i class="fa-solid fa-calendar-days"></i></span>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex flex-column gap-3 mb-3">
+                                                <a class="btn btn-success" asp-action="EditPost" asp-controller="Shop" asp-route-id="@post.Id">Edit</a>
+                                                <a class="btn btn-danger" asp-action="DeletePost" asp-controller="Shop" asp-route-id="@post.Id">Delete</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">And She Realized</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">DOSE Juice</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-5.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Pineapple</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-7.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Teal Gameboy</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-8.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Color in Guatemala.</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                        <!-- Gallery item -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="bg-white rounded shadow-sm">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
-                                <div class="p-4">
-                                    <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                        <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
-                                            <span class="small text">@DateTime.Now</span>
-                                            <span><i class="fa-solid fa-calendar-days"></i></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                                <!-- End -->
+                                }
+
 
                         </div>
-                        <!-- End -->
-                    </div>
+                        }
+                    else
+                        {
+                        <div class="row">
+                            <!-- Gallery item -->
+                            @foreach (var post in Model.Posts)
+                                {
+                                var imgs = "/PostImage/" + post.ImageUrl;
+
+
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                                    <div class="bg-white rounded shadow-sm">
+                                        @if (post.ImageUrl != null)
+                                            {
+                                            <img src="@imgs" alt="" class="img-fluid card-img-top">
+                                            }
+                                        else
+                                            {
+                                            <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
+                                            }
+                                        <div class="p-4">
+                                            <h5> @post.Name</h5>
+                                            <p class="small text-muted mb-0">@post.Description</p>
+                                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                                <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
+                                                    <span class="small text">@post.DateTime</span>
+                                                    <span><i class="fa-solid fa-calendar-days"></i></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End -->
+                                }
+                        </div>
+
+                        }
                 </div>
                 <div class="carousel-item" style="perspective: none">
 
@@ -299,7 +165,7 @@
                             <h6 class="fw-bold headP">Gallery</h6>
                         </div>
 
-                        @*@{
+                        @{
                             if (await userManager.IsInRoleAsync(user, "Shop"))
                                 {
                                 <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
@@ -307,54 +173,11 @@
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalOut">
                                             Add Photo <i class="fa-solid fa-image"></i>
                                         </button>
-                                        <div class="modal fade" id="exampleModalOut" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel2">Add Photo To Gallery</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form method="post" asp-action="AddPhoto" asp-controller="Shop" asp- enctype="multipart/form-data">
-
-
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label" asp-for="@Model.GalleryViewModel.Name">Image Title</label>
-                                                                <input type="text" asp-for="@Model.GalleryViewModel.Name" class="form-control">
-                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.Name"></span>
-
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="formFile" class="form-label" asp-for="@Model.GalleryViewModel.ImageFile">Image</label>
-                                                                <input class="form-control" asp-for="@Model.GalleryViewModel.ImageFile" type="file" id="formFile">
-                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.ImageFile"></span>
-
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <div class="form-floating">
-                                                                    <textarea class="form-control" asp-for="@Model.GalleryViewModel.Description" placeholder="Leave a comment here" style="height: 100px"></textarea>
-                                                                    <label for="floatingTextarea2" asp-for="@Model.GalleryViewModel.Description">Descrption</label>
-                                                                </div>
-                                                                <span class="text-danger" asp-validation-for="@Model.GalleryViewModel.Description"></span>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <input type="submit" class="btn btn-primary" value="Create">
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
                                 }
-                        }*@
+                        }
 
                         <div class="row no-gutters">
                             <div class="col-md-6 col-lg-4 item zoom-on-hover">
@@ -454,4 +277,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-@await Html.PartialAsync("_PostPartialView",Model.PostViewModel);
+@await Html.PartialAsync("_PostPartialView",new ProjectFutureAdvannced.ViewModels.ShopViewModel.PostViewModel());

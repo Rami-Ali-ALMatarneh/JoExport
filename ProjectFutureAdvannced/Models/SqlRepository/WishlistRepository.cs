@@ -15,34 +15,32 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             {
             this._appDbContext = _appDbContext;
             }
-        //public Wishlist Add( Wishlist product )
-        //    {
-        //   _appDbContext.Wishlists.Add(product);
-        //    _appDbContext.SaveChanges();
-        //    return product;
-        //    }
+        public Wishlist Add( Wishlist card )
+            {
+            _appDbContext..Add(card);
+            _appDbContext.SaveChanges();
+            return card;
+            }
 
-        //public Wishlist Delete( int UserId,int  ProductId )
-        //    {
-        //    var product = _appDbContext.Wishlists.Find(UserId,ProductId);
-        //    if( product != null )
-        //        {
-        //        _appDbContext.Wishlists.Remove(product);
-        //        _appDbContext.SaveChanges();
-        //        }
-        //    return product;
-        //    }
-        //public Wishlist GetByFk( int UserId, int ProductId )
-        //    {
-        //        return _appDbContext.Wishlists.Find(UserId, ProductId);
-        //    }
-
-        //public IEnumerable<Product> ProductInWishList(int UserId)
-        //    {
-        //    var products = _appDbContext.Wishlists.Where(e=>e.UserId==UserId)
-        //    .Select(w => w.Product)
-        //    .ToList();
-        //    return products;
-        //    }
+        public IEnumerable<Product> GetAllProductByUserId( int userId )
+            {
+            return _appDbContext.Card
+                .Where(card => card.UserId == userId)
+                .Select(card => card.Product)
+                .ToList();
+            }
+        public IEnumerable<Card> DeleteAllCardByProductId( int ProductId )
+            {
+            var Cards = _appDbContext.Card.Where(e => e.ProductId == ProductId);
+            if (Cards != null)
+                {
+                foreach (var card in Cards)
+                    {
+                    _appDbContext.Card.Remove(card);
+                    _appDbContext.SaveChanges();
+                    }
+                }
+            return Cards;
+            }
         }
     }

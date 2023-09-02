@@ -6,9 +6,8 @@ namespace ProjectFutureAdvannced.Models.IRepository
     {
     public interface IWishlistRRepository
         {
-        //public Wishlist Add( Wishlist admin );
-        //public Wishlist Delete( int UserId, int ProductId );
-        //public Wishlist GetByFk( int UserId, int ProductId );
-        //public IEnumerable<Product> ProductInWishList( int UserId );
+        public Wishlist Add( Wishlist wishlist );
+        public IEnumerable<Wishlist> DeleteAllCardByProductId( int ProductId );
+        public IEnumerable<Product> GetAllProductByUserId( int userId );
         }
     }

@@ -194,13 +194,13 @@ namespace ProjectFutureAdvannced.Controllers
             //    }
             return RedirectToAction("Index", "Home");
             }
-        //public async Task<IActionResult> MyWishlist(int id )
-        //    {
-        //    var userIdentity=await _userManager.GetUserAsync(User);
-        //    var user = userRepository.GetByFk(userIdentity.Id);
-        //    var Products = _wishlistRRepository.ProductInWishList(user.Id);
-        //    return View(Products);
-        //    }
+        public async Task<IActionResult> MyWishlist( int id )
+            {
+            var userIdentity = await _userManager.GetUserAsync(User);
+            //var user = userRepository.GetByFk(userIdentity.Id);
+            //var Products = _wishlistRRepository.ProductInWishList(user.Id);
+            return View();
+            }
         public async Task<IActionResult> AddCart( int id )
             {
             var product = productRepository.GetById(id);

@@ -3,9 +3,6 @@
 <html>
 <head>
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="~/AddProduct/images/icons/favicon.ico" />
-    <!--===============================================================================================-->
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/AddProduct/vendor/animate/animate.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/AddProduct/vendor/css-hamburgers/hamburgers.min.css">
@@ -79,7 +76,7 @@
                 <div class="d-flex gap-3 fs-5">
                     @{
                         if (signInManager.IsSignedIn(User))
-                            {
+                        {
                             var user = await userManager.GetUserAsync(User);
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle fw-bold" type="button" style="color:white" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,31 +88,35 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     @if (await userManager.IsInRoleAsync(user, "Shop"))
-                                        {
+                                    {
                                         <li><a asp-action="GeneralShopProfile" asp-controller="Shop" class="dropdown-item"><i class="fa-solid fa-user"></i> Profile</a></li>
                                         <li><a asp-action="addProduct" asp-controller="Shop" class="dropdown-item"><i class="fa-solid fa-square-plus"></i> Add Product</a></li>
-                                        }
-                                    else
+                                    }
 
                                     @if (await userManager.IsInRoleAsync(user, "User"))
-                                        {
+                                    {
                                         <li><a asp-action="GeneralUserProfile" asp-controller="User" class="dropdown-item"><i class="fa-solid fa-user"></i> Profile</a></li>
-                                        }
-                                    else
-                                        {
-                                        <li><a class="dropdown-item">Profile</a></li>
-                                        }
-                                    <li><a class="dropdown-item"  asp-controller="Account" asp-action="Massages"><i class="fa-solid fa-envelope"></i> Massages</a></li>
+                                    }
+
+                                    @if (await userManager.IsInRoleAsync(user, "Admin"))
+                                    {
+                                        <li><a asp-action="Index" asp-controller="Admin" class="dropdown-item"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+
+                                        <li><a asp-action="GeneralProfile" asp-controller="Admin" class="dropdown-item"><i class="fa-solid fa-user"></i> Profile</a></li>
+                                    }
+
+
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Massages"><i class="fa-solid fa-envelope"></i> Massages</a></li>
                                     <li><hr class="dropdown-divider " style="height:1px"></li>
                                     <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account"><i class="fa fa-external-link" aria-hidden="true"></i> Logout</a></li>
                                 </ul>
                             </div>
-                            }
+                        }
                         else
-                            {
+                        {
                             <a asp-action="Login" asp-controller="Account" class="btn btn-outline-light">Login</a>
                             <a asp-action="Create" asp-controller="Account" class="btn btn-outline-light">Sign Up</a>
-                            }
+                        }
                     }
                 </div>
             </div>
