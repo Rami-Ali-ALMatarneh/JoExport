@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using ProjectFutureAdvannced.Data;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
@@ -17,11 +18,10 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             }
         public Wishlist Add( Wishlist card )
             {
-            _appDbContext..Add(card);
+            _appDbContext.Wishlists.Add(card);
             _appDbContext.SaveChanges();
             return card;
             }
-
         public IEnumerable<Product> GetAllProductByUserId( int userId )
             {
             return _appDbContext.Card
@@ -29,14 +29,14 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
                 .Select(card => card.Product)
                 .ToList();
             }
-        public IEnumerable<Card> DeleteAllCardByProductId( int ProductId )
+        public IEnumerable<Wishlist> DeleteAllWishListByProductId( int ProductId )
             {
-            var Cards = _appDbContext.Card.Where(e => e.ProductId == ProductId);
+            var Cards = _appDbContext.Wishlists.Where(e => e.ProductId == ProductId);
             if (Cards != null)
                 {
                 foreach (var card in Cards)
                     {
-                    _appDbContext.Card.Remove(card);
+                    _appDbContext.Wishlists.Remove(card);
                     _appDbContext.SaveChanges();
                     }
                 }

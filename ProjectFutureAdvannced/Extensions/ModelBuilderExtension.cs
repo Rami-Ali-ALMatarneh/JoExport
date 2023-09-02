@@ -39,29 +39,29 @@ namespace ProjectFutureAdvannced.Extensions
                 }
                 );
             }
-        //public static void CreateWishListTable( this ModelBuilder modelBuilder )
-        //    {
-        //    modelBuilder.Entity<User>()
-        //    .HasMany(e => e.Products)
-        //    .WithMany(e => e.users)
-        //    .UsingEntity<Wishlist>(
-        //        j => j
-        //        .HasOne(e => e.Product)
-        //        .WithMany(e => e.Wishlists)
-        //        .HasForeignKey(e => e.ProductId)
-        //        .OnDelete(DeleteBehavior.Restrict),
-        //        /*******************************/
-        //        j => j
-        //        .HasOne(e => e.User)
-        //        .WithMany(e => e.Wishlists)
-        //        .HasForeignKey(e => e.UserId)
-        //        .OnDelete(DeleteBehavior.Restrict),
-        //        j =>
-        //        {
-        //            j.HasKey(e => new { e.UserId, e.ProductId });
-        //        }
-        //        );
-        //    }
+        public static void CreateWishListTable( this ModelBuilder modelBuilder )
+            {
+            modelBuilder.Entity<User>()
+            .HasMany(e => e.Products)
+            .WithMany(e => e.users)
+            .UsingEntity<Wishlist>(
+                j => j
+                .HasOne(e => e.Product)
+                .WithMany(e => e.Wishlists)
+                .HasForeignKey(e => e.ProductId)
+                .OnDelete(DeleteBehavior.Restrict),
+                /*******************************/
+                j => j
+                .HasOne(e => e.User)
+                .WithMany(e => e.Wishlists)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict),
+                j =>
+                {
+                    j.HasKey(e => new { e.UserId, e.ProductId });
+                }
+                );
+            }
         public static void RelationShipGalleryShop( this ModelBuilder modelBuilder )
             {
             modelBuilder.Entity<Shop>()

@@ -12,6 +12,7 @@ namespace ProjectFutureAdvannced.ViewModels
         public IEnumerable<Category> categories { get; set; }
         public IEnumerable<Product> products { get; set; }
         public IEnumerable<Post> Posts { get; set; }
+        public IEnumerable<Gallery> galleries { get; set; }
 
         public IEnumerable<Card> cards { get; set; }
         public IEnumerable<Shop> shops { get; set; }

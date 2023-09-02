@@ -31,6 +31,8 @@ namespace ProjectFutureAdvannced.Data
             modelBuilder.setUniqueNameCategory();
             modelBuilder.setRelationShipProductShop();
             modelBuilder.CreateCardTable();
+            modelBuilder.CreateWishListTable();
+
             modelBuilder.EditPost();
             //modelBuilder.CreateWishListTable();
             //modelBuilder.setRShipShop_Category();
