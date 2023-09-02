@@ -24,7 +24,7 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             }
         public IEnumerable<Product> GetAllProductByUserId( int userId )
             {
-            return _appDbContext.Card
+            return _appDbContext.Wishlists
                 .Where(card => card.UserId == userId)
                 .Select(card => card.Product)
                 .ToList();

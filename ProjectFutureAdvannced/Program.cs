@@ -43,7 +43,7 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IProductRepository, SqlProductRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
-//builder.Services.AddScoped< IWishlistRRepository, WishlistRepository>();
+builder.Services.AddScoped< IWishlistRRepository, WishlistRepository>();
 
 #endregion
 /***************************************/

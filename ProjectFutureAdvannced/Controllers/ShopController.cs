@@ -28,9 +28,10 @@ namespace ProjectFutureAdvannced.Controllers
         private readonly IProductRepository productRepository;
         private readonly IPostRepository postRepository;
         private readonly IGalleryRepository galleryRepository;
+        private readonly IWishlistRRepository wishlistRepository;
 
 
-        public ShopController( IGalleryRepository galleryRepository, IPostRepository postRepository, IProductRepository productRepository, ICategoryRepository categoryRepository, ICartRepository cartRepository, IWebHostEnvironment webHostEnvironment, IShopRepository _shopRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
+        public ShopController( IWishlistRRepository wishlistRepository, IGalleryRepository galleryRepository, IPostRepository postRepository, IProductRepository productRepository, ICategoryRepository categoryRepository, ICartRepository cartRepository, IWebHostEnvironment webHostEnvironment, IShopRepository _shopRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
             {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -42,6 +43,7 @@ namespace ProjectFutureAdvannced.Controllers
             this.productRepository = productRepository;
             this.postRepository = postRepository;
             this.galleryRepository= galleryRepository;
+            this.wishlistRepository= wishlistRepository;
             }
         public IActionResult Index()
             {
@@ -189,6 +191,7 @@ namespace ProjectFutureAdvannced.Controllers
         public IActionResult DeleteProduct( int id )
             {
             cartRepository.DeleteAllCardByProductId(id);
+            wishlistRepository.DeleteAllWishListByProductId(id);
             productRepository.Delete(id);
             return View();
             }

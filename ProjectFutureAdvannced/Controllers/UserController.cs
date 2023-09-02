@@ -23,10 +23,10 @@ namespace ProjectFutureAdvannced.Controllers
         private readonly IProductRepository productRepository;
         private readonly IShopRepository shopRepository;
         private readonly ICartRepository cartRepository;
-        //private readonly IWishlistRRepository _wishlistRRepository;
+        private readonly IWishlistRRepository _wishlistRRepository;
 
 
-        public UserController(/* IWishlistRRepository _wishlistRRepository, */ICartRepository cartRepository, IShopRepository shopRepository, IProductRepository productRepository, IWebHostEnvironment webHostEnvironment, IUserRepository userRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
+        public UserController( IWishlistRRepository _wishlistRRepository, ICartRepository cartRepository, IShopRepository shopRepository, IProductRepository productRepository, IWebHostEnvironment webHostEnvironment, IUserRepository userRepository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> _roleManager )
             {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,7 +35,7 @@ namespace ProjectFutureAdvannced.Controllers
             this.webHostEnvironment = webHostEnvironment;
             this.productRepository = productRepository;
             this.cartRepository= cartRepository;
-            //this._wishlistRRepository = _wishlistRRepository;
+            this._wishlistRRepository = _wishlistRRepository;
             }
         [HttpGet]
         public async Task<IActionResult> GeneralUserProfile()
@@ -197,10 +197,48 @@ namespace ProjectFutureAdvannced.Controllers
         public async Task<IActionResult> MyWishlist( int id )
             {
             var userIdentity = await _userManager.GetUserAsync(User);
-            //var user = userRepository.GetByFk(userIdentity.Id);
-            //var Products = _wishlistRRepository.ProductInWishList(user.Id);
-            return View();
+            var user = userRepository.GetByFk(userIdentity.Id);
+            var Products = _wishlistRRepository.GetAllProductByUserId(user.Id);
+            return View(Products);
             }
+        /***************************/
+        public async Task<IActionResult> AddWishList( int id )
+            {
+            var product = productRepository.GetById(id);
+
+            if (product == null)
+                {
+                // Handle case when the product doesn't exist
+                return NotFound();
+                }
+
+            var userIdentity = await _userManager.GetUserAsync(User);
+
+            if (userIdentity == null)
+                {
+                // Handle case when the user is not authenticated
+                return Unauthorized();
+                }
+
+            var user = userRepository.GetByFk(userIdentity.Id);
+
+            if (user == null)
+                {
+                // Handle case when the user doesn't exist
+                return NotFound();
+                }
+
+            Wishlist wishlist = new Wishlist
+                {
+                ProductId = id,
+                UserId = user.Id,
+                };
+
+            _wishlistRRepository.Add(wishlist);
+            return RedirectToAction("Store", "Home");
+            }
+        /***************************/
+
         public async Task<IActionResult> AddCart( int id )
             {
             var product = productRepository.GetById(id);
