@@ -26,7 +26,7 @@ namespace ProjectFutureAdvannced.Extensions
                 .HasOne(e => e.Product)
                 .WithMany(e => e.cards)
                 .HasForeignKey(e => e.ProductId)
-                .OnDelete(DeleteBehavior.Restrict),
+                .OnDelete(DeleteBehavior.Cascade),
                 /*******************************/
                 j => j
                 .HasOne(e => e.User)
@@ -49,7 +49,7 @@ namespace ProjectFutureAdvannced.Extensions
                 .HasOne(e => e.Product)
                 .WithMany(e => e.Wishlists)
                 .HasForeignKey(e => e.ProductId)
-                .OnDelete(DeleteBehavior.Restrict),
+                .OnDelete(DeleteBehavior.Cascade),
                 /*******************************/
                 j => j
                 .HasOne(e => e.User)

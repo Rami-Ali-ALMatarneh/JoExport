@@ -48,41 +48,72 @@
                 var user = await userManager.GetUserAsync(User);
                 if (signInManager.IsSignedIn(User))
                     {
-                    if (await userManager.IsInRoleAsync(user, "Shop"))
+                    @if (await userManager.IsInRoleAsync(user, "Shop"))
                         {
                         <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
                             <a asp-action="AddProduct" asp-controller="Shop" class="btn BtnCustom2 Btn">Add Products <i class="fa-solid fa-caret-right"></i></a>
                         </div>
+                        <div class="product_Groups" id="splide1" role="group">
+                            @foreach (var product in Model)
+                                {
+                                var img = "/ProductImg/" + product.Image;
+                                <div class="productGrid wow fadeInUp shadow p-3 mb-5 bg-white rounded">
+                                    <div class="store-item position-relative text-center">
+                                        <img class="img-fluid" src="@img" style="max-height: 237px;" alt="">
+                                        <div class="pb-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h4 class="mb-3">@product.Name</h4>
+                                                <h6 class="mb-3 text-muted">@product.CategoryName</h6>
+                                            </div>
+                                            <p class="fw-bold btn-sm btn-primary m-0" style="width:fit-content">$@product.Price</p>
+
+                                            <p style="font-size:12px" class="text-start">@product.Description</p>
+                                        </div>
+                                        <div class="btn-group d-flex gap-3 storeBtn mb-3">
+                                            <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class=" btn btn-outline-primary">Learn More</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                }
+                        </div>
+                        }
+                    else if (await userManager.IsInRoleAsync(user, "User"))
+
+                        {
+                        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+                            <a asp-action="AddProduct" asp-controller="Shop" class="btn BtnCustom2 Btn">Add Products <i class="fa-solid fa-caret-right"></i></a>
+                        </div>
+                        <div class="product_Groups" id="splide1" role="group">
+                            @foreach (var product in Model)
+                                {
+                                var img = "/ProductImg/" + product.Image;
+                                <div class="productGrid wow fadeInUp shadow p-3 mb-5 bg-white rounded">
+                                    <div class="store-item position-relative text-center">
+                                        <img class="img-fluid" src="@img" style="max-height: 237px;" alt="">
+                                        <div class="pb-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h4 class="mb-3">@product.Name</h4>
+                                                <h6 class="mb-3 text-muted">@product.CategoryName</h6>
+                                            </div>
+                                            <p class="fw-bold btn-sm btn-primary m-0" style="width:fit-content">$@product.Price</p>
+
+                                            <p style="font-size:12px" class="text-start">@product.Description</p>
+                                        </div>
+                                        <div class="btn-group d-flex gap-3 storeBtn mb-3">
+                                            <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class=" btn btn-outline-primary">Learn More</a>
+                                        </div>
+                                        <div class="btn-group d-flex gap-3">
+                                            <a asp-controller="User" asp-action="AddWishList" asp-route-id="@product.Id" class="small btn btn-primary rounded-2">Add Wishlist</a>
+                                            <a asp-controller="User" asp-action="AddCart" asp-route-id="@product.Id" class=" btn btn-primary rounded-2">Add Cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                        </div>
                         }
                     }
             }
-            <div class="product_Groups" id="splide1" role="group">
-                @foreach (var product in Model)
-                    {
-                    var img = "/ProductImg/" + product.Image;
-                    <div class="productGrid wow fadeInUp shadow p-3 mb-5 bg-white rounded">
-                        <div class="store-item position-relative text-center">
-                            <img class="img-fluid" src="@img" style="max-height: 237px;" alt="">
-                            <div class="pb-0">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="mb-3">@product.Name</h4>
-                                    <h6 class="mb-3 text-muted">@product.CategoryName</h6>
-                                </div>
-                                <p class="fw-bold btn-sm btn-primary m-0" style="width:fit-content">$@product.Price</p>
-
-                                <p style="font-size:12px" class="text-start">@product.Description</p>
-                            </div>
-                            <div class="btn-group d-flex gap-3 storeBtn mb-3">
-                                <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class=" btn btn-outline-primary">Learn More</a>
-                            </div>
-                            <div class="btn-group d-flex gap-3">
-                                <a asp-controller="User" asp-action="AddWishList" asp-route-id="@product.Id" class="small btn btn-primary rounded-2">Add Wishlist</a>
-                                <a asp-controller="User" asp-action="AddCart" asp-route-id="@product.Id" class=" btn btn-primary rounded-2">Add Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    }
-            </div>
 
         </div>
     </div>

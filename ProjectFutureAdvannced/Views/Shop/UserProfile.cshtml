@@ -28,10 +28,10 @@
                             <h3>@Model.AppUser.UserName</h3>
                             @*<p>@shop.Major</p>*@
                         </div>
-                        <div class="btn-group mt-3 mb-3">
+                        @*<div class="btn-group mt-3 mb-3">
                             <a href="#" class="btn btn-outline-primary">Chat</a>
                             <a href="#" class="btn btn-primary ">Follow</a>
-                        </div>
+                        </div>*@
                         <div class="d-flex gap-4">
                             <div class="text-center">
                                 <p class="text-primary fw-bold">Gallery</p>
@@ -56,7 +56,6 @@
             </div>
         </div>
         <!-- End -->
-
         <div id="carouselExampleControls" class="carousel slide">
             <div class="d-flex gap-3">
                 <button class="btn btn-outline-primary" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style="width:150px">
@@ -179,89 +178,22 @@
                                 }
                         }
 
-                        <div class="row no-gutters">
+                    <div class="row no-gutters">
+                        @foreach (var Gallerys in @Model.galleries)
+                            {
+                            var imgs = "/PostImage/" + Gallerys.ImageUrl;
+
                             <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                                <a class="lightbox" href="~/imgGallery/image1.jpg">
+                                <a class="lightbox" href="@imgs">
                                     <img class="img-fluid image" src="~/imgGallery/image1.jpg">
                                     <span class="description">
-                                        <span class="description-heading">Lorem Ipsum</span>
-                                        <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                                        <span class="description-heading">@Gallerys.Name</span>
+                                        <span class="description-body">@Gallerys.Description</span>
                                     </span>
                                 </a>
                             </div>
-                            <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                                <a class="lightbox" href="~/imgGallery/image2.jpg">
-                                    <img class="img-fluid image" src="~/imgGallery/image2.jpg">
-                                    <span class="description">
-                                        <span class="description-heading">Lorem Ipsum</span>
-                                        <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                                <a class="lightbox" href="~/imgGallery/image3.jpg">
-                                    <img class="img-fluid image" src="~/imgGallery/image3.jpg">
-                                    <span class="description">
-                                        <span class="description-heading">Lorem Ipsum</span>
-                                        <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                                <a class="lightbox" href="~/imgGallery/image4.jpg">
-                                    <img class="img-fluid image" src="~/imgGallery/image4.jpg">
-                                    <span class="description">
-                                        <span class="description-heading">Lorem Ipsum</span>
-                                        <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                                <a class="lightbox" href="~/imgGallery/image5.jpg">
-                                    <img class="img-fluid image" src="~/imgGallery/image5.jpg">
-                                    <span class="description">
-                                        <span class="description-heading">Lorem Ipsum</span>
-                                        <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                                <a class="lightbox" href="~/imgGallery/image6.jpg">
-                                    <img class="img-fluid image" src="~/imgGallery/image6.jpg">
-                                    <span class="description">
-                                        <span class="description-heading">Lorem Ipsum</span>
-                                        <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                                <a class="lightbox" href="~/imgGallery/image7.jpg">
-                                    <img class="img-fluid image" src="~/imgGallery/image7.jpg">
-                                    <span class="description">
-                                        <span class="description-heading">Lorem Ipsum</span>
-                                        <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                                <a class="lightbox" href="~/imgGallery/image8.jpg">
-                                    <img class="img-fluid image" src="~/imgGallery/image8.jpg">
-                                    <span class="description">
-                                        <span class="description-heading">Lorem Ipsum</span>
-                                        <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                                <a class="lightbox" href="~/imgGallery/image9.jpg">
-                                    <img class="img-fluid image" src="~/imgGallery/image9.jpg">
-                                    <span class="description">
-                                        <span class="description-heading">Lorem Ipsum</span>
-                                        <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
+                            }
+                    </div>
                     </section>
 
                     <!--end Gallery-->
@@ -277,4 +209,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-@await Html.PartialAsync("_PostPartialView",new ProjectFutureAdvannced.ViewModels.ShopViewModel.PostViewModel());
+@await Html.PartialAsync("_PostPartialView", new ProjectFutureAdvannced.ViewModels.ShopViewModel.PostViewModel());
+@await Html.PartialAsync("_GalleryPartialView", new ProjectFutureAdvannced.ViewModels.ShopViewModel.GalleryViewModel());

@@ -190,10 +190,10 @@ namespace ProjectFutureAdvannced.Controllers
 
         public IActionResult DeleteProduct( int id )
             {
-            cartRepository.DeleteAllCardByProductId(id);
-            wishlistRepository.DeleteAllWishListByProductId(id);
+            //cartRepository.DeleteAllCardByProductId(id);
+            //wishlistRepository.DeleteAllWishListByProductId(id);
             productRepository.Delete(id);
-            return View();
+            return RedirectToAction("MyPorduct","Shop");
             }
         [HttpPost]
         public async Task<IActionResult> AddProduct( CreateProduct model )
@@ -375,7 +375,9 @@ namespace ProjectFutureAdvannced.Controllers
         [HttpPost]
         public async Task<IActionResult> Create( PostViewModel model )
             {
-          if (ModelState.IsValid)
+            var user = await _userManager.GetUserAsync(User);
+
+            if (ModelState.IsValid)
                 {
                 string uniqueFileName = null;
                 if (model.ImageFile != null)
@@ -394,39 +396,48 @@ namespace ProjectFutureAdvannced.Controllers
                 post.Name = model.Name;
                 post.Description = model.Description;
                 post.ImageUrl = model.ImageUrl;
-                var user = await _userManager.GetUserAsync(User);
                 var shop = _shopRepository.GetByFk(user.Id);
                 post.ShopId = shop.Id;
                 postRepository.Add(post);
                 return RedirectToAction("UserProfile", "Shop", new { UserName = user. UserName});
                 }
-            return PartialView("_PostPartialView", model);
+            return RedirectToAction("UserProfile", "Shop", new { Username = user.UserName });
+            }
+        public IActionResult Creategalery()
+            {
+            GalleryViewModel model = new GalleryViewModel();
+            return PartialView("GalleryPartialView", model);
             }
         [HttpPost]
-        public async Task<IActionResult> AddPhoto( GalleryViewModel model )
+        public async Task<IActionResult> Creategalery( GalleryViewModel model )
             {
+            var user = await _userManager.GetUserAsync(User);
             if (ModelState.IsValid)
                 {
                 string uniqueFileName = null;
-                string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "imgGallery");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
-                string filePath = Path.Combine(uniqueUpload, uniqueFileName);
-                await model.ImageFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                if (model.ImageFile != null)
+                    {
+                    string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "GalleryImage");
+                    uniqueFileName = Guid.NewGuid().ToString() + "" + model.ImageFile.FileName;
+                    string filePath = Path.Combine(uniqueUpload, uniqueFileName);
+                    await model.ImageFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                    model.ImageUrl = uniqueFileName;
+                    }
 
                 //var user = await _userManager.GetUserAsync(User);
                 //  var category = categoryRepository.GetByCategoryName(model.CategoryName);
                 // var shop = _shopRepository.Get(user.Id);
-                Gallery gallery = new Gallery();
-                gallery.Name = model.Name;
-                gallery.Description = model.Description;
-                gallery.ImageUrl = uniqueFileName;
-                var user = await _userManager.GetUserAsync(User);
+                Gallery post = new Gallery();
+                post.Name = model.Name;
+                post.Description = model.Description;
+                post.ImageUrl = model.ImageUrl;
                 var shop = _shopRepository.GetByFk(user.Id);
-                gallery.ShopId = shop.Id;
-                galleryRepository.Add(gallery);
-                return RedirectToAction("UserProfile", "Shop", new { Id = user.Id });
+                post.ShopId = shop.Id;
+                galleryRepository.Add(post);
+                return RedirectToAction("UserProfile", "Shop", new { UserName = user.UserName });
                 }
-            return View();
+            return RedirectToAction("UserProfile","Shop",new {Username=user.UserName});
             }
+
         }
     }

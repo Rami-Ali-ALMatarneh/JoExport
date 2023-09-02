@@ -51,19 +51,19 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0771ed09-5eff-4817-be87-4d7562057d99",
+                            Id = "b97d1719-d3e0-474b-a5f5-749c6139fde2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "eb1049bc-00d4-472f-8764-1f2a496e73fb",
+                            Id = "9f0c4ec7-c721-4450-a742-b9fd975bafe0",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "9e3da820-b5d6-42bc-96bd-a1eb7c24956d",
+                            Id = "b6783505-4876-4177-92da-21f575f42856",
                             Name = "Shop",
                             NormalizedName = "SHOP"
                         });
@@ -716,7 +716,7 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasOne("ProjectFutureAdvannced.Models.Model.Product", "Product")
                         .WithMany("cards")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.User", "User")
@@ -768,7 +768,7 @@ namespace ProjectFutureAdvannced.Migrations
                     b.HasOne("ProjectFutureAdvannced.Models.Model.Product", "Product")
                         .WithMany("Wishlists")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjectFutureAdvannced.Models.Model.AccountUser.User", "User")

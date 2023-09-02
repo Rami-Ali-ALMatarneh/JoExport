@@ -29,18 +29,15 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
                 .Select(card => card.Product)
                 .ToList();
             }
-        public IEnumerable<Wishlist> DeleteAllWishListByProductId( int ProductId )
+        public async Task<IEnumerable<Wishlist>> DeleteAllWishListByProductId( int ProductId )
             {
-            var Cards = _appDbContext.Wishlists.Where(e => e.ProductId == ProductId);
-            if (Cards != null)
+            var wishlistsToDelete =await _appDbContext.Wishlists.Where(e => e.ProductId == ProductId).ToListAsync(); // Execute the query and fetch the records to be deleted
+            if (wishlistsToDelete.Any())
                 {
-                foreach (var card in Cards)
-                    {
-                    _appDbContext.Wishlists.Remove(card);
-                    _appDbContext.SaveChanges();
-                    }
+                _appDbContext.Wishlists.RemoveRange(wishlistsToDelete);
+                await _appDbContext.SaveChangesAsync();
                 }
-            return Cards;
+            return wishlistsToDelete;
             }
         }
     }

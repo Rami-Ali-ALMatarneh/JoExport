@@ -11,21 +11,29 @@
                         @{
                             var user = await userManager.GetUserAsync(User);
                             var img = "/AccountImg/" + user.ImgUrl;
-                            <img src="@img"/>
+                            var shop = ShopRepo.GetByFk(user.Id);
+
+                            <img src="@img" />
                         }
                     </div>
                     <div class="infoAccount text-center">
-                        <h3>@ViewBag.UserName</h3>
-                        <p>@ViewBag.Major</p>
+                        <h3>@user.UserName</h3>
+                        <p>@shop.Major</p>
                     </div>
                 </div>
                 <div class="list-group">
-                    <a asp-action="GeneralProfile" asp-controller="User" class="list-group-item list-group-item-action"> <i class="fas fa-fw fa-user"></i> General Information</a>
-                    <a asp-controller="User" asp-action="SecurityUser" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> Security Information</a>
-                    <a asp-controller="Shop" asp-action="MyProduct" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> Security Information</a>
+                    <a asp-action="GeneralShopProfile" asp-controller="Shop" class="list-group-item list-group-item-action"> <i class="fas fa-fw fa-user"></i> General Information</a>
+                    <a asp-controller="Shop" asp-action="SecurityUser" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> Security Information</a>
+                    <a asp-controller="Shop" asp-action="MyProduct" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> My Product</a>
 
-                    <a asp-action="Logout" asp-controller="Account" class="list-group-item list-group-item-action">
-                        <i class="fa fa-external-link" aria-hidden="true"></i> View Galary
+                    <a asp-controller="Shop" asp-action="UserProfile" asp-route-UserName="@user.UserName" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-id-card"></i> View Posts & Gallery
+                    </a>
+                    <a asp-action="VipShop" asp-controller="Shop" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-envelope"></i> My Massages
+                    </a>
+                    <a asp-controller="Account" asp-action="Massages" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-user-tie"></i> Subscribe To Vip Shop
                     </a>
                     <a asp-action="Logout" asp-controller="Account" class="list-group-item list-group-item-action">
                         <i class="fa fa-external-link" aria-hidden="true"></i> Log Out

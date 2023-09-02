@@ -1,4 +1,5 @@
-﻿using ProjectFutureAdvannced.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectFutureAdvannced.Data;
 using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
 using System;
@@ -26,24 +27,25 @@ namespace ProjectFutureAdvannced.Models.SqlRepository;
             .Select(card => card.Product)
             .ToList();
     }
-    public IEnumerable<Card> DeleteAllCardByProductId( int ProductId )
+    public async Task<IEnumerable<Card>> DeleteAllCardByProductId( int ProductId )
         {
-        var Cards = _appDbContext.Card.Where(e => e.ProductId == ProductId);
-        if (Cards != null)
+        var cardsToDelete = await _appDbContext.Card
+            .Where(e => e.ProductId == ProductId)
+            .ToArrayAsync(); // Execute the query and fetch the records to be deleted asynchronously
+
+        if (cardsToDelete.Any())
             {
-            foreach (var card in Cards)
-                {
-                _appDbContext.Card.Remove(card);
-                _appDbContext.SaveChanges();
-                }
+            _appDbContext.Card.RemoveRange(cardsToDelete);
+            await _appDbContext.SaveChangesAsync();
             }
-        return Cards;
+
+        return cardsToDelete;
         }
     }
 public interface ICartRepository
     {
     public Card Add(Card card);
-    public IEnumerable<Card> DeleteAllCardByProductId( int ProductId );
+    public Task<IEnumerable<Card>> DeleteAllCardByProductId( int ProductId );
     public IEnumerable<Product> GetAllProductByUserId( int userId );
     }
 

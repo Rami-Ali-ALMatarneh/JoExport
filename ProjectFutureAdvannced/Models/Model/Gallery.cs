@@ -11,7 +11,7 @@ namespace ProjectFutureAdvannced.Models.Model
         public string Name { get; set; }
         public string Description { get; set; }
         [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$")]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public int ShopId { get; set; }
         public Shop shop { get; set; }   
         }

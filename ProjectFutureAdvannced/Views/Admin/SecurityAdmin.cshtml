@@ -11,12 +11,14 @@
                         @{
                             var user = await userManager.GetUserAsync(User);
                             var img = "/AccountImg/" + user.ImgUrl;
-                                <img src="@img" />
+                            <img src="@img" />
+                            var userr = AdminRepo.GetByFk(user.Id);
+
                         }
                     </div>
                     <div class="infoAccount text-center">
-                        <h3>@ViewBag.UserName</h3>
-                        <p>@ViewBag.Major</p>
+                        <h3>@user.UserName</h3>
+                        <p>@userr.Major</p>
                     </div>
                 </div>
                 <div class="list-group">

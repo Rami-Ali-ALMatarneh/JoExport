@@ -11,18 +11,28 @@
                         @{
                             var user = await userManager.GetUserAsync(User);
                             var img = "/AccountImg/" + user.ImgUrl;
-                                < img src="@img" />
-                                
+                            <img src="@img" />
+                            var userr = userRepo.GetByFk(user.Id);
+
                         }
                     </div>
                     <div class="infoAccount text-center">
-                        <h3>@ViewBag.UserName</h3>
-                        <p>@ViewBag.Major</p>
+                        <h3>@user.UserName</h3>
+                        <p>@userr.Major</p>
                     </div>
                 </div>
                 <div class="list-group">
-                    <a asp-action="GeneralProfile" asp-controller="User" class="list-group-item list-group-item-action"> <i class="fas fa-fw fa-user"></i> General Information</a>
+                    <a asp-action="GeneralUserProfile" asp-controller="User" class="list-group-item list-group-item-action"> <i class="fas fa-fw fa-user"></i> General Information</a>
                     <a asp-controller="User" asp-action="SecurityUser" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> Security Information</a>
+                    <a asp-action="listCart" asp-controller="User" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-cart-shopping"></i> Cart
+                    </a>
+                    <a asp-action="MyWishlist" asp-controller="User" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-list"></i> My Wishlist
+                    </a>
+                    <a asp-action="Logout" asp-controller="Account" class="list-group-item list-group-item-action">
+                        <i class="fa fa-external-link" aria-hidden="true"></i> Remove Account
+                    </a>
                     <a asp-action="Logout" asp-controller="Account" class="list-group-item list-group-item-action">
                         <i class="fa fa-external-link" aria-hidden="true"></i> Log Out
                     </a>
