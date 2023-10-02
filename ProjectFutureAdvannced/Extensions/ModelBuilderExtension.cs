@@ -137,73 +137,73 @@ namespace ProjectFutureAdvannced.Extensions
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 1,
-                Name = Categorys.Cars,
+                Name = "Cars",
                 CategoryImg = "cars.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 2,
-                Name = Categorys.Electronic,
+                Name ="Electronic",
                 CategoryImg = "Electronic.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 3,
-                Name = Categorys.Home,
+                Name = "Home",
                 CategoryImg = "home.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 4,
-                Name = Categorys.Baby_Kids,
+                Name = "Baby_Kids",
                 CategoryImg = "Baby.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 5,
-                Name = Categorys.Beauty,
+                Name = "Beauty",
                 CategoryImg = "Beauty.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 6,
-                Name = Categorys.Clothes,
+                Name = "Clothes",
                 CategoryImg = "Clothes.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 7,
-                Name = Categorys.Bags,
+                Name = "Bags",
                 CategoryImg = "Bags.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 8,
-                Name = Categorys.Books,
+                Name = "Books",
                 CategoryImg = "Books.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 9,
-                Name = Categorys.Health_and_Personal_Care,
+                Name = "Health_and_Personal_Care",
                 CategoryImg = "Health.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 10,
-                Name = Categorys.Jewelry,
+                Name = "Jewelry",
                 CategoryImg = "Jewelry.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 11,
-                Name = Categorys.pets,
+                Name = "pets",
                 CategoryImg = "pets.png",
                 });
             modelBuilder.Entity<Category>().HasData(new Category
                 {
                 Id = 12,
-                Name = Categorys.Sport_Fitness,
+                Name = "Sport_Fitness",
                 CategoryImg = "Sport.png",
                 });
             }

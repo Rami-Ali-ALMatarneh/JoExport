@@ -81,9 +81,9 @@
                     else if (await userManager.IsInRoleAsync(user, "User"))
 
                         {
-                        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+                        @*<div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
                             <a asp-action="AddProduct" asp-controller="Shop" class="btn BtnCustom2 Btn">Add Products <i class="fa-solid fa-caret-right"></i></a>
-                        </div>
+                        </div>*@
                         <div class="product_Groups" id="splide1" role="group">
                             @foreach (var product in Model.products)
                                 {

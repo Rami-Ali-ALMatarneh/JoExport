@@ -96,6 +96,10 @@
                                     @if (await userManager.IsInRoleAsync(user, "User"))
                                         {
                                         <li><a asp-action="GeneralUserProfile" asp-controller="User" class="dropdown-item"><i class="fa-solid fa-user"></i> Profile</a></li>
+                                        var userId = userRepo.GetByFk(user.Id);
+                                        <li class="d-flex justify-content-center align-items-center"><a asp-action="listCart" asp-controller="User" class="dropdown-item d-flex justify-content-between align-items-center"><p><i class="fa-solid fa-cart-shopping"></i>  My Cart</p><p class="text-danger">@CartRepo.GetAllProductByUserId(userId.Id).ToList().Count()</p></a></li>
+                                        <li class="d-flex justify-content-center align-items-center"><a asp-action="MyWishlist" asp-controller="User" class="dropdown-item"><i class="fa-solid fa-list"></i> My Wishlist</a></li>
+
                                         }
 
                                     @if (await userManager.IsInRoleAsync(user, "Admin"))

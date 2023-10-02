@@ -4,6 +4,7 @@ using ProjectFutureAdvannced.Data;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
 using ProjectFutureAdvannced.Models.Model.AccountUser;
+using ProjectFutureAdvannced.ViewModels.UserViewModel;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -38,6 +39,17 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
                 await _appDbContext.SaveChangesAsync();
                 }
             return wishlistsToDelete;
+            }
+        public Wishlist Delete( int Userid, int Productid )
+            {
+            var wishlist = _appDbContext.Wishlists.Find(Userid, Productid);
+            if (wishlist != null)
+                {
+                _appDbContext.Wishlists.Remove(wishlist);
+                _appDbContext.SaveChanges();
+
+                }
+            return wishlist;
             }
         }
     }

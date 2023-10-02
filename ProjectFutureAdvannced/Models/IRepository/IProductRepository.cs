@@ -13,6 +13,7 @@ namespace ProjectFutureAdvannced.Models.IRepository
         public IEnumerable<Product> Find( Expression<Func<Product, bool>> predicate ) ;
         public IEnumerable<Product> GetAllByCategory( Categorys categorys );
         public IEnumerable<Product> StoreBySearch( char FirstLatter );
+        public IEnumerable<Product> GetAllById( int ShopId );
 
 
         public IEnumerable<Product> GetAll() ;

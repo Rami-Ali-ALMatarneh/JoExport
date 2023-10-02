@@ -11,7 +11,7 @@ namespace ProjectFutureAdvannced.Models.Model
         {
         public int Id { get; set; }
         [Required]
-        public Categorys Name { get; set; }
+        public string Name { get; set; }
         [Required]
         [RegularExpression(@"\b\w+\.(jpg|JPG|PNG|png)\b", ErrorMessage = "This Image not supported")]
         public string CategoryImg { get; set; }

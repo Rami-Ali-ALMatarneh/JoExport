@@ -41,11 +41,28 @@ namespace ProjectFutureAdvannced.Models.SqlRepository;
 
         return cardsToDelete;
         }
+    public IEnumerable<Card> getAll()
+        {
+        return _appDbContext.Card;
+        }
+    public Card Delete(int Userid,int Productid )
+        {
+        var card = _appDbContext.Card.Find(Userid, Productid);
+        if (card != null)
+            {
+             _appDbContext.Card.Remove(card);
+            _appDbContext.SaveChanges();
+
+            }
+        return card;
+        }
     }
 public interface ICartRepository
     {
     public Card Add(Card card);
+    public IEnumerable<Card> getAll();
     public Task<IEnumerable<Card>> DeleteAllCardByProductId( int ProductId );
     public IEnumerable<Product> GetAllProductByUserId( int userId );
+    public Card Delete( int Userid,int Productid );
     }
 

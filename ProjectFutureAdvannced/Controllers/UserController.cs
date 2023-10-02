@@ -274,6 +274,15 @@ namespace ProjectFutureAdvannced.Controllers
             cartRepository.Add(card);
             return RedirectToAction("Store", "Home");
             }
-
+        public IActionResult ReomveCart( int Userid ,int Productid)
+            {
+             cartRepository.Delete(Userid, Productid);
+            return RedirectToAction("listCart", "User");
+            }
+        public IActionResult ReomveWishlist( int Userid, int Productid )
+            {
+            _wishlistRRepository.Delete(Userid, Productid);
+            return RedirectToAction("MyWishlist", "User");
+            }
         }
     }

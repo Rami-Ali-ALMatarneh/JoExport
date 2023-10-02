@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                 <p class="text-center h1 fw-bold mx-1 mx-md-4 ">SIGN IN</p>
-                <form class="p-4" asp-action="Login" asp-controller="Account" enctype="multipart/form-data" method="post"> 
+                <form class="p-4" asp-action="Login" asp-controller="Account" enctype="multipart/form-data" method="post">
                     <!-- Email input -->
                     <div class="d-flex flex-row align-items-start mb-1 flex-column">
                         <div class="d-flex flex-row align-items-center w-100">
@@ -22,9 +22,9 @@
                                 <label class="form-label" for="form1Example13" asp-for="Email">Email address</label>
                             </div>
                         </div>
-                           
-                            <span class="text-danger ml" asp-validation-for="Email"></span>
-                        </div>
+
+                        <span class="text-danger ml" asp-validation-for="Email"></span>
+                    </div>
 
                     <!-- Password input -->
                     <div class="d-flex flex-row align-items-start mb-1 flex-column">
@@ -50,15 +50,9 @@
 
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                    <a asp-action="Create" asp-controller="Account" class="btn btn-primary btn-block">Sign Up</a>
-
-                    <div class="d-flex justify-content-center align-items-center my-1">
-                        <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                    <div class="d-flex justify-content-end align-items-center my-1">
+                        <a asp-action="Create" asp-controller="Account" class="btn-block">create New Account!</a>
                     </div>
-                    <button class="btn  btn-block" style="background-color: #dd4b39; color:white"
-                            type="submit">
-                        <i class="fab fa-google me-2"></i> Sign in with google
-                    </button>
                 </form>
             </div>
         </div>

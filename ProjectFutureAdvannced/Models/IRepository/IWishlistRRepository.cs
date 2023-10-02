@@ -9,5 +9,6 @@ namespace ProjectFutureAdvannced.Models.IRepository
         public Wishlist Add( Wishlist wishlist );
         public  Task<IEnumerable<Wishlist>> DeleteAllWishListByProductId( int ProductId );
         public IEnumerable<Product> GetAllProductByUserId( int userId );
+        public Wishlist Delete( int Userid, int Productid );
         }
     }

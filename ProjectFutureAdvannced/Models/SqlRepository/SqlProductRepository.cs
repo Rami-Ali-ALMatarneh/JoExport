@@ -68,5 +68,10 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
       .ToList();
             return productsStartingWithLetter;
             }
+        public IEnumerable<Product> GetAllById(int ShopId)
+            {
+            return appDbContext.products.Where(e => e.ShopId == ShopId);
+            }
+
         }
     }

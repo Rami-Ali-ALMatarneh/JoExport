@@ -24,6 +24,8 @@ namespace ProjectFutureAdvannced.ViewModels
         public PostViewModel PostViewModel { get; set; }
         public GalleryViewModel GalleryViewModel { get; set; }
         public SearchProduct SearchProduct { get; set; }
+        public Shop Shop { get; set; } 
+        public IEnumerable<AppUser> appUsers { get; set; }  
 
 
         }

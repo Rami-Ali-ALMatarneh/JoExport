@@ -8,7 +8,7 @@ namespace ProjectFutureAdvannced.Models.IRepository
         public Category Add(Category category);
         public Category Delete( int id);
         public Category Get(int id);
-        public Category GetByCategoryName( Categorys category );
+        public Category GetByCategoryName( string category );
         public IEnumerable<Category> GetAll();
         public Category Update(Category category);
        }

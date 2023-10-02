@@ -47,7 +47,7 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             {
             throw new NotImplementedException();
             }
-        public Category GetByCategoryName( Categorys categorys )
+        public Category GetByCategoryName( string categorys )
             {
             return appDbContext.Categories.FirstOrDefault(e => e.Name == categorys);
             }
