@@ -27,7 +27,7 @@
                             @{
                                 int count = userManager.Users.Count();
                                 var user = await userManager.GetUserAsync(User);
-                                var categorycount = Enum.GetValues(typeof(Categorys)).Length;
+                                var categorycount = CategoryRepo.GetAll().Count();
 
                                 foreach (var users in Model.appUsers)
                                     {
@@ -159,7 +159,7 @@
                                 Edit
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-success" asp-action="reomveUser" asp-controller="Admin" asp-route-CategoryId="@category.Id"> Edit </a></li>
+                                <li><a class="dropdown-item text-success" asp-action="EditCategory" asp-controller="Admin" asp-route-id="@category.Id"> Edit </a></li>
                                 <li><a class="dropdown-item text-danger" asp-action="reomveCategory" asp-controller="Admin" asp-route-CategoryId="@category.Id"> Remove </a></li>
                             </ul>
                         </td>

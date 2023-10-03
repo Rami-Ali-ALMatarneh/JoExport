@@ -28,7 +28,7 @@ namespace ProjectFutureAdvannced.Data
             modelBuilder.CreateTable();
             modelBuilder.SetSeedRoles();
             modelBuilder.SetSeedCategory();
-            modelBuilder.setUniqueNameCategory();
+            //modelBuilder.setUniqueNameCategory();
             modelBuilder.setRelationShipProductShop();
             modelBuilder.CreateCardTable();
             modelBuilder.CreateWishListTable();

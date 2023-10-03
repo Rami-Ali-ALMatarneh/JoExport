@@ -54,7 +54,7 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
 
         public Category Update( Category category )
             {
-             var categorys=appDbContext.Categories.Attach(category);
+            var categorys=appDbContext.Categories.Attach(category);
             categorys.State= EntityState.Modified;
             appDbContext.SaveChanges();
             return category;

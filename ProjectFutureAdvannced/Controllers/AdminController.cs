@@ -12,6 +12,7 @@ using ProjectFutureAdvannced.Models.SqlRepository;
 using ProjectFutureAdvannced.ViewModels;
 using ProjectFutureAdvannced.ViewModels.AdminViewModel;
 using ProjectFutureAdvannced.ViewModels.CategoryViewModel;
+using ProjectFutureAdvannced.ViewModels.ProductViewModel;
 using System.Runtime.InteropServices;
 
 namespace ProjectFutureAdvannced.Controllers
@@ -149,7 +150,7 @@ namespace ProjectFutureAdvannced.Controllers
                 await _userManager.SetEmailAsync(user, user.Email);
                 await _userManager.SetUserNameAsync(user, model.Email.Substring(0, indexOfAt));
                 await _userManager.UpdateAsync(user);
-                return RedirectToAction("GeneralProfile", "User");
+                return RedirectToAction("GeneralProfile", "Admin");
                 }
             return View();
             }
@@ -254,19 +255,67 @@ namespace ProjectFutureAdvannced.Controllers
             if (ModelState.IsValid)
                 {
                 string uniqueFileName = null;
-                string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "ProductImg");
+                string uniqueUpload = Path.Combine(webHostEnvironment.WebRootPath, "CategoryImage");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
                 string filePath = Path.Combine(uniqueUpload, uniqueFileName);
                 await model.ImageFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                model.UrlImgString = uniqueFileName;
                 Category category = new Category()
                     {
-                    CategoryImg = uniqueFileName,
+                    CategoryImg = model.UrlImgString,
                     Name=model.Name,
                     };
                 categoryRepository.Add(category);
                 return RedirectToAction("Category", "Admin");
                 }
             return View();
+            }
+
+
+        [HttpGet]
+        public  IActionResult EditCategory( int id)
+            {
+            var category = categoryRepository.Get(id);
+            EditCategoryViewModel model = new EditCategoryViewModel()
+                {
+                Name = category.Name,
+                UrlImgString = category.CategoryImg,
+                };
+            return View(model);
+            }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCategory(int id, EditCategoryViewModel model )
+            {
+            if (ModelState.IsValid)
+                {
+                var CategoryToUpdate = categoryRepository.Get(id);
+
+                if (CategoryToUpdate == null)
+                    {
+                    return NotFound();
+                    }
+
+                if (model.ImageFile != null)
+                    {
+                    if (!string.IsNullOrEmpty(CategoryToUpdate.CategoryImg))
+                        {
+                        var oldImagePath = Path.Combine(webHostEnvironment.WebRootPath, "CategoryImage", CategoryToUpdate.CategoryImg);
+                        if (System.IO.File.Exists(oldImagePath))
+                            {
+                            System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
+                    string filePath = Path.Combine(webHostEnvironment.WebRootPath, "ProductImg", uniqueFileName);
+                    await model.ImageFile.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                    CategoryToUpdate.CategoryImg = uniqueFileName;
+                    }
+                CategoryToUpdate.Name = model.Name;
+                categoryRepository.Update(CategoryToUpdate);
+                return RedirectToAction("Category", "Admin");
+                }
+            return View(model);
             }
         /***********************************/
 

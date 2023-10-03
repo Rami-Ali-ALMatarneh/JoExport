@@ -6,6 +6,8 @@ namespace ProjectFutureAdvannced.ViewModels.CategoryViewModel
         {
         [Required]
         public string Name { get; set; }
+        public string? UrlImgString { get; set; }
+
         [Required]
         public IFormFile ImageFile { get; set; }
         }

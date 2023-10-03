@@ -29,10 +29,10 @@
                             @{
                                 int count = userManager.Users.Count();
                                 var user = await userManager.GetUserAsync(User);
-                                var categorycount = Enum.GetValues(typeof(Categorys)).Length;
+                                var categorycount = CategoryRepo.GetAll().Count();
 
                                 foreach (var users in Model)
-                                {
+                                    {
                                     @if (await userManager.IsInRoleAsync(users, "Shop"))
                                     {
                                         countshop++;
