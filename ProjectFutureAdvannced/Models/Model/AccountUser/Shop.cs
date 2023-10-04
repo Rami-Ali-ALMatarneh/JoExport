@@ -18,6 +18,6 @@ namespace ProjectFutureAdvannced.Models.Model.AccountUser
         public List<Product> Products { get; set; }
         public List<Gallery> galleries { get; set; }
         public List<Post> posts { get; set; }
-
+        public RequestStatus? RequestStatus { get; set; }
         }
     }

@@ -318,7 +318,22 @@ namespace ProjectFutureAdvannced.Controllers
             return View(model);
             }
         /***********************************/
-
+        public async Task<IActionResult> Approved( string UserId )
+            {
+            var user = await _userManager.FindByIdAsync(UserId);
+            var Shop = shopRepository.GetByFk(user.Id);
+            Shop.RequestStatus = RequestStatus.Approved;
+            shopRepository.Update(Shop);
+            return RedirectToAction("Index", "Admin");
+            }
+        public async Task<IActionResult> Rejected( string UserId )
+            {
+            var user = await _userManager.FindByIdAsync(UserId);
+            var Shop = shopRepository.GetByFk(user.Id);
+            Shop.RequestStatus = RequestStatus.Rejected;
+            shopRepository.Update(Shop);
+            return RedirectToAction("Index", "Admin");
+            }
         }
     }
 

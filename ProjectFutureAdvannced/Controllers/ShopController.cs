@@ -444,6 +444,13 @@ namespace ProjectFutureAdvannced.Controllers
             var user = await _userManager.GetUserAsync(User);
             return RedirectToAction("UserProfile", "Shop", new { UserName = user.UserName });
             }
-
+        public async Task<IActionResult> CreateRequest()
+            {
+              var user = await _userManager.GetUserAsync(User);
+              var shop = _shopRepository.GetByFk(user.Id);
+                shop.RequestStatus = RequestStatus.Pending;
+                _shopRepository.Update(shop);
+                return RedirectToAction("GeneralShopProfile","Shop");
+            }
         }
     }

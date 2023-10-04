@@ -177,7 +177,20 @@
                         <td>
                             <span class="badge badge-success rounded-pill d-inline">Active</span>
                         </td>
-                        <td></td>
+                        <td>
+                            @if (await userManager.IsInRoleAsync(users, "Shop"))
+                                {
+                                var ShopUser = @ShopRepo.GetByFk(users.Id);
+                                if (ShopUser.RequestStatus == RequestStatus.Approved)
+                                {
+                                    <span>Yes</span>
+                                    }
+                                else
+                                    {
+                                    <span>No</span>
+                                    }
+                                }
+                            </td>
                         <td>
                             @if (!await userManager.IsInRoleAsync(users, "Admin"))
                                 {
@@ -196,7 +209,29 @@
                                         }
                                     @if (await userManager.IsInRoleAsync(users, "Shop"))
                                         {
-                                        <li><a class="dropdown-item" href="#">Set to <span class="text-success">VIP</span> Shop</a></li>
+                                        var ShopUser = @ShopRepo.GetByFk(users.Id);
+                                        if (ShopUser.RequestStatus == RequestStatus.Pending)
+                                            {
+                                            <li class="d-flex gap-1">
+
+                                                <a class="btn-sm btn-danger" asp-action="Rejected" asp-controller="Admin" asp-route-UserId="@users.Id" role="button">Rejected</a>
+                                                <a class="btn-sm btn-success" asp-action="Approved" asp-controller="Admin" asp-route-UserId="@users.Id" role="button">Approved</a>
+
+                                            </li>
+                                            }
+                                        else
+                                        if (ShopUser.RequestStatus == RequestStatus.Approved)
+                                            {
+                                            <a class="btn-sm btn-danger" asp-action="Rejected" asp-controller="Admin" asp-route-UserId="@users.Id" role="button">Rejected</a>
+                                            }
+                                        else
+
+                                            {
+                                            <li><a class="dropdown-item" asp-action="Approved" asp-controller="Admin" asp-route-UserId="@users.Id">Set to <span class="text-success">VIP</span> Shop</a></li>
+                                            }
+
+
+
                                         <li><a class="dropdown-item" asp-action="ViewProduct" asp-controller="Admin" asp-route-ShopId="@users.Id">View Products</a></li>
                                         <li><a class="dropdown-item text-danger" asp-action="reomveUser" asp-controller="Admin" asp-route-UserId="@users.Id"> Remove Account</a></li>
                                         }
