@@ -27,7 +27,7 @@
                             @{
                                 int count = userManager.Users.Count();
                                 var user = await userManager.GetUserAsync(User);
-                                var categorycount = CategoryRepo.GetAll().Count();
+                                var categorycount = @CategoryRepo.GetAll().Count();
 
                                 foreach (var users in Model.appUsers)
                                     {
