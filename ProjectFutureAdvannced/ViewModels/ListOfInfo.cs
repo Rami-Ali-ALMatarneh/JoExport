@@ -19,7 +19,7 @@ namespace ProjectFutureAdvannced.ViewModels
         public IEnumerable<Shop> shops { get; set; }
         public Account carrentUser { get; set; }
         public GeneralInfoUser generalInfoUser { get; set; }
-        public Categorys categorys { get; set; }
+        public string categorys { get; set; }
         public AppUser AppUser { get; set; }
         public PostViewModel PostViewModel { get; set; }
         public GalleryViewModel GalleryViewModel { get; set; }

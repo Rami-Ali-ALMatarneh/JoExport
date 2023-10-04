@@ -26,7 +26,7 @@ namespace ProjectFutureAdvannced.Models.Model
         /////***********************************/
         [Required]
 
-        public Categorys CategoryName { get; set; }
+        public string CategoryName { get; set; }
         [Required]
 
         public int ShopId { get; set; }

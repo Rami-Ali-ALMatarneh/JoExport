@@ -11,7 +11,7 @@ namespace ProjectFutureAdvannced.Models.IRepository
         public Product Delete(int id) ;
         public Product GetById( int id );
         public IEnumerable<Product> Find( Expression<Func<Product, bool>> predicate ) ;
-        public IEnumerable<Product> GetAllByCategory( Categorys categorys );
+        public IEnumerable<Product> GetAllByCategory( string categorys );
         public IEnumerable<Product> StoreBySearch( char FirstLatter );
         public IEnumerable<Product> GetAllById( int ShopId );
 

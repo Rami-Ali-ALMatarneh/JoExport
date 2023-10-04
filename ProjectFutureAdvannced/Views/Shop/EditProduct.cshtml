@@ -31,7 +31,11 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" asp-for="CategoryName">Product Category</label>
-                    <select class="form-select" asp-for="CategoryName" asp-items="Html.GetEnumSelectList<ProjectFutureAdvannced.Models.Enums.Categorys>()">
+                    <select class="form-select" asp-for="CategoryName">
+                        @foreach (var Category in CategoryRepo.GetAll())
+                            {
+                            <option value="@Category.Name">@Category.Name</option>
+                            }
                     </select>
                     <span class="text-danger" asp-validation-for="CategoryName"></span>
                 </div>

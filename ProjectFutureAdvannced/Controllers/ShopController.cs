@@ -193,7 +193,7 @@ namespace ProjectFutureAdvannced.Controllers
             //cartRepository.DeleteAllCardByProductId(id);
             //wishlistRepository.DeleteAllWishListByProductId(id);
             productRepository.Delete(id);
-            return RedirectToAction("MyPorduct","Shop");
+            return RedirectToAction("MyProduct", "Shop");
             }
         [HttpPost]
         public async Task<IActionResult> AddProduct( CreateProduct model )
@@ -437,6 +437,12 @@ namespace ProjectFutureAdvannced.Controllers
                 return RedirectToAction("UserProfile", "Shop", new { UserName = user.UserName });
                 }
             return RedirectToAction("UserProfile","Shop",new {Username=user.UserName});
+            }
+        public async Task<IActionResult> DeleteImage( int id )
+            {
+            galleryRepository.Delete(id);
+            var user = await _userManager.GetUserAsync(User);
+            return RedirectToAction("UserProfile", "Shop", new { UserName = user.UserName });
             }
 
         }

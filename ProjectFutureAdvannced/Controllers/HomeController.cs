@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectFutureAdvannced.Models.Enums;
 using ProjectFutureAdvannced.Models.IRepository;
 using ProjectFutureAdvannced.Models.Model;
@@ -16,19 +17,23 @@ namespace ProjectFutureAdvannced.Controllers
         {
         private readonly IShopRepository shopRepository;
         private readonly IProductRepository productRepository;
+        private readonly UserManager<AppUser> _userManager;
 
         private readonly ICategoryRepository categoryRepository;
-        public HomeController( IProductRepository productRepository, ICategoryRepository categoryRepository, IShopRepository shopRepository )
+        public HomeController( UserManager<AppUser> _userManager, IProductRepository productRepository, ICategoryRepository categoryRepository, IShopRepository shopRepository )
         {
             this.categoryRepository = categoryRepository;
             this.shopRepository = shopRepository;
             this.productRepository = productRepository;
+            this._userManager= _userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
             {
+            var appuser = await _userManager.Users.ToListAsync();
             ListOfInfo listOfInfo = new ListOfInfo()
                 {
-                //shops = shopRepository.GetAll(),
+                appUsers = appuser,
+                products=productRepository.GetAll(),
                 categories = categoryRepository.GetAll()
                 };
             return View( listOfInfo );
@@ -51,15 +56,17 @@ namespace ProjectFutureAdvannced.Controllers
         public IActionResult Store()
             {
             var product = productRepository.GetAll();
-            ListOfInfo listOfInfo = new ListOfInfo();
-            listOfInfo.products = product;
+            ListOfInfo listOfInfo = new ListOfInfo()
+                {
+                products = product,
+                };
             return View(listOfInfo);
             }
         [AllowAnonymous]
 
-        public IActionResult StoreByCategory(Categorys id)
+        public IActionResult StoreByCategory(string Name)
             {
-            var product = productRepository.GetAllByCategory(id);
+            var product = productRepository.GetAllByCategory(Name);
             return View(product);
             }
         [AllowAnonymous]

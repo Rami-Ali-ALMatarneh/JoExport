@@ -12,7 +12,7 @@ namespace ProjectFutureAdvannced.ViewModels.ProductViewModel
         [MaxLength(200)]
         public string Description { get; set; }
         [Required]
-        public Categorys CategoryName { get; set; }
+        public string CategoryName { get; set; }
         [Required]
         public string Price { get; set; }
         public string? Image { get; set; }

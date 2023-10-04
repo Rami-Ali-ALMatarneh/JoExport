@@ -28,15 +28,15 @@
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <div class="row accordion-body">
-                                @foreach (var category in Enum.GetValues(typeof(ProjectFutureAdvannced.Models.Enums.Categorys)))
+                                @foreach (var category in CategoryRepo.GetAll())
                                     {
                                     if (category.ToString() == "AllBooks")
                                         {
-                                        <a asp-controller="Home" asp-action="Store" asp-route-id="@category" class="col-lg-4 col-md-6 text-start p-2">@category.ToString().Replace("_", " ")</a>
+                                        <a asp-controller="Home" asp-action="StoreByCategory" asp-route-id="@category.Name" class="col-lg-4 col-md-6 text-start p-2">@category.Name</a>
                                         }
                                     else
                                         {
-                                        <a asp-controller="Home" asp-action="Store" asp-route-id="@category" class="col-lg-4 col-md-6 text-start p-2">@category.ToString().Replace("_", " ")</a>
+                                        <a asp-controller="Home" asp-action="StoreByCategory" asp-route-id="@category.Name" class="col-lg-4 col-md-6 text-start p-2">@category.Name</a>
                                         }
                                     }
                             </div>
