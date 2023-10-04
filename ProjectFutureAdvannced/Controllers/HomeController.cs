@@ -64,15 +64,15 @@ namespace ProjectFutureAdvannced.Controllers
             }
         [AllowAnonymous]
 
-        public IActionResult StoreByCategory(string Name)
+        public IActionResult StoreByCategory(string id )
             {
-            var product = productRepository.GetAllByCategory(Name);
+            var product = productRepository.GetAllByCategory(id);
             return View(product);
             }
         [AllowAnonymous]
         public IActionResult StoreBySearch( ListOfInfo model )
             {
-            if (string.IsNullOrEmpty(model.SearchProduct.product) || model.SearchProduct.product.Length != 1)
+            if (string.IsNullOrEmpty(model.SearchProduct.product) || model.SearchProduct.product.Length < 1)
                 { 
                 // Handle invalid input, e.g., return an empty list or an error message
                 return View(productRepository.GetAll());

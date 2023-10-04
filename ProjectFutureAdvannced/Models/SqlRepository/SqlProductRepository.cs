@@ -56,9 +56,9 @@ namespace ProjectFutureAdvannced.Models.SqlRepository
             appDbContext.SaveChanges();
             return productt;
             }
-        public IEnumerable<Product> GetAllByCategory(string categorys )
+        public IEnumerable<Product> GetAllByCategory(string id )
             {
-            return appDbContext.products.Where(e => e.CategoryName == categorys);
+            return appDbContext.products.Where(e => e.CategoryName == id);
             }
 
         public IEnumerable<Product> StoreBySearch( char FirstLatter )
